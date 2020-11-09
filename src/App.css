@@ -37,7 +37,6 @@
   }
 }
 
-
 .header {
   height: 100%;
 }
@@ -243,6 +242,10 @@ img.backside {
   padding: 5px;
   width: 100%;
 }
+
+img.logoPayment {
+  width: 25%;
+}
                                                                                     
 @media (min-width: 600px) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
   .new {
@@ -253,6 +256,10 @@ img.backside {
   .new > div {
     padding: 10px;
     width: 100%;
+  }
+
+  img.logoPayment {
+    width: 10%;
   }
 } 
 
@@ -270,4 +277,6 @@ img.backside {
     padding: 10px;
     width: 100%;
   }
-} 
+}
+
+

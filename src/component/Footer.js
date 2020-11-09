@@ -9,7 +9,7 @@ export class Footer extends Component {
           <div className="container-fluid text-center text-md-left">
             <div className="row">
               <div className="col-md-4 mt-md-0 mt-3">
-                <h4 className="text-uppercase">billmaster<GiWallet /></h4>
+                <h4 className="text-uppercase">mipplepay<GiWallet /></h4>
                 <p>Payment made easy</p>
               </div>
 
@@ -19,7 +19,7 @@ export class Footer extends Component {
               <div className="col-md-4 mb-md-0 mb-3">
 
                 
-                <h6 className="text-uppercase">Earn with billmaster.com</h6>
+                <h6 className="text-uppercase">Earn with mipplepay.com</h6>
 
                 <ul className="list-unstyled">
                   <li>
@@ -69,7 +69,7 @@ export class Footer extends Component {
             </div>
           </div>
           <div className="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://mdbootstrap.com/"> billmaster.com</a>
+            <a href="https://mdbootstrap.com/"> mipplepay.com</a>
           </div>
         </footer>
        

@@ -11,9 +11,9 @@ import SecondNav from './component/secondNav'
 import Footer from './component/Footer'
 import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.js'
 import Loading from './component/loaders'
-import ContactForm from './component/ContactForm'
 import AdminRoute from './protectedRoutes/AdminRoute.js'
 import Wallet from './component/Wallet'
+import { connect } from 'react-redux'
 
 // pages
 import Login from './pages/Login.js';
@@ -25,10 +25,14 @@ import About from './pages/About.js'
 import Error from './pages/Error.js'
 import Transactions from './pages/Transactions'
 import Earnings from './pages/Earnings'
+import Payment from './pages/Payment'
+import Partner from './pages/Partner'
+import Account from './pages/Account'
+import Agent from './pages/Agent'
 
 export class App extends Component {
-	componentDidMount() {
-		store.dispatch(getUser())
+  	componentDidMount() {
+        store.dispatch(getUser())
 	}
   render() {
     return (
@@ -40,12 +44,15 @@ export class App extends Component {
         	    <Route exact path="/" component={Home} />
         		<Route exact path="/login" component={Login} />
         		<Route exact path="/register" component={Register} />
-        		<Route exact path="/contact" component={ContactForm} />
         		<Route exact path="/about" component={About} />
-        		<Route exact path="/profile/wallet" component={Wallet} />
-        		<Route exact path="/profile/transaction" component={Transactions} />
-        		<Route exact path="/profile/earning" component={Earnings} />
-        		<ProtectedRoutes exact path="/profile" component={UserProfile} />
+        		<Route exact path="/payment" component={Payment} />
+        		<Route exact path="/earning" component={Partner} />
+        		<Route exact path="/agent" component={Agent} />
+        		<ProtectedRoutes exact path="/profile/wallet" component={Wallet} />
+        		<ProtectedRoutes exact path="/profile/transaction" component={Transactions} />
+        		<ProtectedRoutes exact path="/profile/earning" component={Earnings} />
+        		<ProtectedRoutes exact path="/profile/dashboard" component={UserProfile} />
+        		<ProtectedRoutes exact path="/profile" component={Account} />
         		<ProtectedRoutes exact path="/loading" component={Loading} />
         		<AdminRoute exact path="/admin" component={Admin} />
         		<Route component={Error} />

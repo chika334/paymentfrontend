@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "homepage": "https://160.153.253.149:2083/",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -24,6 +25,7 @@
     "reactstrap": "^8.6.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "tawkto-react": "^1.0.11",
     "typescript": "^4.0.2"
   },
   "scripts": {

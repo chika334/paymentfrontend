@@ -11,7 +11,7 @@ export class Home extends Component {
   render() {
     const title = (
         <>
-            billmaster<GiWallet />
+            Mipplepay<GiWallet />
         </>
     )
     return (

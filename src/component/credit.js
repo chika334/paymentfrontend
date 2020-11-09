@@ -38,7 +38,6 @@ export default class Credit extends Component {
   };
   
   render() {
-  console.log(this.state.image)
     return (
       <section >
         <Modal show={this.state.show} onHide={this.hideModal}>

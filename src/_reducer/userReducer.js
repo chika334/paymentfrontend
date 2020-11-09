@@ -6,7 +6,8 @@ import {
 	LOGIN_USER,
 	LOGOUT_USER,
 	REGISTER_FAIL,
-	LOGIN_FAIL
+	LOGIN_FAIL,
+	UPDATE_PASSWORD
 } from '../_action/type.js'
 
 const initialState = {
@@ -36,6 +37,13 @@ export default function(state = initialState, action) {
 		case LOGIN_USER:
 		localStorage.setItem('token', action.payload.token)
 			return {
+				...state,
+				...action.payload,
+				isLoading: false,
+				isAuthenticated: true,
+			}
+	    case UPDATE_PASSWORD:
+	        return {
 				...state,
 				...action.payload,
 				isLoading: false,

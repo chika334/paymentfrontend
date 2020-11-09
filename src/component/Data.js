@@ -4,33 +4,34 @@ import etisalat from '../images/etisalat.png'
 import glo from '../images/glo.png'
 import mtn from '../images/mtn.png'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
+import axios from 'axios'
 
 export default class Data extends Component {
-  state = {
-    show: false,
-    image: '',
-    services: [
-      {
-        img: <img src={airtel} width="50" />,
-        title: "Airtel Data",
-      },
-      {
-        img: <img src={etisalat} width="50" />,
-        title: "9mobile Data",
-      },
-      {
-        img: <img src={glo} width="50" />,
-        title: "Glo Data",
-      },
-      {
-        img: <img src={mtn} width="50" />,
-        title: "Mtn Data",
+  constructor(props) {
+    super(props)
+        this.state = {
+        show: false,
+        image: '',
+        data: null,
       }
-    ]
   };
   
-  showModal = (item) => {
-    this.setState({ show: true, image: item.img });
+   componentDidMount() {
+    this.data(`${process.env.REACT_APP_DATA}`)
+  }
+  
+  data = (url) => {
+    axios.get(url)
+        .then(json => {
+            this.setState({ data: json.data })
+        })
+        .catch(response => console.log(response))
+  }
+  
+ 
+  
+  showModal = (data) => {
+    this.setState({ show: true, image: data.image });
   };
   
   hideModal = () => {
@@ -38,19 +39,40 @@ export default class Data extends Component {
   };
   
   render() {
+  const { data } = this.state
+  if (!data) return  null;
+  const datas = data.content.map((data, index) => {
+    return (
+          <article key={index} className="service ml-4">
+            <button onClick={e => this.showModal(data)}><img width="50" src={data.image} /></button>
+            <h6 style={{ paddingTop: '10px' }}>{data.name}</h6>
+          </article>
+        );
+  })
     return (
       <section >
       <Modal show={this.state.show} onHide={this.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {this.state.image}
+            <img width="50" src={this.state.image} />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <div>
 			<form className="forms" onSubmit={this.handleSubmit}>
             <div className="forms-form-group">
-              <label>Email</label>
+              <p>Phone Number</p>
+              <input 
+                type="number" 
+                id="quantity" 
+                name="phone"
+                placeholder="Enter phone number"
+                onChange={this.handleChange}
+              />
+            </div>
+
+            <div className="forms-form-group">
+              <p>Email Address</p>
               <input 
                 type="email" 
                 className="email" 
@@ -62,13 +84,13 @@ export default class Data extends Component {
             </div>
 
             <div className="forms-form-group">
-              <label>Password</label>
+              <p>Amount</p>
               <input 
-                type="password" 
+                type="number" 
                 className="password" 
-                value={this.state.password}
+                value={this.state.number}
                 name="password"
-                placeholder="Enter Password"
+                placeholder="Enter Amount"
                 onChange={this.handleChange}
                 />
             </div>
@@ -83,24 +105,9 @@ export default class Data extends Component {
           </form>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.hideModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.hideModal}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
-        <div className="service-center">
-          {this.state.services.map(item => {
-            return (
-              <article key={`item-${item.title}`} className="service">
-                <button onClick={e => this.showModal(item)}>{item.img}</button>
-                <h6 style={{ paddingTop: '10px'}}>{item.title}</h6>
-              </article>
-            );
-          })}
+        <div className="news">
+            {datas}
         </div>
       </section>
     );

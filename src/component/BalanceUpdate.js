@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimplePaper() {
+  const [redirects, setRedirects] = useState(false);
   const classes = useStyles();
-  const [redirect, setRedirect] = useState(false)
-  
-  const handleButton = () => {
-    setRedirect(true)
-    if (redirect) return (<Redirect to="/profile/" />)
+
+  const handleButton = (e) => {
+    e.preventDefault();
+    setRedirects(true)
+    console.log(redirects)
   }
   
-
   return (
     <div className={classes.root}>
       <Paper className="bg-dark" elevation={3} style={{ borderRadius: '20px', color: 'white' }}>
@@ -55,9 +55,9 @@ export default function SimplePaper() {
         </div>
       </Paper>
       
-      <Paper className="new secondtab" elevation={7} style={{ paddingTop: 5, borderRadius: '20px', width: '765px', minHeight: '300px' }} >
-        <div>
-            <BiWallet className="nav-center" size={50} />
+      <Paper className="new secondtab" elevation={7} style={{ paddingTop: 35, borderRadius: '20px', width: '765px' }} >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <BiWallet size={50} />
             <div>WALLET BALANCE</div>
             <h3><b>0.00</b></h3><small>NGN</small>
         </div>
@@ -65,7 +65,7 @@ export default function SimplePaper() {
             <p>Available Payment Method</p>
             <div className="news">Debit Cards: <p style={{ color: 'blue' }}>Available</p></div>
             <div className="news">Bank Transfer: <p style={{ color: 'blue' }}>Available</p></div>
-             <button onClick={handleButton} className="btn btn-primary"> <BiWallet /> Fund With Card Transfer</button> 
+             <button className="btn btn-primary"><a style={{ color: 'white', textDecoration: 'none' }} href="/profile/wallet"><BiWallet /> Fund With Card Transfer</a></button> 
         </div>
       </Paper>
       
@@ -76,7 +76,7 @@ export default function SimplePaper() {
                 <div className="news">0.00: <p>Transactions This Month</p></div>
                 <div className="news">0.00: <p>Transactions Last Month</p></div>
             </div>
-            <button className="btn btn-primary">view more</button>
+            <button className="btn btn-primary"><a style={{ color: 'white', textDecoration: 'none' }} href="/more">view more</a></button>
         </div>
       </Paper>
     </div>

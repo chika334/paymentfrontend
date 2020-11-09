@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../css/Login.scss';
 import {connect} from 'react-redux' 
-import {signup} from '../_action/userAction';
+import {signup, getUser} from '../_action/userAction';
 import PropTypes from 'prop-types';
 import {clearErrors} from '../_action/errorAction'
 import {Alert} from 'react-bootstrap'
@@ -51,6 +51,7 @@ export class Register extends Component {
     if(isAuthenticated) {
       this.setState({redirect: true})
       this.sendRedirect();
+      //this.props.history.push("/profile/dashboard")
     }
   }
 
@@ -98,15 +99,10 @@ export class Register extends Component {
   render() {
     const {formErrors} = this.state;
     const {user} = this.props.authUser
-    console.log(user)
-    if (user) {
-        if (this.state.redirect && user.role === 1) {
-            return <Redirect to="/admin" />
-        } else {
-            return <Redirect to="/profile" />
-        }
+    if (this.state.redirect) {
+      return <Redirect to="/login" />
     }
-    
+    console.log(user)
     return (
       <div>
         <div className="forms" onSubmit={this.handleSubmit}>
@@ -176,4 +172,4 @@ const mapStateToProps = state => ({
   error: state.error
 })
 
-export default connect(mapStateToProps, {signup, clearErrors})(Register)
+export default connect(mapStateToProps, {signup, clearErrors, getUser})(Register)

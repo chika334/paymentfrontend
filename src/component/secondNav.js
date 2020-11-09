@@ -19,14 +19,13 @@ export class NavBar extends Component {
   
   render() {
     const { user, isAuthenticated } = this.props.authUser;
-    //if (this.state.wallet) return <Redirect to="/wallet" />
     const noUser = (
       <>
         <li className="nav-item">
-			<a className="nav-link" href="/contact">Become an agent</a>
+			<Link className="nav-link" to="/agent">Become an agent</Link>
 		</li>
 		<li className="nav-item">
-			<a className="nav-link" href="/about">Start Earning</a>
+			<Link className="nav-link" to="/earning">Start Earning</Link>
 		</li>
       </>
     )
@@ -34,10 +33,10 @@ export class NavBar extends Component {
     const users = (
       <>
         <li className="nav-item">
-          <a className="nav-link" href="/profile/earning"><GiWallet/> Total Earning: ₦0</a>
+          <Link className="nav-link" to="/profile/earning"><GiWallet/> Total Earning: ₦0</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/profile/transaction"><BiTransfer /> Transactions</a>
+          <Link className="nav-link" to="/profile/transaction"><BiTransfer /> Transactions</Link>
         </li>
         <li className="nav-item">
             <DropdownButton id="dropdown-basic-button" title="Quick Tools">
@@ -47,11 +46,11 @@ export class NavBar extends Component {
             </DropdownButton>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/help"><BiHelpCircle/> Help/Support</a>
+          <Link className="nav-link" to="/help"><BiHelpCircle/> Help/Support</Link>
         </li>
         
          <li className="nav-item ml-5">
-          <button style={{ backgroundColor: 'Transparent', backgroundRepeat: 'no-repeat', border: '1px solid grey', borderRadius: '3px' }} className="nav-link" href="/help"><a href="/profile/wallet"><BiWallet /> Wallet: ₦0</a></button>
+          <button style={{ backgroundColor: 'Transparent', backgroundRepeat: 'no-repeat', border: '1px solid grey', borderRadius: '3px' }} className="nav-link" href="/help"><Link style={{ textDecoration: 'none' }} to="/profile/wallet"><BiWallet /> Wallet: ₦0</Link></button>
         </li>
       </>
     )
@@ -67,7 +66,7 @@ export class NavBar extends Component {
           <div className={this.state.isOpen ? "navbar-collapse" : "collapse navbar-collapse"}>
             <ul className="navbar-nav nav-center ml-auto text-right">
 				<li className="nav-item">
-					<a className="nav-link" href="/"><FaMoneyBillAlt /> Make Payment</a>
+					<Link className="nav-link" to="/payment"><FaMoneyBillAlt /> Make Payment</Link>
 				</li>
               {
                 isAuthenticated ? users : noUser

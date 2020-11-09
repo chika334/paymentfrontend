@@ -31,7 +31,7 @@ export class Login extends Component {
 		signin: PropTypes.func.isRequired,
 		isAuthenticated: PropTypes.bool,
 		auth: PropTypes.object.isRequired,
-    clearErrors: PropTypes.func.isRequired
+        clearErrors: PropTypes.func.isRequired
 	}
 
 	componentDidUpdate(prevProps) {
@@ -49,6 +49,7 @@ export class Login extends Component {
     if(isAuthenticated) {
       this.setState({redirect: true})
       this.sendRedirect();
+      this.props.history.push("/profile/dashboard")
     }
   }
 
@@ -87,12 +88,14 @@ export class Login extends Component {
 		}
 
 		this.props.signin(user)
+		
 	}
 
 	render() {
 		const {formErrors} = this.state;
 		if (this.state.redirect) {
-          return <Redirect to="/loading" />
+          
+          //return <Redirect to="/profile" />
         }
 		return (
 			<div>

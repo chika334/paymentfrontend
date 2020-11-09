@@ -7,7 +7,8 @@ import {
 	LOGIN_USER,
 	LOGOUT_USER,
 	REGISTER_FAIL,
-	LOGIN_FAIL
+	LOGIN_FAIL,
+	UPDATE_PASSWORD
 } from './type.js';
 import {returnErrors} from './errorAction.js';
 
@@ -35,7 +36,7 @@ export const signup = (user) => dispatch => {
 
   const body = JSON.stringify(user)
 
-  axios.post(`${process.env.REACT_APP_API}/user`, body, config)
+  axios.post(`${process.env.REACT_APP_API}/register`, body, config)
     .then(res => dispatch({
       type: REGISTER_USER,
       payload: res.data
@@ -46,6 +47,24 @@ export const signup = (user) => dispatch => {
         type: REGISTER_FAIL
       })
     })
+}
+
+export const updatePassword = (users) => dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+
+  const body = JSON.stringify(users)
+  console.log(body)
+
+  axios.post(`${process.env.REACT_APP_API}/updatePassword`, body, config)
+    .then(res => dispatch({
+      type: UPDATE_PASSWORD,
+      payload: res.data
+    }))
+    .catch(err => console.log(err))
 }
 
 export const signin = (user) => dispatch => {
