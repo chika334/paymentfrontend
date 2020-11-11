@@ -1,36 +1,43 @@
-import React, { Component, Suspense } from 'react'
-import nice from '../images/nice.jpeg'
-import Services from '../component/services/Services'
+import React, { useState, useEffect } from 'react'
 import Hero from '../component/Hero'
 import Banner from '../component/Banner'
 import { GiWallet } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
+import Aos from 'aos'
+import 'aos/dist/aos.css'
 import ListProduct from '../component/ListProduct'
+import presentation from '../images/presentation.jpg'
 
-export class Home extends Component {
-  render() {
-    const title = (
-        <>
-            Mipplepay<GiWallet />
-        </>
-    )
-    return (
-      <div>
+const title = (
+    <>
+        Mipplepay<GiWallet />
+    </>
+)
+
+function Home() {
+  
+  useEffect(() => {
+    Aos.init({ duration: 2000 })
+  }, []);
+
+  return (
+    <>
+        <img src={presentation} className="backside" />
+       <div className="setImage" data-aos="fade-left">
         <Hero>
-            <Banner
+          <Banner
               title={title}
               subtitle="Payment made easy"
             >
-               <Link to="/about" className="btn btn-primary">
-                Learn more
+              <Link to="/rooms" className="btn btn-primary">
+                Learn More
               </Link>
-            </Banner>
+           </Banner>
         </Hero>
-      <ListProduct />
-      <Services />
-      </div>
-    )
-  }
+       </div>
+       <ListProduct />
+    </>
+  );
 }
 
 export default Home

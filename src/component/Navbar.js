@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Logout from './Logout.js'
 import ProgressBar from './ProgressBar'
+import SecondNav from './secondNav'
 
 export class NavBar extends Component {
   state= {
@@ -64,6 +65,8 @@ export class NavBar extends Component {
 			</ul>
           </div>
         </div>
+        <hr />
+        <SecondNav />
       </div>
     )
   }

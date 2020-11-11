@@ -5,10 +5,17 @@ import { FaAlignRight, FaMoneyBillAlt } from "react-icons/fa";
 import { GiWallet } from 'react-icons/gi'
 import { BiTransfer, BiHelpCircle, BiWallet } from 'react-icons/bi'
 import { DropdownButton, Dropdown } from 'react-bootstrap'
+import Aos from 'aos'
+import 'aos/dist/aos.css'   
+import '../css/profile.css'                        
 
 export class NavBar extends Component {
   state= {
     isOpen: false,
+  }
+  
+  componentDidMount() {
+    Aos.init({ duration: 2000 })
   }
 
   toggle = () => {
@@ -32,7 +39,7 @@ export class NavBar extends Component {
 
     const users = (
       <>
-        <li className="nav-item">
+        <li  className="nav-item">
           <Link className="nav-link" to="/profile/earning"><GiWallet/> Total Earning: ₦0</Link>
         </li>
         <li className="nav-item">
@@ -56,7 +63,7 @@ export class NavBar extends Component {
     )
 
     return (
-      <div className="header">
+      <div data-aos="fade-right" className="header cards">
         <div className="container navbar navbar-expand-lg navbar-light">
           <button className="navbar-toggler" onClick={this.toggle} type="button" data-toggle="collapse" >
 			<FaAlignRight className="nav-icon" />

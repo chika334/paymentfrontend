@@ -225,8 +225,8 @@ img.backside {
 /*end of services */
 
 .defaultHero {
-  min-height: calc(80vh - 66px);
-  background: url("./images/nice.jpeg") center/cover no-repeat;
+  min-height: calc(100vh - 66px);
+  background: url("./images/presentation.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -278,5 +278,3 @@ img.logoPayment {
     width: 100%;
   }
 }
-
-

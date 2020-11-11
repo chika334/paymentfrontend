@@ -1,6 +1,0 @@
-work to be done
-
----> check the wallet button on the vtpass website and try to test it, use that same method to work on d project
-then increment the wallet text 0.0
-
-work on the earnings as well

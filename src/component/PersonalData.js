@@ -7,7 +7,7 @@ import {Alert} from 'react-bootstrap'
 
 export class PersonalData extends Component {
   state = {
-    _id: '',
+    id: '',
     firstname: '',
     middlename: '',
     lastname: '',
@@ -30,7 +30,7 @@ export class PersonalData extends Component {
   
   handleChange = (e) => {
     const id = this.props.authUser.user._id
-    this.setState({ _id: id })
+    this.setState({ id: id })
     const { name, value } = e.target
     this.setState({ [name]:value })
   }
@@ -51,8 +51,8 @@ export class PersonalData extends Component {
   
   handleSubmit = (e) => {
     e.preventDefault()
-    const { _id, firstname, middlename, lastname, birthday, bvn, bvnphone } = this.state;
-    const details = { _id, firstname, middlename, lastname, birthday, bvn, bvnphone }
+    const { id, firstname, middlename, lastname, birthday, bvn, bvnphone } = this.state;
+    const details = { id, firstname, middlename, lastname, birthday, bvn, bvnphone }
     //console.log(this.state)
     this.props.kycandbvn(details)
   }

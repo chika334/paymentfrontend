@@ -7,7 +7,6 @@ import {getUser} from './_action/userAction.js'
 
 // component
 import Navbar from './component/Navbar'
-import SecondNav from './component/secondNav'
 import Footer from './component/Footer'
 import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.js'
 import Loading from './component/loaders'
@@ -39,7 +38,6 @@ export class App extends Component {
       <div>
       	<Suspense fallback={(<div>Loading...</div>)}>
         	<Navbar />
-        	<SecondNav />
         	<Switch>
         	    <Route exact path="/" component={Home} />
         		<Route exact path="/login" component={Login} />

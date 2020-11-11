@@ -1,112 +1,78 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Title from './services/Title';
-import Credit from './credit'
-import Nepa from './nepa'
-import Data from './Data'
-import Tvsub from './Tvsub'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    padding: '50px'
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-}));
+import React, { useEffect } from 'react';
+import $ from 'jquery';
+import '../css/profile.css'
+import Aos from 'aos'
+import 'aos/dist/aos.css'
+import { RiCustomerService2Line } from 'react-icons/ri'
 
 export default function ListProduct() {
-  const classes = useStyles();
+  useEffect(() => {
+    Aos.init({ duration: 2000 })
+  }, []);
 
   return (
-    <div className={classes.root}>
-      <Title className='services' title="Our Products" />
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography className={classes.heading}>Buy Credit</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-            <Credit />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className={classes.heading}>Buy Data</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Data/>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className={classes.heading}>Electricity Bill</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Nepa />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className={classes.heading}>Pay Tv Subscription</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Tvsub />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className={classes.heading}>Accordion 4</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className={classes.heading}>Accordion 5</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
+    <div>
+      <h3 className="services" style={{ color: '#000', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>Transactions</h3>
+      <div className="new" data-aos="fade-left">
+          <div className="cards new bg-light" style={{ borderRadius: '20px', color: 'white', padding: '30px' }}>
+            <table style={{ width: '100%' }}>
+          	    <tbody>
+              	    <tr>
+              	        <td><a href="#">Buy Credit</a></td>
+              	    </tr>
+              	    <tr>
+              	        <td><a href="#">Buy Data</a></td>
+              	    </tr>
+              	    <tr>
+              	        <td><a href="#">Pay TV Subscription</a></td>
+              	    </tr> 
+              	    <tr>
+              	        <td><a href="#">Pay Electricity Bill</a></td>
+              	    </tr>        
+          	    </tbody>
+          	</table>
+          	<table style={{ width: '100%' }}>
+          	    <tbody>
+              	    <tr>
+              	        <td><a href="#">Education</a></td>
+              	    </tr>
+              	    <tr>
+              	        <td><a href="#">Bank Transfer</a></td>
+              	    </tr>
+              	    <tr>
+              	        <td>Other...</td>
+              	    </tr>      
+          	    </tbody>
+          	</table>
+          </div> 
+          
+          <div className="cards new bg-light" data-aos="fade-left" style={{ borderRadius: '20px', color: '#000', padding: '30px' }}>
+            <table style={{ width: '100%' }}>
+          	    <tbody>
+              	    <tr>
+              	        <td>Daily</td>
+              	    </tr>
+              	    <tr>
+              	        <td>Weekly</td>
+              	    </tr>
+              	    <tr>
+              	        <td>Monthly</td>
+              	    </tr> 
+              	    <tr>
+              	        <td>Business Info</td>
+              	    </tr>        
+          	    </tbody>
+          	</table>
+          	
+          	<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          	    <RiCustomerService2Line size={50}/>
+          	    <h4>
+          	        <a href="#">Become an agent</a>
+          	    </h4>
+          	</div>
+          </div> 
+        </div>
+    </div>  
   );
 }
 
