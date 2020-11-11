@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Logout from './Logout.js'
 import ProgressBar from './ProgressBar'
 import SecondNav from './secondNav'
+import '../css/profile.css'                        
 
 export class NavBar extends Component {
   state= {
@@ -38,7 +39,7 @@ export class NavBar extends Component {
     )
 
     return (
-      <div className="header">
+      <div className="header cards">
       <ProgressBar />
         <div className="container navbar navbar-expand-lg navbar-light">
           <div className="navbar-brand">
