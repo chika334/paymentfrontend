@@ -63,7 +63,7 @@ export class NavBar extends Component {
     )
 
     return (
-        <div data-aos="fade-right" className="container navbar navbar-expand-lg navbar-light">
+        <div data-aos="fade-right" className="navbar navbar-expand-lg navbar-light">
           <button className="navbar-toggler" onClick={this.toggle} type="button" data-toggle="collapse" >
 			<FaAlignRight className="nav-icon" />
 		  </button>
