@@ -32,7 +32,7 @@ export class NavBar extends Component {
           <Link className="nav-link" to="/profile">{user === null ? '' : `Welcome ${user.name}`}</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" href="/">Referal</Link>
+          <Link className="nav-link" href="/">Make Payments</Link>
         </li>
         <Logout />
       </>
@@ -65,7 +65,6 @@ export class NavBar extends Component {
 			</ul>
           </div>
         </div>
-        <SecondNav />
       </div>
     )
   }
