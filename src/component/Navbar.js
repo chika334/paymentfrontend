@@ -21,7 +21,7 @@ export class NavBar extends Component {
     const noUser = (
       <>
         <li className="nav-item">
-          <a className="nav-link" href="/login">Login</a>
+          <Link className="nav-link" href="/login">Login</Link>
         </li>
       </>
     )
@@ -32,7 +32,7 @@ export class NavBar extends Component {
           <Link className="nav-link" to="/profile">{user === null ? '' : `Welcome ${user.name}`}</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/">Referal</a>
+          <Link className="nav-link" href="/">Referal</Link>
         </li>
         <Logout />
       </>
@@ -54,10 +54,10 @@ export class NavBar extends Component {
           <div className={this.state.isOpen ? "navbar-collapse" : "collapse navbar-collapse"}>
             <ul className="navbar-nav ml-auto text-right">
 				<li className="nav-item active">
-					<a className="nav-link" href="/">Home<span className="sr-only">(current)</span></a>
+					<Link className="nav-link" to="/">Home<span className="sr-only">(current)</span></Link>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" href="/about">About</a>
+					<Link className="nav-link" to="/about">About</Link>
 				</li>
               {
                 isAuthenticated ? users : noUser
