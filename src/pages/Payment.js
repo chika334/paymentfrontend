@@ -9,6 +9,7 @@ import phcn from '../images/phcn.png'
 import startimes from '../images/startimes.jpg'
 import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const emailRegex = RegExp(
 	/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -52,14 +53,13 @@ const ListOfElectricity = [
     'Airtel Data Bundle - 15,000 Naira - 75GB - 30 Days'
 ]
 
-
-
 export class Payment extends Component {
   state = {
     image: '',
     email: '',
     phone: '',
-    number: '',
+    amount: '',
+    name: '',
     show: false,
     MtnallUrl: null,
     AirtelallUrl: null,
@@ -113,8 +113,8 @@ export class Payment extends Component {
 				? ""
 				: "Invalid email address"
 				break;
-			case "password":
-				formErrors.password = 
+			case "amount":
+				formErrors.amount = 
 				value.length < 6 ? "minimum of 6 charcter required"
 				: ""
 				break;
@@ -125,7 +125,7 @@ export class Payment extends Component {
 	}
   
   handleAirtimeModal = (props) => {
-    this.setState({ show: true, image: props.image, type: props.type });
+    this.setState({ show: true, image: props.image, type: props.type, name: props.name });
     //console.log(this.state.type)
   }
   
@@ -138,8 +138,13 @@ export class Payment extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault()
-    console.log("good")
+    const { email, phone, amount } = this.state;
+    e.preventDefault();
+       this.props.history.push({
+            pathname: '/paid',
+            search: '?query=abc',
+            state: { detail: { email, phone, amount } }
+        })
   }
 
   render() {
@@ -161,14 +166,14 @@ export class Payment extends Component {
         <option value={allElectric} key={index}>{allElectric}</option>
     )
   })
-  
+
     return (
       <div>
         <div>
         <Modal style={{ minWidth: '30%' }} show={this.state.show} onHide={this.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-           <img className="logoPayment" width="50" src={this.state.image} />
+           <img className="logoPayment" width="50" src={this.state.image} /> {this.state.name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -201,7 +206,8 @@ export class Payment extends Component {
               <p>Phone Number</p>
               <input 
                 type="number" 
-                id="quantity" 
+                id="quantity"
+                value={this.state.phone}
                 name="phone"
                 placeholder="Enter phone number"
                 onChange={this.handleChange}
@@ -225,8 +231,8 @@ export class Payment extends Component {
               <input 
                 type="number" 
                 className="password" 
-                value={this.state.number}
-                name="password"
+                value={this.state.amount}
+                name="amount"
                 placeholder="Enter Amount"
                 onChange={this.handleChange}
                 />
@@ -249,42 +255,42 @@ export class Payment extends Component {
       	<p>Select the service you want to make payment for</p>
       	<h4>Airtime Recharge</h4>
       	<div className="new">
-      	<Card onClick={() => this.handleAirtimeModal({image:airtel, type: 'airtime'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+      	<Card onClick={() => this.handleAirtimeModal({image:airtel, type: 'airtime', name: 'Airtel Airtime VTU'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
           <Card.Body>
             <img width="60" height="50" className="pr-2" src={airtel} />
             <Card.Text>
-              Aitel Airtime VTU
+              Airtel Airtime VTU
               <small>Airtel airtime - Get instant top up</small>
             </Card.Text>
           </Card.Body>
         </Card>
 
-       <Card onClick={() => this.handleAirtimeModal({image:etisalat, type: 'airtime'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+       <Card onClick={() => this.handleAirtimeModal({image:etisalat, type: 'airtime', name: 'Etisalat Airtime VTU'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
           <Card.Body>
             <img width="60" height="50" className="pr-2" src={etisalat} />
             <Card.Text>
-              Aitel Airtime VTU
-              <small>Airtel airtime - Get instant top up</small>
+              Etisalat Airtime VTU
+              <small>Etisalat airtime - Get instant top up</small>
             </Card.Text>
           </Card.Body>
         </Card>
         
-       <Card onClick={() => this.handleAirtimeModal({image:glo, type: 'airtime'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+       <Card onClick={() => this.handleAirtimeModal({image:glo, type: 'airtime', name: 'Glo Airtime VTU'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
           <Card.Body>
             <img width="60" height="50" className="pr-2" src={glo} />
             <Card.Text>
-              Aitel Airtime VTU
-              <small>Airtel airtime - Get instant top up</small>
+              Glo Airtime VTU
+              <small>Glo airtime - Get instant top up</small>
             </Card.Text>
           </Card.Body>
         </Card>
         
-        <Card onClick={() => this.handleAirtimeModal({image:mtn, type: 'airtime'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+        <Card onClick={() => this.handleAirtimeModal({image:mtn, type: 'airtime', name: 'Mtn Airtime VTU'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
           <Card.Body>
            <img width="60" height="50" className="pr-2" src={mtn} />
             <Card.Text>
-              Aitel Airtime VTU
-              <small>Airtel airtime - Get instant top up</small>
+              Mtn Airtime VTU
+              <small>Mtn airtime - Get instant top up</small>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -294,42 +300,42 @@ export class Payment extends Component {
       	<div className="p-5">
       	    <h4>Data Services</h4>
           	<div className="new">
-          	<Card onClick={() => this.handleAirtimeModal({image:airtel, type: 'data'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+          	<Card onClick={() => this.handleAirtimeModal({image:airtel, type: 'data', name: 'Aitel Data' })} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={airtel} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                  Aitel Data
+                  <small>Aitel Data - Get instant top up</small>
                 </Card.Text>
               </Card.Body>
             </Card>
             
-            <Card onClick={() => this.handleAirtimeModal({image:etisalat, type: 'data'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+            <Card onClick={() => this.handleAirtimeModal({image:etisalat, type: 'data', name: 'Etisalat Data'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={etisalat} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                  Etisalat Data
+                  <small>Etisalat Data - Get instant top up</small>
                 </Card.Text>
               </Card.Body>
             </Card>
             
-            <Card onClick={() => this.handleAirtimeModal({image:glo, type: 'data'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+            <Card onClick={() => this.handleAirtimeModal({image:glo, type: 'data', name: 'Glo Data'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={glo} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                  Glo Data
+                  <small>Glo Data - Get instant top up</small>
                 </Card.Text>
               </Card.Body>
             </Card>
             
-            <Card onClick={() => this.handleAirtimeModal({image:mtn, type: 'data'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+            <Card onClick={() => this.handleAirtimeModal({image:mtn, type: 'data', name: 'Mtn Data'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={mtn} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                  Mtn Data
+                  <small>Mtn Data- Get instant top up</small>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -340,32 +346,32 @@ export class Payment extends Component {
       	<div className="p-5">
       	    <h4>TV Subscription</h4>
           	<div className="new">
-          	<Card onClick={() => this.handleAirtimeModal({image:dstv, type: 'tvsub'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+          	<Card onClick={() => this.handleAirtimeModal({image:dstv, type: 'tvsub', name: 'Dstv Subscription'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={dstv} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                  Dstv Subscription
+                  <small>Choose from a range of Dstv bouquet, for ur entertainment. Easy payment</small>
                 </Card.Text>
               </Card.Body>
             </Card>
             
-            <Card onClick={() => this.handleAirtimeModal({image:gotv, type: 'tvsub'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+            <Card onClick={() => this.handleAirtimeModal({image:gotv, type: 'tvsub', name: 'Gotv Subscription'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={gotv} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                   Gotv Subscription
+                  <small>Choose from a range of Dstv bouquet, for ur entertainment. Easy payment</small>
                 </Card.Text>
               </Card.Body>
             </Card>
             
-            <Card onClick={() => this.handleAirtimeModal({image:startimes, type: 'tvsub'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+            <Card onClick={() => this.handleAirtimeModal({image:startimes, type: 'tvsub', name: 'Startimes Subscription'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={startimes} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                  Startimes Subscription
+                  <small>Choose from a range of Dstv bouquet, for ur entertainment. Easy payment</small>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -376,12 +382,12 @@ export class Payment extends Component {
          <div className="p-5">
       	    <h4>Electricity bill</h4>
           	<div className="new">
-          	<Card onClick={() => this.handleAirtimeModal({image:phcn, type: 'elect'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
+          	<Card onClick={() => this.handleAirtimeModal({image:phcn, type: 'elect', name: 'Ikeja Electric Payment'})} className="btn secondtabs" style={{ width: '19rem', height: '7rem' }}>
               <Card.Body>
                 <img width="60" height="50" className="pr-2" src={phcn} />
                 <Card.Text>
-                  Aitel Airtime VTU
-                  <small>Airtel airtime - Get instant top up</small>
+                  Ikeja Electric Payment
+                  <small>Prepaid and postpaid IKEDC payment</small>
                 </Card.Text>
               </Card.Body>
             </Card>

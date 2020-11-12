@@ -69,7 +69,6 @@ export class NavBar extends Component {
 			<FaAlignRight className="nav-icon" />
 		  </button>
 
-          {/* <div className={this.state.isOpen ? "nav-links show-nav" : "nav-links"}> */}
           <div className={this.state.isOpen ? "navbar-collapse" : "collapse navbar-collapse"}>
             <ul className="navbar-nav nav-center ml-auto text-right">
 				<li className="nav-item">

@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": "https://mipplepay.com/",
+  "homepage": "https://mipplepay.com",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.2",

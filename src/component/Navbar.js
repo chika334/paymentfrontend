@@ -66,7 +66,7 @@ export class NavBar extends Component {
 			</ul>
           </div>
         </div>
-        <hr />
+        <br />
         <SecondNav />
       </div>
     )

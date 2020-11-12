@@ -29,7 +29,7 @@ function Home() {
               title={title}
               subtitle="Payment made easy"
             >
-              <Link to="/rooms" className="btn btn-primary">
+              <Link to="/about" className="btn btn-primary">
                 Learn More
               </Link>
            </Banner>
