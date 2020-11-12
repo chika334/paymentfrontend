@@ -9,7 +9,8 @@ import phcn from '../images/phcn.png'
 import startimes from '../images/startimes.jpg'
 import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const emailRegex = RegExp(
 	/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -67,6 +68,16 @@ export class Payment extends Component {
     EtisalatallUrl: null,
     SmileallUrl: null
   }
+  
+  componentDidUpdate(prevProps) {
+    const {isAuthenticated} = this.props
+    // if authenticated redirect
+    if(!isAuthenticated) {
+      this.props.history.push("/login")
+    }
+    console.log("Good")
+  }
+
 
   FetchPromise = () => {
     const mtn_URL = fetch(process.env.REACT_APP_MTN_DATA)
@@ -148,7 +159,6 @@ export class Payment extends Component {
   }
 
   render() {
-  console.log(this.state)
   const bouquet = ListOfBouquet.map((allBouquet, index) => {
     return (
         <option value={allBouquet} key={index}>{allBouquet}</option>
@@ -342,7 +352,6 @@ export class Payment extends Component {
             </div>
       	</div>
       	
-      	
       	<div className="p-5">
       	    <h4>TV Subscription</h4>
           	<div className="new">
@@ -398,4 +407,8 @@ export class Payment extends Component {
   }
 }
 
-export default Payment
+const mapStateToProps = state => ({
+  isAuthenticated: state.authUser.isAuthenticated,
+})
+
+export default connect(mapStateToProps, null)(Payment)

@@ -23,6 +23,9 @@ export class NavBar extends Component {
         <li className="nav-item">
           <Link className="nav-link" to="/login">Login</Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/payment">Perform a transaction</Link>
+        </li>
       </>
     )
 
@@ -32,7 +35,7 @@ export class NavBar extends Component {
           <Link className="nav-link" to="/profile">{user === null ? '' : `Welcome ${user.name}`}</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" href="/">Make Payments</Link>
+          <Link className="nav-link" to="/payment">Perform a transaction</Link>
         </li>
         <Logout />
       </>

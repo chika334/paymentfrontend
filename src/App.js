@@ -34,7 +34,7 @@ export class App extends Component {
 	}
   render() {
     return (
-      <div className="app">
+      <div>
     	<Navbar />
     	<Switch>
     	    <Route exact path={"/"} component={Home} />

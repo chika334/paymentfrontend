@@ -65,10 +65,7 @@ export default function ListProduct() {
           	</table>
           	
           	<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          	    <RiCustomerService2Line size={50}/>
-          	    <h4>
-          	        <a href="#">Become an agent</a>
-          	    </h4>
+          	    
           	</div>
           </div> 
         </div>
