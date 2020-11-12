@@ -69,7 +69,7 @@ export class Payment extends Component {
     SmileallUrl: null
   }
   
-  componentDidUpdate(prevProps) {
+  componentWillUpdate(prevProps) {
     const {isAuthenticated} = this.props
     // if authenticated redirect
     if(!isAuthenticated) {
