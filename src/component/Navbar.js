@@ -40,7 +40,7 @@ export class NavBar extends Component {
 
     return (
       <div>
-        <div className="container navbar navbar-expand-lg navbar-light">
+        <div className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="navbar-brand">
             <Link className="nav-link text-dark" to="/">
               <strong>Mipplepay</strong>
