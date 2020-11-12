@@ -39,7 +39,7 @@ export class NavBar extends Component {
     )
 
     return (
-      <div className="header cards">
+      <div>
       <ProgressBar />
         <div className="container navbar navbar-expand-lg navbar-light">
           <div className="navbar-brand">
