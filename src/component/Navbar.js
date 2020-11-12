@@ -40,7 +40,6 @@ export class NavBar extends Component {
 
     return (
       <div>
-      <ProgressBar />
         <div className="container navbar navbar-expand-lg navbar-light">
           <div className="navbar-brand">
             <Link className="nav-link text-dark" to="/">
