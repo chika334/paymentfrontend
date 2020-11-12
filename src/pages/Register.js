@@ -104,7 +104,7 @@ export class Register extends Component {
     }
     console.log(user)
     return (
-      <div>
+      <div style={{ padding: '5%' }}>
         <div className="forms" onSubmit={this.handleSubmit}>
           <h2 className="header">Signup</h2>
           {this.state.msg ? <Alert variant="danger">{this.state.msg}</Alert> : null}

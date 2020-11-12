@@ -68,16 +68,6 @@ export class Payment extends Component {
     EtisalatallUrl: null,
     SmileallUrl: null
   }
-  
-  componentWillUpdate(prevProps) {
-    const {isAuthenticated} = this.props
-    // if authenticated redirect
-    if(!isAuthenticated) {
-      this.props.history.push("/login")
-    }
-    console.log("Good")
-  }
-
 
   FetchPromise = () => {
     const mtn_URL = fetch(process.env.REACT_APP_MTN_DATA)
@@ -159,6 +149,9 @@ export class Payment extends Component {
   }
 
   render() {
+  const {isAuthenticated} = this.props
+  //isAuthenticated === false ? return <Redirect to="/login" /> : ''
+  if(isAuthenticated=== false) return <Redirect to="/login" /> 
   const bouquet = ListOfBouquet.map((allBouquet, index) => {
     return (
         <option value={allBouquet} key={index}>{allBouquet}</option>
