@@ -139,19 +139,22 @@ export class Payment extends Component {
   }
 
   handleSubmit = e => {
-    const { email, phone, amount } = this.state;
     e.preventDefault();
-       this.props.history.push({
-            pathname: '/paid',
-            search: '?query=abc',
-            state: { detail: { email, phone, amount } }
-        })
+    const { name, email, phone, amount } = this.state;
+    var number = Math.random() // 0.9394456857981651
+    number.toString(36); // '0.xtis06h6'
+    var randomID = number.toString(36).substr(2, 100); // 'xtis06h6'
+    this.props.history.push({
+        pathname: '/paid',
+        search: '?query=abc',
+        state: { detail: { name, email, phone, amount, randomID } }
+    })
   }
 
   render() {
   const {isAuthenticated} = this.props
-  //isAuthenticated === false ? return <Redirect to="/login" /> : ''
   if(isAuthenticated=== false) return <Redirect to="/login" /> 
+  
   const bouquet = ListOfBouquet.map((allBouquet, index) => {
     return (
         <option value={allBouquet} key={index}>{allBouquet}</option>

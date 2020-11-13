@@ -98,7 +98,7 @@ export class Login extends Component {
           //return <Redirect to="/profile" />
         }
 		return (
-			<div style={{ padding: '5%' }}>
+			<div style={{ padding: '4%' }}>
 		<form className="forms" onSubmit={this.handleSubmit}>
             <h2 className="header">Login</h2>
             {this.state.msg ? <Alert variant="danger">{this.state.msg}</Alert> : null}

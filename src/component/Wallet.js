@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
 import images from '../images/newImage.jpg';
-import Papers from './Paper'
 import { Jumbotron, Button, Card } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 export class Wallet extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+        wallet: `₦0.00`
+    }
+  }
   render() {
+  const {isAuthenticated} = this.props
+  if(isAuthenticated=== false) return <Redirect to="/login" /> 
     return (
       <div>
         <Jumbotron className="container">
@@ -40,4 +49,8 @@ export class Wallet extends Component {
   }
 }
 
-export default Wallet
+const mapStateToProps = state => ({
+  isAuthenticated: state.authUser.isAuthenticated,
+})
+
+export default connect(mapStateToProps)(Wallet)

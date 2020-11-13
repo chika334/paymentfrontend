@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": "https://mipplepay.com",
+  "homepage": "https://mipplepay.com/",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -31,7 +31,7 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "start": "env-cmd -f .env.development react-scripts start",
+    "start": "env-cmd -f .env.production react-scripts start",
     "build": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

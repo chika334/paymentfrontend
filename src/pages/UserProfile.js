@@ -3,7 +3,7 @@ import SimplePaper from '../component/BalanceUpdate'
 import '../css/profile.css'
 import '../css/balance.css'
 import { BiWallet } from 'react-icons/bi'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 export class UserProfile extends Component {
   render() {
@@ -49,7 +49,7 @@ export class UserProfile extends Component {
                     <p>Available Payment Method</p>
                     <div className="news">Debit Cards: <p style={{ color: 'blue' }}>Available</p></div>
                     <div className="news">Bank Transfer: <p style={{ color: 'blue' }}>Available</p></div>
-                     <button className="btn btn-primary"><a style={{ color: 'white', textDecoration: 'none' }} href="/profile/wallet"><BiWallet /> Fund With Card Transfer</a></button> 
+                     <button className="btn btn-primary"><Link style={{ color: 'white', textDecoration: 'none' }} to="/profile/wallet"><BiWallet /> Fund With Card Transfer</Link></button> 
                 </div>
                 </div>
             </div>

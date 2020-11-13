@@ -27,10 +27,12 @@ import Agent from './pages/Agent'
 import {getUser} from './_action/userAction.js'
 import Paid from './component/paidTransaction'
 import store from './store'
+import { initialWallet } from './_action/wallet'       
 
 export class App extends Component {
   	componentDidMount() {
         store.dispatch(getUser())
+        store.dispatch(initialWallet())
 	}
   render() {
     return (
@@ -47,6 +49,7 @@ export class App extends Component {
     		<Route exact path={"/paid"} component={Paid} />
     		<ProtectedRoutes exact path={"/profile/transaction"} component={Transactions} />
     		<ProtectedRoutes exact path={"/profile/earning"} component={Earnings} />
+    		<Route exact path={"/profile/wallet"} component={Wallet} />
     		<ProtectedRoutes exact path={"/profile/dashboard"} component={UserProfile} />
     		<ProtectedRoutes exact path={"/profile"} component={Account} />
     		<ProtectedRoutes exact path={"/loading"} component={Loading} />
