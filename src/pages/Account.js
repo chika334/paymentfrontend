@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Password from '../component/Password'
 import PersonalData from '../component/PersonalData'
 import Setting from '../component/Settings'
-import WebHooks from '../component/WebHooks'
+import Transactions from './Transactions'
 import '../css/singleNav.css'
 
 export class Account extends Component {  
@@ -40,6 +40,7 @@ export class Account extends Component {
           <button className="tablinks" onClick={event => this.openCity(event, 'Setting')}>Setting</button>
           <button className="tablinks" onClick={event => this.openCity(event, 'Password')}>Password</button>
           <button><a href="/profile/dashboard">Dashboard</a></button>
+          <button className="tablinks" onClick={event => this.openCity(event, 'Transactions')}>Transactions</button>
         </div>
 
         <div id="PersonalData" className="tabcontent">
@@ -52,6 +53,10 @@ export class Account extends Component {
 
         <div id="Password" className="tabcontent">
           <Password />
+        </div>
+
+        <div id="Transactions" className="tabcontent">
+          <Transactions />
         </div>
       </div>
     )

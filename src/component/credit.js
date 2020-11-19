@@ -1,56 +1,116 @@
 import React, { Component } from "react";
-import airtel from '../images/airtel.jpg'
-import etisalat from '../images/etisalat.png'
-import glo from '../images/glo.png'
-import mtn from '../images/mtn.png'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
+import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
+import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import uuid from 'react-uuid'
+import { BuyCreditFund } from '../_action/airtime'
 
-export default class Credit extends Component {
-  state = {
-    show: false,
-    image: '',
-    services: [
-      {
-        img: <img src={airtel} width="50" />,
-        title: "Airtel",
-      },
-      {
-        img: <img src={etisalat} width="50" />,
-        title: "9mobile",
-      },
-      {
-        img: <img src={glo} width="50" />,
-        title: "Glo",
-      },
-      {
-        img: <img src={mtn} width="50" />,
-        title: "Mtn",
+class Credit extends Component {
+  constructor(props) {
+    super(props)
+        this.state = {
+        name: '',
+        type: '',
+        show: false,
+        phone: '',
+        amount: '',
+        image: '',
+        imageDatas: null,
+        data: [],
+        service: ''
       }
-    ]
   };
-  
-  showModal = (item) => {
-    this.setState({ show: true, image: item.img });
+
+   handleChange = e => {
+		const {name, value} = e.target;
+		this.setState({ [name]: value })
+	}
+
+   componentDidMount() {
+    this.data(`${process.env.REACT_APP_CREDIT}`)
+  }
+
+  data = (url) => {
+    axios.get(url)
+        .then(json => {
+            console.log(json.data)
+            this.setState({ imageDatas: json.data })
+        })
+        .catch(response => console.log(response))
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { name, service, email, amount, phone, type } = this.state;
+    const AmountInt = parseInt(amount, 10)
+    const uuidvar = uuid()
+
+    this.props.history.push({
+        pathname: '/paid',
+        search: '?query=abc',
+        state: { detail: { name, email, phone, amount, uuidvar, service, type } }
+    })
+  }
+
+  showModal = (data) => {
+    this.setState({ show: true, image: data.image });
   };
-  
+
+  handleAirtimeModal = (props) => {
+    this.setState({ show: true, image: props.image, type: props.type, name: props.name, service: props.serviceID });
+  }
+
   hideModal = () => {
     this.setState({ show: false });
   };
-  
+
   render() {
+  const { imageDatas } = this.state
+  
+  if (!imageDatas) return  null;
+  const Imagedatas = imageDatas.content.map((imagedata, index) => {
     return (
-      <section >
-        <Modal show={this.state.show} onHide={this.hideModal}>
+            <div key={index}>
+                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })} className="btn secondtabs" style={{ width: '11rem', height: '7rem' }}>
+                    <Card.Body>
+                        <img width="60" height="50" className="pr-2" src={imagedata.image} />
+                        <Card.Text>
+                          {imagedata.name}
+                          <br />
+                          <small>{imagedata.name} - Get instant top up</small>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </div>
+        );
+  })
+
+    return (
+      <div>
+      <Modal show={this.state.show} onHide={this.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {this.state.image}
+            <img width="50" src={this.state.image} />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <div>
-			<form className="forms" onSubmit={this.handleSubmit}>
+         <div>
+		<form className="forms" onSubmit={this.handleSubmit}>
             <div className="forms-form-group">
-              <label>Email</label>
+              <p>Phone Number</p>
+              <input 
+                type="tel" 
+                id="quantity"
+                value={this.state.phone}
+                name="phone"
+                placeholder="Enter phone number"
+                onChange={this.handleChange}
+              />
+            </div>
+
+            <div className="forms-form-group">
+              <p>Email Address</p>
               <input 
                 type="email" 
                 className="email" 
@@ -62,16 +122,17 @@ export default class Credit extends Component {
             </div>
 
             <div className="forms-form-group">
-              <label>Password</label>
+              <p>Amount</p>
               <input 
-                type="password" 
+                type="tel" 
                 className="password" 
-                value={this.state.password}
-                name="password"
-                placeholder="Enter Password"
+                value={this.state.amount}
+                name="amount"
+                placeholder="Min NGN 50, Max NGN 50000"
                 onChange={this.handleChange}
                 />
             </div>
+
             <div className="but">
               <button 
                 onSubmit={this.handleSubmit}
@@ -83,26 +144,13 @@ export default class Credit extends Component {
           </form>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.hideModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.hideModal}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
-        <div className="service-center">
-          {this.state.services.map(item => {
-            return (
-              <article key={`item-${item.title}`} className="service">
-                <button onClick={e => this.showModal(item)}>{item.img}</button>
-                <h6 style={{ paddingTop: '10px'}}>{item.title}</h6>
-              </article>
-            );
-          })}
+        <div className="new">
+            {Imagedatas}
         </div>
-      </section>
+      </div>
     );
   }
 }
+
+export default withRouter(connect(null, { BuyCreditFund })(Credit))

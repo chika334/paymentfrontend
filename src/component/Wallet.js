@@ -3,17 +3,46 @@ import images from '../images/newImage.jpg';
 import { Jumbotron, Button, Card } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { addFund } from '../_action/wallet'
+import PropTypes from 'prop-types'
 
 export class Wallet extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        wallet: `₦0.00`
+        wallet: `₦0.00`,
+        //amount: { Valueamount: null }
+        amount: ''
     }
   }
+  
+  static propTypes = {
+    addFund: PropTypes.func.isRequired
+  }
+  
+  handleChange = (e) => {
+    const { name, value } = e.target
+    //const AmountInt = parseInt(value, 10)
+    //this.setState({ amount: { Valueamount: AmountInt } })
+    this.setState({ amount: value })
+  }
+
+  addFund = (e) => {
+    e.preventDefault()
+    const { amount } = this.state
+    const AmountInt = parseInt(amount, 10)
+
+    const Amountwallet = {
+        AmountInt
+    }
+    //console.log(amount)
+    this.props.addFund(Amountwallet)
+  }
+
   render() {
+  
   const {isAuthenticated} = this.props
-  if(isAuthenticated=== false) return <Redirect to="/login" /> 
+  //if(isAuthenticated === false) return <Redirect to="/login" /> 
     return (
       <div>
         <Jumbotron className="container">
@@ -25,13 +54,14 @@ export class Wallet extends Component {
               <Card.Text>Credit your wallet now, and spend from it later. No Need to enter card details everytime you want to make a Payment. Make Faster Payments.</Card.Text>
               <div className="forms-form-group">
               <input 
-                type="text" 
+                type="text"
+                value={this.state.amount}
                 style={{ width: '100%', marginBottom: 15 }} 
                 placeholder="Enter Amount (NGN)"
                 onChange={this.handleChange}
               />
             </div>
-              <Button href='/News'>Submit</Button>
+              <Button onClick={this.addFund} >Submit</Button>
             </Card.Body>
           </Card>
 
@@ -53,4 +83,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authUser.isAuthenticated,
 })
 
-export default connect(mapStateToProps)(Wallet)
+export default connect(mapStateToProps, {addFund})(Wallet)

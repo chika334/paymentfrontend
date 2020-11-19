@@ -4,9 +4,11 @@ import '../css/profile.css'
 import '../css/balance.css'
 import { BiWallet } from 'react-icons/bi'
 import { Redirect, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 export class UserProfile extends Component {
   render() {
+    const wallet = this.props.wallet.wallet.wallet
     return (
       <div className="container pt-3 pb-5">
         <div className="new">
@@ -42,7 +44,7 @@ export class UserProfile extends Component {
                         <BiWallet size={40} /> 
                     <div>
                         <b>WALLET BALANCE</b>
-                        <p>0.00 NGN</p>
+                        <p>{wallet} NGN</p>
                     </div>
                 </div>
                 <div>
@@ -74,4 +76,8 @@ export class UserProfile extends Component {
   }
 }
 
-export default UserProfile
+const mapStateToProps = state => ({
+    wallet: state.wallet,
+})
+
+export default connect(mapStateToProps, null)(UserProfile)

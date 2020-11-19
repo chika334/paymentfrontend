@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import $ from 'jquery';
 import '../css/profile.css'
 import Aos from 'aos'
 import 'aos/dist/aos.css'

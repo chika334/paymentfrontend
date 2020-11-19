@@ -9,6 +9,8 @@ import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.js'
 import Loading from './component/loaders'
 import AdminRoute from './protectedRoutes/AdminRoute.js'
 import Wallet from './component/Wallet'
+import { getPay } from './_action/airtime'
+import { getTransaction } from './_action/airtime'
 
 // pages
 import Login from './pages/Login.js';
@@ -27,16 +29,20 @@ import Agent from './pages/Agent'
 import {getUser} from './_action/userAction.js'
 import Paid from './component/paidTransaction'
 import store from './store'
-import { initialWallet } from './_action/wallet'       
+import { initialWallet } from './_action/wallet'
+import CreditCard from './component/creditCard'
+import Details from './component/Details'     
 
 export class App extends Component {
   	componentDidMount() {
         store.dispatch(getUser())
         store.dispatch(initialWallet())
+        store.dispatch(getPay())
+        store.dispatch(getTransaction())
 	}
   render() {
     return (
-      <div>
+      <div className="app">
     	<Navbar />
     	<Switch>
     	    <Route exact path={"/"} component={Home} />
@@ -47,6 +53,8 @@ export class App extends Component {
     		<Route exact path={"/earning"} component={Partner} />
     		<Route exact path={"/agent"} component={Agent} />
     		<Route exact path={"/paid"} component={Paid} />
+    		<Route exact path={"/card"} component={CreditCard} />
+    		<Route exact path={"/details"} component={Details} />
     		<ProtectedRoutes exact path={"/profile/transaction"} component={Transactions} />
     		<ProtectedRoutes exact path={"/profile/earning"} component={Earnings} />
     		<Route exact path={"/profile/wallet"} component={Wallet} />

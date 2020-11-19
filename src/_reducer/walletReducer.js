@@ -1,7 +1,7 @@
-import { INITIAL_WALLET, ADDED_BALANCE_WALLET, DEDUCT_FROM_WALLET } from '../_action/type'
+import { INITIAL_WALLET, ADDED_BALANCE_WALLET, DEDUCT_FROM_WALLET, PAYMENT_FAIL } from '../_action/type'
 
 const initialState = {
-    wallet: ``,
+    wallet: {},
     msg: {}
 }
 
@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
         case INITIAL_WALLET:
             return {
                 ...state,
-                ...action.payload
+                wallet: action.payload
             }
         case ADDED_BALANCE_WALLET:
             return {
@@ -19,6 +19,10 @@ export default function(state = initialState, action) {
         case DEDUCT_FROM_WALLET:
             return {
                 ...state
+            }
+        case PAYMENT_FAIL:
+            return {
+                wallet: {}
             }
         default:
             return state
