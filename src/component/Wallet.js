@@ -35,8 +35,8 @@ export class Wallet extends Component {
     const Amountwallet = {
         AmountInt
     }
-    //console.log(amount)
-    this.props.addFund(Amountwallet)
+    
+    //this.props.addFund(Amountwallet)
   }
 
   render() {
@@ -66,7 +66,7 @@ export class Wallet extends Component {
           </Card>
 
           <Card>
-            <Card.Img top width="100%" src={images} alt="Card image cap" />
+            <Card.Img width="100%" src={images} alt="Card image cap" />
           </Card>
           </div>
           <div style={{ marginBottom: 70 }} />

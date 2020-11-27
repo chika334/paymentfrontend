@@ -5,6 +5,10 @@ import kyc from './kycandbvn'
 import wallet from './walletReducer'
 import airtime from './airtime'
 import transaction from './transaction'
+import electric from './electric'
+import insurance from './insurance'
+import data from './data'
+import verify from './verifyNumber'
 
 export default combineReducers({
     authUser,
@@ -12,5 +16,9 @@ export default combineReducers({
     kyc,
     wallet,
     airtime,
-    transaction
+    transaction,
+    electric,
+    insurance,
+    data,
+    verify
 })																								

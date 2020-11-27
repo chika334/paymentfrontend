@@ -15,7 +15,10 @@ class Data extends Component {
             amount: '',
             image: '',
             imageDatas: null,
-            data: []
+            data: [],
+            email: '',
+            variation: '',
+            service: ''
       }
   };
 
@@ -50,16 +53,19 @@ class Data extends Component {
          })
          .catch(err => console.log(err))
   }
+  
+  selectClick = (props) => {
+    this.setState({ variation: props.variation });
+  }
 
   handleSubmit = e => {
     e.preventDefault();
-    const { name, email, phone, amount } = this.state;
-    const uuidvar = uuid()
+    const { name, email, phone, amount, variation, service } = this.state;
 
     this.props.history.push({
         pathname: '/paid',
         search: '?query=abc',
-        state: { detail: { name, email, phone, amount, uuidvar } }
+        state: { detail: { name, email, phone, amount, variation, service } }
     })
   }
 
@@ -68,7 +74,7 @@ class Data extends Component {
   };
 
   handleAirtimeModal = (props) => {
-    this.setState({ show: true, image: props.image, type: props.type, name: props.name });
+    this.setState({ show: true, image: props.image, type: props.type, name: props.name, service: props.serviceID });
   }
 
   hideModal = () => {
@@ -92,7 +98,7 @@ class Data extends Component {
   const mtnData = mtn.content.variations.map((mtndata, index) => {
     return (
         <>
-            <option key={index}>
+            <option value={mtndata.name} key={index} onClick={() => this.selectClick({variation: mtndata.variation_code })}>
                 {mtndata.name}
             </option>
         </>
@@ -102,7 +108,7 @@ class Data extends Component {
   const airtelData = airtel.content.variations.map((airteldata, index) => {
     return (
         <>
-            <option key={index}>
+            <option value={airteldata.name} key={index} onClick={() => this.selectClick({variation: airteldata.variation_code })}>
                 {airteldata.name}
             </option>
         </>
@@ -112,7 +118,7 @@ class Data extends Component {
   const gloData = glo.content.variations.map((glodata, index) => {
     return (
         <>
-            <option key={index}>
+            <option value={glodata.name} key={index} onClick={() => this.selectClick({variation: glodata.variation_code })}>
                 {glodata.name}
             </option>
         </>
@@ -122,7 +128,7 @@ class Data extends Component {
   const etisalatData = etisalat.content.variations.map((etisalatdata, index) => {
     return (
         <>
-            <option key={index}>
+            <option value={etisalatdata.name} key={index} onClick={() => this.selectClick({variation: etisalatdata.variation_code })}>
                 {etisalatdata.name}
             </option>
         </>
@@ -132,7 +138,7 @@ class Data extends Component {
   const smileData = smile.content.variations.map((smiledata, index) => {
     return (
         <>
-            <option key={index}>
+            <option value={smiledata.name} key={index} onClick={() => this.selectClick({variation: smiledata.variation_code })}>
                 {smiledata.name}
             </option>
         </>
@@ -143,7 +149,7 @@ class Data extends Component {
   const Imagedatas = imageDatas.content.map((imagedata, index) => {
     return (
             <div key={index}>
-                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name })} className="btn secondtabs" style={{ width: '11rem', height: '7rem' }}>
+                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })} className="btn secondtabs" style={{ width: '11rem', height: '7rem' }}>
                     <Card.Body>
                         <img width="60" height="50" className="pr-2" src={imagedata.image} />
                         <Card.Text>

@@ -15,7 +15,8 @@ class Tvsub extends Component {
         amount: '',
         image: '',
         imageDatas: null,
-        data: []
+        data: [],
+        service: ''
       }
   };
 
@@ -51,13 +52,13 @@ class Tvsub extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { name, email, phone, amount } = this.state;
+    const { name, email, phone, amount, service } = this.state;
     const uuidvar = uuid()
 
     this.props.history.push({
         pathname: '/paid',
         search: '?query=abc',
-        state: { detail: { name, email, phone, amount, uuidvar } }
+        state: { detail: { name, email, phone, amount, service } }
     })
   }
 
@@ -66,7 +67,7 @@ class Tvsub extends Component {
   };
 
   handleAirtimeModal = (props) => {
-    this.setState({ show: true, image: props.image, type: props.type, name: props.name });
+    this.setState({ show: true, image: props.image, type: props.type, name: props.name, service: props.serviceID });
   }
 
   hideModal = () => {
@@ -98,7 +99,7 @@ class Tvsub extends Component {
   const gotvData = gotv.content.variations.map((gotvdata, index) => {
     return (
         <>
-            <option key={index}>
+            <option value={gotvdata.name} key={index}>
                 {gotvdata.name}
             </option>
         </>
@@ -108,7 +109,7 @@ class Tvsub extends Component {
   const startimesData = startimes.content.variations.map((startimesdata, index) => {
     return (
         <>
-            <option key={index}>
+            <option value={startimesdata.name} key={index}>
                 {startimesdata.name}
             </option>
         </>
@@ -119,13 +120,11 @@ class Tvsub extends Component {
   const Imagedatas = imageDatas.content.map((imagedata, index) => {
     return (
             <div key={index}>
-                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name })} className="btn secondtabs" style={{ width: '12rem', height: '7rem' }}>
+                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })} className="btn secondtabs" style={{ width: '12rem', height: '7rem' }}>
                     <Card.Body>
                         <img width="60" height="50" className="pr-2" src={imagedata.image} />
                         <Card.Text>
                           {imagedata.name}
-                          <br />
-                          <small>{imagedata.name} - Get instant top up</small>
                         </Card.Text>
                     </Card.Body>
                 </Card>

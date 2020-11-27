@@ -17,18 +17,22 @@ class Transaction extends Component {
   }
 
   static propTypes = {
-    airtime: PropTypes.object.isRequired,
-    transAction: PropTypes.func.isRequired
+    //airtime: PropTypes.object.isRequired,
+    //transAction: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
   }
   
   componentDidMount(e) {
         let newItem = this.state.tableSoftware
         const { credit } = this.props.airtime
+        const { data } = this.props.data
 
         newItem.push({
-          credit
+          credit,
+          data
         });
 
+        console.log(this.props)
         this.setState({
           tableSoftware: newItem
         })
@@ -51,8 +55,11 @@ class Transaction extends Component {
 
   render() {
     const { credit } = this.props.airtime
+    const { data } = this.props.data
+    console.log(credit)
+    console.log(data)
     return (
-      <section className="App">
+      <section>
         <header>
           <h1>Software Department</h1>
         </header>
@@ -65,12 +72,21 @@ class Transaction extends Component {
                       <th>Services</th>
                       <th>Amount</th>
                       <th>Status</th>
-                      <th>Tranx NO</th>
+                      <th>Tranx NO / Token</th>
                       <th></th>
                     </tr>
                   </thead>
                 <tbody>
                   {credit.map((newItem, index) => (
+                    <tr key={index}>
+                      <td>{newItem.product_name}</td>
+                      <td>{newItem.amount}</td>
+                      <td>{newItem.status}</td>
+                      <td>{newItem.transactionId}<br /><small>{newItem.date}</small></td>
+                      <td><button  onClick={() => this.handleClick({id: newItem.requestId})} className="btn btn-primary">see all</button></td>
+                    </tr>
+                  ))}
+                  {data.map((newItem, index) => (
                     <tr key={index}>
                       <td>{newItem.product_name}</td>
                       <td>{newItem.amount}</td>
@@ -90,7 +106,8 @@ class Transaction extends Component {
 }
 
 const mapStateToProps = state => ({
-    airtime: state.airtime
+    airtime: state.airtime,
+    data: state.data
 })
 
 export default withRouter(connect(mapStateToProps, { transAction })(Transaction))

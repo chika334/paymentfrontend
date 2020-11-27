@@ -1,56 +1,110 @@
 import React, { Component } from "react";
 import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
-import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import uuid from 'react-uuid'
 import { BuyCreditFund } from '../_action/airtime'
+import { verifyNumber } from '../_action/verifyNumber'
+import PropTypes from 'prop-types';
+import {clearErrors} from '../_action/errorAction'
+import {Alert} from 'react-bootstrap'
+import axios from 'axios'
+//import { uuid } from "uuidv4"
 
 class Nepa extends Component {
   constructor(props) {
     super(props)
         this.state = {
         name: '',
+       	msg: null,
         type: '',
         show: false,
         phone: '',
         amount: '',
+        select: '',
+        meter: '',
+        email: '',
         image: '',
         imageDatas: null,
         data: [],
-        service: ''
+        service: '',
+        redirect: false,
+        transactionId: null
       }
   };
+  
+  static propTypes = {
+    authUser: PropTypes.object.isRequired,
+    verify: PropTypes.object.isRequired
+  }
+  
+  sendRedirect = () => {
+    this.props.clearErrors()
+  }
 
-   handleChange = e => {
-		const {name, value} = e.target;
-		this.setState({ [name]: value })
-	}
+  handleChange = e => {
+	const {name, value} = e.target;
+	this.setState({ [name]: value })
+  }
 
-   componentDidMount() {
+  componentDidMount() {
     this.data(`${process.env.REACT_APP_IMAGE_ELECTRIC}`)
+    const transactionID = uuid();
+    this.setState({ transactionId: transactionID })
   }
 
   data = (url) => {
     axios.get(url)
         .then(json => {
-            console.log(json.data)
             this.setState({ imageDatas: json.data })
         })
         .catch(response => console.log(response))
   }
-
-  handleSubmit = e => {
+  
+  verifyNumber = async () => {
+    const { meter, select, phone, email, amount, service, msg, transactionId } = this.state
+    
+    const value = {
+        meter,
+        service,
+        select,
+        transactionId
+    }
+    
+    return await verifyNumber(value, this.props.authUser.token)
+  }
+  
+  handleSubmit = async e => {
     e.preventDefault();
-    const { name, service, email, amount, phone, type } = this.state;
-    const AmountInt = parseInt(amount, 10)
-    const uuidvar = uuid()
+    const { name, meter, select, phone, email, amount, service, transactionId } = this.state
 
-    this.props.history.push({
-        pathname: '/paid',
-        search: '?query=abc',
-        state: { detail: { name, email, phone, amount, uuidvar, service, type } }
-    })
+    try {
+      const result = await this.verifyNumber()
+      const { success, msg, verify } = result;
+      
+      const verifyCustomerName = verify.Customer_Name
+      const verifyTransactionID = verify.transactionID
+      const verifyAddress = verify.Address
+      
+      console.log("backend", verify.transactionID)
+      
+      console.log("this.state", transactionId)
+      
+      if (success) {
+         if(transactionId === verify.transactionID) {
+            this.props.history.push({
+                pathname: '/paid',
+                search: '?query=abc',
+                state: { detail: { name, meter, select, phone, email, amount, service, verifyTransactionID, verifyCustomerName, verifyAddress } }
+            })
+         } else {
+            console.log("Bad")
+         }
+      }
+    }
+    catch(err) {
+      this.setState({ msg: err.response.data.msg })
+    }
   }
 
   showModal = (data) => {
@@ -66,7 +120,7 @@ class Nepa extends Component {
   };
   
   Submit = (e) => {
-    console.log('Selected value:', e.target.value);
+    this.setState({ select: e.target.value })
   }
 
   render() {
@@ -99,13 +153,12 @@ class Nepa extends Component {
         <Modal.Body>
          <div>
 		<form className="forms" onSubmit={this.handleSubmit}>
-		    
-		    
+          {this.state.msg ? <Alert variant="danger">{this.state.msg}</Alert> : null}
 	        <p>Metertype </p>
-            <select onChange={this.Submit} style={{ width: '60%', marginBottom: '5%', padding: '5px' }} id="cars" name="cars">
+            <select onChange={this.Submit} style={{ width: '60%', marginBottom: '5%', padding: '5px' }}>
                 <option>Please Select metertype</option>
-                <option value="Prepaid">Prepaid</option>
-                <option value="Postpaid">Postpaid</option>
+                <option value="prepaid">Prepaid</option>
+                <option value="postpaid">Postpaid</option>
             </select>
             
             <div className="forms-form-group">
@@ -113,8 +166,9 @@ class Nepa extends Component {
               <input 
                 type="tel" 
                 id="quantity"
-                value={this.state.phone}
-                name="phone"
+                value={this.state.meter}
+                className="email"
+                name="meter"
                 placeholder="Enter Meter Number"
                 onChange={this.handleChange}
               />
@@ -126,6 +180,7 @@ class Nepa extends Component {
                 type="tel" 
                 id="quantity"
                 value={this.state.phone}
+                className="email"
                 name="phone"
                 placeholder="Enter phone number"
                 onChange={this.handleChange}
@@ -176,4 +231,9 @@ class Nepa extends Component {
   }
 }
 
-export default withRouter(connect(null, { BuyCreditFund })(Nepa))
+const mapStateToProps = state => ({
+    authUser: state.authUser,
+    verify: state.verify
+})
+
+export default withRouter(connect(mapStateToProps, { clearErrors })(Nepa))

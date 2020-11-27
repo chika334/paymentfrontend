@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { transAction } from '../_action/airtime'
 import { withRouter } from 'react-router-dom'
 
-class Transaction extends Component {
+class Details extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -17,8 +17,8 @@ class Transaction extends Component {
   }
 
   static propTypes = {
-    airtime: PropTypes.object.isRequired,
-    transAction: PropTypes.func.isRequired
+    //airtime: PropTypes.object.isRequired,
+    //transAction: PropTypes.func.isRequired
   }
   
   componentDidMount(e) {
@@ -36,7 +36,7 @@ class Transaction extends Component {
 
   render() {
     const { transaction } = this.props.transaction
-    console.log(transaction)
+    console.log(this.state.tableSoftware)
     return (
       <section className="App p-5">
         <header>
@@ -67,9 +67,6 @@ class Transaction extends Component {
                 </tbody>
               </Table>
           </div>
-          <div className="new">
-            Nice
-          </div>
         </div>
       </section>
     );
@@ -80,4 +77,4 @@ const mapStateToProps = state => ({
     transaction: state.transaction
 })
 
-export default withRouter(connect(mapStateToProps)(Transaction))
+export default withRouter(connect(mapStateToProps)(Details))

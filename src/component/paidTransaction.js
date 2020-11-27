@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
 import { BiWallet } from 'react-icons/bi'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -7,6 +7,9 @@ import { DeductWallet } from '../_action/wallet'
 import {clearErrors} from '../_action/errorAction'
 import {Alert} from 'react-bootstrap'
 import { BuyCreditFund } from '../_action/airtime'
+import { payElectricBill } from '../_action/electric'
+import { BuyData } from '../_action/data'
+import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
 
 export class Paid extends Component {
   constructor(props) {
@@ -14,7 +17,7 @@ export class Paid extends Component {
     this.state = {
         deduct: null,
         msg: null,
-        redirect: false,
+        redirect: false
     }
   }
 
@@ -36,11 +39,6 @@ export class Paid extends Component {
       }
       return
     }
-
-    // if authenticated redirect
-    if(isAuthenticated) {
-      
-    }
   }
 
   sendRedirect = () => {
@@ -52,6 +50,7 @@ export class Paid extends Component {
     const amount = `${this.props.location.state.detail.amount}`
     const service = `${this.props.location.state.detail.service}`
     const phone = `${this.props.location.state.detail.phone}`
+    const select = `${this.props.location.state.detail.select}`
     
     const AmountInt = parseInt(amount, 10)
     
@@ -59,17 +58,80 @@ export class Paid extends Component {
         name,
         AmountInt,
         service,
-        phone
+        phone,
+        select
     }
 
     this.props.BuyCreditFund(value)
   }
   
-  PayWithWallet = () => {
-    const amount = this.props.location.state.detail.amount
+  data = () => {
+    const name = `${this.props.location.state.detail.name}`
+    const amount = `${this.props.location.state.detail.amount}`
+    const service = `${this.props.location.state.detail.service}`
+    const phone = `${this.props.location.state.detail.phone}`
+    const select = `${this.props.location.state.detail.select}`
+    const variation = `${this.props.location.state.detail.variation}`
+    
     const AmountInt = parseInt(amount, 10)
     
-    this.transaction()
+    console.log(service)
+    
+    const value = {
+        AmountInt,
+        service,
+        phone,
+        select,
+        variation
+    }
+
+    this.props.BuyData(value)
+  }
+  
+  ElectricBill = () => {
+    const name = `${this.props.location.state.detail.name}`
+    const amount = `${this.props.location.state.detail.amount}`
+    const service = `${this.props.location.state.detail.service}`
+    const phone = `${this.props.location.state.detail.phone}`
+    const select = `${this.props.location.state.detail.select}`
+    const meter = `${this.props.location.state.detail.meter}`
+    
+    const AmountInt = parseInt(amount, 10)
+    
+    const value = {
+        name,
+        AmountInt,
+        service,
+        phone,
+        select,
+        meter
+    }
+    
+    this.props.payElectricBill(value)
+  }
+  
+  PayWithWallet = () => {
+    const { redirect } = this.state
+    const name = this.props.location.state.detail.name
+    const amount = this.props.location.state.detail.amount
+    const service = this.props.location.state.detail.service
+    const phone = this.props.location.state.detail.phone
+    const variation = this.props.location.state.detail.variation
+    const select = this.props.location.state.detail.select
+    const AmountInt = parseInt(amount, 10)
+    
+    if (name === "Third Party Motor Insurance - Universal Insurance" || name === "Health Insurance - HMO  " || name === "Personal Accident Insurance" || name === "Home Cover Insurance") {
+        this.sendDetails()
+    } else if (name === "DSTV Subscription" || name === "Gotv Payment" || name === "Startimes Subscription") {
+        console.log("TV sub")
+    } else if (name === "Airtel Airtime VTU" || name === "MTN Airtime VTU" || name === "GLO Airtime VTU" || name === "9mobile Airtime VTU" || name === "9Mobile Airtime Pin") {
+        this.transaction()
+    } else if (name === "Airtel Data" || name === "MTN Data" || name === "GLO Data" || name === "9mobile Data" || name === "Smile Payment") {
+        this.data()
+        //console.log("Data")
+    } else if (name === "Ikeja Electric Payment - IKEDC" || name === "Eko Electric Payment - EKEDC" || name === "Abuja Electricity Distribution Company- AEDC" || name === "KEDCO - Kano Electric" || name === "PHED - Port Harcourt Electric" || name === "Jos Electric - JED" || name === "IBEDC - Ibadan Electricity Distribution Company") {
+        this.ElectricBill()
+    }
     
     // clear errors
     this.sendRedirect();
@@ -95,6 +157,7 @@ export class Paid extends Component {
 
   render() {
   const wallet = this.props.wallet.wallet.wallet
+  const {name} = this.props.location.state.detail
     return (
       <div className="container">
         <div className="cards new" style={{ borderRadius: '20px' }}>
@@ -106,6 +169,19 @@ export class Paid extends Component {
                 {this.state.msg ? <Alert variant="danger">{this.state.msg}</Alert> : null}
                 <div className="cards bg-light" style={{  padding: '10px', borderRadius: '10px',  }}>
                 <p style={{ width: '100%' }}>TRANSACTION INFO:</p>
+                    
+                    {
+                        name === "Ikeja Electric Payment - IKEDC" || name === "Eko Electric Payment - EKEDC" || name === "Abuja Electricity Distribution Company- AEDC" || name === "KEDCO - Kano Electric" || name === "PHED - Port Harcourt Electric" || name === "Jos Electric - JED" || name === "IBEDC - Ibadan Electricity Distribution Company" ? 
+                        <>
+                            <div className="new">
+                                <p>Customer Name: </p><p style={{  paddingLeft: '30px' }}>{this.props.location.state.detail.verifyCustomerName}</p>
+                            </div>
+                            <div className="new">
+                                <p>Address: </p><p style={{  paddingLeft: '30px' }}>{this.props.location.state.detail.verifyAddress}</p>
+                            </div>
+                        </>
+                        : ""
+                    }
                     <div className="new">
                         <p>Product: </p><p style={{  paddingLeft: '30px' }}>{this.props.location.state.detail.name}</p>
                     </div>
@@ -139,4 +215,4 @@ const mapStateToProps = state => ({
     error: state.error
 })
 
-export default connect(mapStateToProps, { DeductWallet, clearErrors, BuyCreditFund })(Paid)
+export default withRouter(connect(mapStateToProps, { DeductWallet, clearErrors, BuyCreditFund, payElectricBill, BuyData })(Paid))

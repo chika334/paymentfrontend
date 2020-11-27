@@ -95,28 +95,6 @@ export const logout = () => {
   }
 }
 
-// export const forgot = (email) => dispatch => {
-//   const config = {
-//     headers: {
-//       "Content-Type": "application/json"
-//     }
-//   }
-
-//   const body = JSON.stringify(email)
-
-//   axios.post(`${process.env.REACT_APP_API}/forgot`, body, config)
-//     .then(res => dispatch({
-//       type: FORGOT_PASS,
-//       payload: res.data
-//     }))
-//     .catch(err => {
-//       dispatch(returnErrors(err.response.data, err.response.status, 'FORGOT_FAIL'))
-//       dispatch({
-//         type: FORGOT_FAIL
-//       })
-//     })
-// }
-
 export const tokenConfig = getState => {
   // Get token from localstorage
   const token = getState().authUser.token;

@@ -64,12 +64,6 @@ export class PersonalData extends Component {
       <div>
       	<table style={{ width: '100%' }}>
       	    <tbody>
-      	        <tr>
-          	        <td>Auto-wallet Account</td>
-          	        <td style={{ border: '1px solid black', padding: '10px' }}>
-          	            <a style={{ textDecoration: 'none' }} href="">Get your own account </a>
-          	        </td>
-          	    </tr>
           	    <tr>
           	        <td>Name</td>
           	        <td disabled style={{ border: '1px solid black', padding: '10px' }}>{name}</td>
