@@ -6,11 +6,42 @@ import {Alert} from 'react-bootstrap'
 
 const ListOfState = [
     'Select your state',
-    'Lagos',
-    'Ogun',
-    'Ekiti',
+    'Abia',
+    'Adamawa',
+    'Akwa Ibom',
+    'Anambra',
+    'Bauchi',
+    'Bayelsa',
+    'Benue',
+    'Borno',
+    'Cross River',
     'Delta',
-    'Imo'
+    'Ebonyi',
+    'Edo',
+    'Ekiti',
+    'Enugu',
+    'Gombe',
+    'Imo',
+    'Jigawa',
+    'Kaduna',
+    'Kano',
+    'Katsina',
+    'Kebbi',
+    'Kogi',
+    'Kwara',
+    'Lagos',
+    'Nasarawa',
+    'Niger',
+    'Ogun',
+    'Ondo',
+    'Osun',
+    'Oyo',
+    'Plateau',
+    'Rivers',
+    'Sokoto',
+    'Taraba',
+    'Yobe',
+    'Zamfara'
 ]
 
 const ListOfIdentity = [
@@ -157,15 +188,6 @@ export class BusinessInfo extends Component {
                             
                             <div className="new">
                                 <div>
-                                    <p>CAC Certificate</p>
-                                    <input 
-                                        type="file"
-                                        onChange={this.handleImageChange}
-                                        name="files"
-                                    />
-                                </div>
-                                
-                                <div>
                                     <p>Home Address</p>
                                     <input 
                                         type="text"
@@ -174,19 +196,19 @@ export class BusinessInfo extends Component {
                                         value={this.state.homeaddress}
                                     />
                                 </div>
-                             </div>
-                            
-                            <div className="new">
+                                
                                 <div>
                                     <p>Alternate Phone</p>
                                     <input 
-                                        type="number"
+                                        type="tel"
                                         onChange={this.handleChange}
                                         name="alternatephone"
                                         value={this.state.alternatephone}
                                     />
                                 </div>
-                                
+                             </div>
+                            
+                            <div className="new">
                                 <div>
                                     <p>Local Govt.</p>
                                     <input 
@@ -196,53 +218,21 @@ export class BusinessInfo extends Component {
                                         value={this.state.localgov}
                                     />
                                 </div>
-                             </div>
-                            
-                            <div className="new">
+                                
                                 <div>
                                     <p>State</p>
                                     <select style={{ width: '220px' }} onChange={this.handleSelects}>
                                         {state}
-                                     </select>
-                                    
+                                     </select> 
                                 </div>
-                                
+                             </div>
+                            
+                            <div className="new">
                                 <div>
                                     <p>Type Of Identity</p>
                                     <select style={{ width: '220px' }} onChange={this.handleIdentity}>
                                         {identitys}
                                     </select>
-                                </div>
-                             </div>
-                             
-                             <div className="new">
-                                <div>
-                                    <p>Identity Card Photo</p>
-                                    <input 
-                                        type="file"
-                                        onChange={this.handleIdcardChange}
-                                        name="files"
-                                    />
-                                </div>
-                                
-                                <div>
-                                    <p>Passport Photograph</p>
-                                    <input 
-                                        type="file"
-                                        onChange={this.handlePassportChange}
-                                        name="files"
-                                    />
-                                </div>
-                             </div>
-                             
-                             <div className="new">
-                                <div>
-                                    <p>Utility Bill</p>
-                                    <input 
-                                        type="file"
-                                        onChange={this.handleBillChange}
-                                        name="files"
-                                    />
                                 </div>
                                 
                                 <div>
@@ -256,7 +246,8 @@ export class BusinessInfo extends Component {
                                 </div>
                              </div>
                              
-                             <div className="pl-3">
+                             <div className="new">
+                                <div className="pl-3">
                                     <p>How do you intend to use our services?</p>
                                     <input 
                                         type="text"
@@ -265,6 +256,7 @@ export class BusinessInfo extends Component {
                                         value={this.state.talk}
                                     />
                                 </div>
+                             </div>   
                             <footer className="but">
                                 <button onSubmit={this.handleSubmit} className="btn btn-primary">Submit</button>
                               </footer>

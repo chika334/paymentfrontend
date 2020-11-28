@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {logout} from '../_action/userAction.js'
 import {connect} from 'react-redux'
-// import{NavItem, NavLink} from 'reactstrap'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 export class Logout extends Component {
@@ -11,11 +11,9 @@ export class Logout extends Component {
   render() {
     console.log(this.props)
     return (
-      // <div>
         <li className="nav-item">
-          <a className="nav-link" onClick={this.props.logout} href="/login">Signout</a>
+          <Link className="nav-link" onClick={this.props.logout} to="/login">Signout</Link>
         </li>
-      // </div>
     )
   }
 }

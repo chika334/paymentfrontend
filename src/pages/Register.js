@@ -51,7 +51,6 @@ export class Register extends Component {
     if(isAuthenticated) {
       this.setState({redirect: true})
       this.sendRedirect();
-      //this.props.history.push("/profile/dashboard")
     }
   }
 
@@ -100,7 +99,9 @@ export class Register extends Component {
     const {formErrors} = this.state;
     const {user} = this.props.authUser
     if (this.state.redirect) {
-      return <Redirect to="/login" />
+      this.props.history.push({
+        pathname: '/profile/dashboard',
+      })
     }
     console.log(user)
     return (

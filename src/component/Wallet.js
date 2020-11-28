@@ -5,14 +5,14 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { addFund } from '../_action/wallet'
 import PropTypes from 'prop-types'
+import uuid from 'react-uuid'
 
 export class Wallet extends Component {
   constructor(props) {
     super(props)
     this.state = {
         wallet: `₦0.00`,
-        //amount: { Valueamount: null }
-        amount: ''
+        amounts: ''
     }
   }
   
@@ -22,19 +22,25 @@ export class Wallet extends Component {
   
   handleChange = (e) => {
     const { name, value } = e.target
-    //const AmountInt = parseInt(value, 10)
-    //this.setState({ amount: { Valueamount: AmountInt } })
-    this.setState({ amount: value })
+    this.setState({ amounts: value })
   }
 
   addFund = (e) => {
     e.preventDefault()
-    const { amount } = this.state
-    const AmountInt = parseInt(amount, 10)
+    const { amounts } = this.state
+    const AmountInt = parseInt(amounts, 10)
+    const transactionID = uuid();
 
-    const Amountwallet = {
-        AmountInt
+    const amount = {
+        AmountInt,
+        transactionID
     }
+    
+    this.props.history.push({
+        pathname: '/confirmWallet',
+        search: '?query=abc',
+        state: { detail: { amount, transactionID } }
+    })
     
     //this.props.addFund(Amountwallet)
   }
@@ -42,7 +48,7 @@ export class Wallet extends Component {
   render() {
   
   const {isAuthenticated} = this.props
-  //if(isAuthenticated === false) return <Redirect to="/login" /> 
+  if(isAuthenticated === false) return <Redirect to="/login" /> 
     return (
       <div>
         <Jumbotron className="container">
@@ -54,8 +60,8 @@ export class Wallet extends Component {
               <Card.Text>Credit your wallet now, and spend from it later. No Need to enter card details everytime you want to make a Payment. Make Faster Payments.</Card.Text>
               <div className="forms-form-group">
               <input 
-                type="text"
-                value={this.state.amount}
+                type="tel"
+                value={this.state.amounts}
                 style={{ width: '100%', marginBottom: 15 }} 
                 placeholder="Enter Amount (NGN)"
                 onChange={this.handleChange}

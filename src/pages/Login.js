@@ -88,15 +88,10 @@ export class Login extends Component {
 		}
 
 		this.props.signin(user)
-		
 	}
 
 	render() {
 		const {formErrors} = this.state;
-		if (this.state.redirect) {
-          
-          //return <Redirect to="/profile" />
-        }
 		return (
 			<div style={{ padding: '4%' }}>
 		<form className="forms" onSubmit={this.handleSubmit}>

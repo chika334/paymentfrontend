@@ -160,7 +160,7 @@ export class PersonalData extends Component {
                             <div>
                                 <p>BVN</p>
                                 <input 
-                                    type="number"
+                                    type="tel"
                                     onChange={this.handleChange}
                                     name="bvn"
                                     value={this.state.bvn}
@@ -170,7 +170,7 @@ export class PersonalData extends Component {
                             <div>
                                 <p>BVN Phone No.</p>
                                 <input
-                                    type="number"
+                                    type="tel"
                                     onChange={this.handleChange}
                                     name="bvnphone"
                                     value={this.state.bvnphone}

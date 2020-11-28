@@ -8,9 +8,7 @@ export const kycandbvn = (details) => dispatch => {
         }
     }
     
-    const body = JSON.stringify(details)
-    
-    axios.post(`${process.env.REACT_APP_API}/kyc-bvn`, body, config)
+    axios.post(`${process.env.REACT_APP_API}/kyc-bvn`, details, config)
         .then(res => dispatch({
             type: KYCANDBVN,
             payload: res.data
@@ -24,8 +22,6 @@ export const companyUpdate = (formData) => dispatch => {
             "Content-Type": "multipart/form-data"
         }
     }
-    
-    // const body = JSON.stringify(details)
     
     axios.post(`${process.env.REACT_APP_API}/companyUpdate`, formData, config)
         .then(res => dispatch({

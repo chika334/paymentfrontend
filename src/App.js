@@ -33,7 +33,8 @@ import CreditCard from './component/creditCard'
 import Details from './component/Details'
 import Particulars from './component/particulars'
 import { dataTransaction } from './_action/data'
-import { NumberverifyTransaction } from './_action/electric' 
+import { NumberverifyTransaction } from './_action/electric'
+import Example from './component/walletTran'
 
 export class App extends Component {
   	componentDidMount() {
@@ -59,6 +60,7 @@ export class App extends Component {
     		<Route exact path={"/card"} component={CreditCard} />
     		<Route exact path={"/details"} component={Details} />
     		<Route exact path={"/party"} component={Particulars} />
+    		<Route exact path={"/confirmWallet"} component={Example} />
     		<ProtectedRoutes exact path={"/profile/transaction"} component={Transactions} />
     		<ProtectedRoutes exact path={"/profile/earning"} component={Earnings} />
     		<Route exact path={"/profile/wallet"} component={Wallet} />

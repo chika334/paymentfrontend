@@ -37,14 +37,6 @@ export class Payment extends Component {
          </div>
          
          <div className="p-5">
-      	    <h4>Insurance</h4>
-          	<div className="new">
-          	    <Insurance />
-            </div>
-         </div>
-         
-         
-         <div className="p-5">
       	    <h4>Electricity bill</h4>
           	<div className="new">
           	    <Nepa />
