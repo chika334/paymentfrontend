@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Container, Button } from 'react-bootstrap';
+import { Table, Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { transAction } from '../_action/airtime'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 class Transaction extends Component {
   constructor(props) {
@@ -17,12 +17,10 @@ class Transaction extends Component {
   }
 
   static propTypes = {
-    //airtime: PropTypes.object.isRequired,
-    //transAction: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired
   }
   
-  componentDidMount(e) {
+  /*componentDidMount(e) {
         let newItem = this.state.tableSoftware
         const { credit } = this.props.airtime
         const { data } = this.props.data
@@ -36,13 +34,26 @@ class Transaction extends Component {
         this.setState({
           tableSoftware: newItem
         })
+   }*/
+   
+   componentDidMount(e) {
+        let newItem = this.state.tableSoftware
+        const { transaction } = this.props.transaction
+
+        newItem.push({
+          transaction
+        });
+
+        this.setState({
+          tableSoftware: newItem
+        })
    }
 
+
     handleClick = (props) => {
-        //this.setState({ requestId: props.id })
-        const trans = props.id
+        const trans = props.id 
         const value = {
-            trans
+            trans,
         }
         this.props.transAction(value)
 
@@ -54,14 +65,13 @@ class Transaction extends Component {
     }
 
   render() {
-    const { credit } = this.props.airtime
-    const { data } = this.props.data
-    console.log(credit)
-    console.log(data)
+    const { transaction } = this.props.transaction
+    const {isAuthenticated} = this.props
+  if(isAuthenticated=== false) return <Redirect to="/login" /> 
     return (
       <section>
         <header>
-          <h1>Software Department</h1>
+          <h1 align="center">Transactions</h1>
         </header>
         <div>
           <div>
@@ -77,16 +87,7 @@ class Transaction extends Component {
                     </tr>
                   </thead>
                 <tbody>
-                  {credit.map((newItem, index) => (
-                    <tr key={index}>
-                      <td>{newItem.product_name}</td>
-                      <td>{newItem.amount}</td>
-                      <td>{newItem.status}</td>
-                      <td>{newItem.transactionId}<br /><small>{newItem.date}</small></td>
-                      <td><button  onClick={() => this.handleClick({id: newItem.requestId})} className="btn btn-primary">see all</button></td>
-                    </tr>
-                  ))}
-                  {data.map((newItem, index) => (
+                  {transaction.map((newItem, index) => (
                     <tr key={index}>
                       <td>{newItem.product_name}</td>
                       <td>{newItem.amount}</td>
@@ -106,8 +107,8 @@ class Transaction extends Component {
 }
 
 const mapStateToProps = state => ({
-    airtime: state.airtime,
-    data: state.data
+    transaction: state.transaction,
+    isAuthenticated: state.authUser.isAuthenticated,
 })
 
 export default withRouter(connect(mapStateToProps, { transAction })(Transaction))

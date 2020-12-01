@@ -5,7 +5,6 @@ import {signup, getUser} from '../_action/userAction';
 import PropTypes from 'prop-types';
 import {clearErrors} from '../_action/errorAction'
 import {Alert} from 'react-bootstrap'
-import {Redirect} from 'react-router-dom'
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -105,7 +104,7 @@ export class Register extends Component {
     }
     console.log(user)
     return (
-      <div style={{ padding: '5%' }}>
+      <div style={{ padding: '3%' }}>
         <div className="forms" onSubmit={this.handleSubmit}>
           <h2 className="header">Signup</h2>
           {this.state.msg ? <Alert variant="danger">{this.state.msg}</Alert> : null}

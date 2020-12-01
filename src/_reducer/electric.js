@@ -1,4 +1,4 @@
-import { PAY_ELECTRIC, ELECTRIC_PAYMENT_FAIL, } from '../_action/type'
+import { PAY_ELECTRIC, ELECTRIC_PAYMENT_FAIL, POST_PAY_ELECTRIC } from '../_action/type'
 
 const initialState = {
     electric: [],
@@ -8,6 +8,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch(action.type) {
+        case POST_PAY_ELECTRIC:
         case PAY_ELECTRIC:
             return {
                 ...state,

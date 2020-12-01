@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Container, Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { transAction } from '../_action/airtime'
 import { withRouter } from 'react-router-dom'
 
 class Details extends Component {
@@ -14,11 +11,6 @@ class Details extends Component {
       requestId: '',
       tableSoftware: []
     }
-  }
-
-  static propTypes = {
-    //airtime: PropTypes.object.isRequired,
-    //transAction: PropTypes.func.isRequired
   }
   
   componentDidMount(e) {
@@ -33,39 +25,39 @@ class Details extends Component {
           tableSoftware: newItem
         })
    }
-
+  
   render() {
     const { transaction } = this.props.transaction
     console.log(this.state.tableSoftware)
     return (
-      <section className="App p-5">
+      <section className="App p-3">
         <header>
           <h1>Details</h1>
         </header>
         <div>
-          <div className="new">
-              <Table striped bordered responsive hover>
-                  <thead>
-                    <tr>
-                      <th>Services</th>
-                      <th>Amount</th>
-                      <th>Status</th>
-                      <th>Tranx NO</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                <tbody>
-                  {transaction.map((newItem, index) => (
-                    <tr key={index}>
-                      <td>{newItem.product_name}</td>
-                      <td>{newItem.amount}</td>
-                      <td>{newItem.status}</td>
-                      <td>{newItem.transactionId}</td>
-                      <td>{newItem.date}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
+          <div className="new good">
+              {transaction.map((newItem, index) => (
+                <div key={index}>
+                  <div className="new">
+                    <p>Services: </p><p style={{ paddingLeft: '20px' }}>{newItem.product_name}</p>
+                  </div>
+                  <div className="new">
+                    <p>Amount: </p><p style={{ paddingLeft: '20px' }}>₦{newItem.amount}</p>
+                  </div>
+                  <div className="new">
+                    <p>Status: </p><p style={{ paddingLeft: '20px' }}>{newItem.status}</p>
+                  </div>
+                  <div className="new">
+                    <p>Tranx NO: </p><p style={{ paddingLeft: '20px' }}>{newItem.transactionId}</p>
+                  </div>
+                  <div className="new">
+                    <p>Date: </p><small style={{ paddingLeft: '20px' }}>{newItem.date}</small>
+                  </div>
+                  <div className="new">
+                    <p>Total Amount Payable: </p><p style={{ paddingLeft: '20px' }}>₦{newItem.total_amount}</p>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </section>

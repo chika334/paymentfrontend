@@ -1,4 +1,3 @@
-import { tokenConfig } from './userAction'
 import axios from 'axios'
 
 export const verifyNumber = async (value, token) => {

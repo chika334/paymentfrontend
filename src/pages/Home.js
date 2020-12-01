@@ -7,6 +7,7 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 import ListProduct from '../component/ListProduct'
 import presentation from '../images/presentation.jpg'
+import Method from '../component/payMethod'
 
 const title = (
     <>
@@ -35,6 +36,7 @@ function Home() {
            </Banner>
         </Hero>
        </div>
+       <Method />
        <ListProduct />
     </>
   );

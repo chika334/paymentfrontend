@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import images from '../images/newImage.jpg';
 import { Jumbotron, Button, Card } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter, Link } from 'react-router-dom'
 import { addFund } from '../_action/wallet'
 import PropTypes from 'prop-types'
 import uuid from 'react-uuid'
@@ -21,7 +21,7 @@ export class Wallet extends Component {
   }
   
   handleChange = (e) => {
-    const { name, value } = e.target
+    const { value } = e.target
     this.setState({ amounts: value })
   }
 
@@ -30,16 +30,11 @@ export class Wallet extends Component {
     const { amounts } = this.state
     const AmountInt = parseInt(amounts, 10)
     const transactionID = uuid();
-
-    const amount = {
-        AmountInt,
-        transactionID
-    }
     
     this.props.history.push({
         pathname: '/confirmWallet',
         search: '?query=abc',
-        state: { detail: { amount, transactionID } }
+        state: { detail: { AmountInt, transactionID } }
     })
     
     //this.props.addFund(Amountwallet)
@@ -51,7 +46,7 @@ export class Wallet extends Component {
   if(isAuthenticated === false) return <Redirect to="/login" /> 
     return (
       <div>
-        <Jumbotron className="container">
+        <Jumbotron className="container pt-5">
           <h1>Wallet</h1>
           <hr />
           <div className="new">
@@ -67,7 +62,7 @@ export class Wallet extends Component {
                 onChange={this.handleChange}
               />
             </div>
-              <Button onClick={this.addFund} >Submit</Button>
+              <Button onClick={this.addFund}>Submit</Button>
             </Card.Body>
           </Card>
 
@@ -78,7 +73,7 @@ export class Wallet extends Component {
           <div style={{ marginBottom: 70 }} />
             <hr />
           <p style={{ color: 'red', marginBottom: 50  }}>Please note that loading your wallet through card as an agent attracts a card processing fee of 1.5%. To avoid paying this charge, please load your wallet through bank deposit.</p>
-          <a style={{ textDecoration: 'none' }} href="#">Please click here to get information on how to load your wallet.</a>
+          <Link style={{ textDecoration: 'none' }} to="#">Please click here to get information on how to load your wallet.</Link>
         </Jumbotron>
       </div>
     )
@@ -89,4 +84,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authUser.isAuthenticated,
 })
 
-export default connect(mapStateToProps, {addFund})(Wallet)
+export default withRouter(connect(mapStateToProps, {addFund})(Wallet))

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SimplePaper from '../component/BalanceUpdate'
 import '../css/profile.css'
 import '../css/balance.css'
 import { BiWallet } from 'react-icons/bi'
@@ -9,12 +8,14 @@ import { connect } from 'react-redux'
 export class UserProfile extends Component {
   render() {
     const wallet = this.props.wallet.wallet.wallet
+    const {isAuthenticated} = this.props
+  if(isAuthenticated=== false) return <Redirect to="/login" />
     return (
-      <div className="container pt-3 pb-5">
+      <div className="container">
         <div className="new">
-            <div className="cards" style={{ borderRadius: '20px', color: 'white', backgroundColor: '#7153cd' }}>
+            <div className="cards" style={{ borderRadius: '20px', color: '#000' }}>
                 <div className="new" style={{ padding: '30px' }}>
-                    <BiWallet size={80} style={{ display: 'inline-block', borderRadius: '60px', boxShadow: '0px 0px 2px #888', padding: '0.8em 0.8em', backgroundColor: 'skyblue' }} /> 
+                    <BiWallet size={80} style={{ display: 'inline-block', borderRadius: '5px', boxShadow: '0px 0px 2px #888', padding: '0.8em 0.8em', backgroundColor: 'skyblue' }} /> 
                     <div>
                         <b>LIFETIME EARNINGS</b>
                         <p>0.00 NGN</p>
@@ -63,8 +64,8 @@ export class UserProfile extends Component {
                     <div>
                         <div className="news">0.00: <p>Transactions This Month</p></div>
                         <div className="news">0.00: <p>Transactions Last Month</p></div>
+                        <button className="btn btn-primary"><Link style={{ color: 'white', textDecoration: 'none' }} to="/profile/transaction">view more</Link></button>
                     </div>
-                    <button className="btn btn-primary"><a style={{ color: 'white', textDecoration: 'none' }} href="/more">view more</a></button>
                 </div>
             </div>
             <div className="cards">

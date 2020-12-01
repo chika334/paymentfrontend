@@ -1,14 +1,19 @@
 import React, { Component } from "react";
-import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
+import { Modal, Alert } from 'react-bootstrap';
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import {clearErrors} from '../_action/errorAction'
 import uuid from 'react-uuid'
+import { verifySmartcardNumber } from '../_action/smartCardNumber'
+import PropTypes from 'prop-types';
 
 class Tvsub extends Component {
   constructor(props) {
     super(props)
         this.state = {
         name: '',
+        email: '',
         type: '',
         show: false,
         phone: '',
@@ -16,9 +21,18 @@ class Tvsub extends Component {
         image: '',
         imageDatas: null,
         data: [],
-        service: ''
+        service: '',
+        smartCard: '',
+        transactionId: '',
+        select: '',
+        msg: null
       }
   };
+  
+  static propTypes = {
+    authUser: PropTypes.object.isRequired,
+    verify: PropTypes.object.isRequired
+  }
 
    handleChange = e => {
 		const {name, value} = e.target;
@@ -28,6 +42,8 @@ class Tvsub extends Component {
    componentDidMount() {
     this.data(`${process.env.REACT_APP_IMAGE_TVSUB}`)
     this.FetchPromise();
+    const transactionID = uuid();
+    this.setState({ transactionId: transactionID })
   }
 
   data = (url) => {
@@ -49,17 +65,51 @@ class Tvsub extends Component {
          })
          .catch(err => console.log(err))
   }
+  
+  verifySmartcardNumber = async () => {
+    const { service, select, smartCard, transactionId } = this.state
+    
+    const value = {
+       service, 
+       smartCard,
+       select,
+       transactionId
+    }
+    
+    return await verifySmartcardNumber(value, this.props.authUser.token)
+  }
+  
+  Submit = (e) => {
+    this.setState({ select: e.target.value })
+  }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { name, email, phone, amount, service } = this.state;
-    const uuidvar = uuid()
-
-    this.props.history.push({
-        pathname: '/paid',
-        search: '?query=abc',
-        state: { detail: { name, email, phone, amount, service } }
-    })
+  handleSubmit = async e => {
+    e.preventDefault()
+    const { amount, select, email, name, phone, smartCard, transactionId, type } = this.state
+    
+    try {
+        const result = await this.verifySmartcardNumber()
+        const { success, msg, smartCards } = result;
+      
+        const verifyCustomerName = smartCards.Customer_Name
+        const verifyTransactionID = smartCards.transactionID
+        const smartcard = smartCards.Smartcard_Number
+      
+        if (success) {
+         if(transactionId === smartCards.transactionID) {
+            this.props.history.push({
+                pathname: '/paid',
+                search: '?query=abc',
+                state: { detail: { amount, select, email, name, phone, smartCard, transactionId, type, verifyTransactionID, verifyCustomerName, smartcard } }
+            })
+         } else {
+            this.setState({ msg: msg })
+         }
+      }
+    }
+    catch(err) {
+        this.setState({ msg: err.response.data.msg })
+    }
   }
 
   showModal = (data) => {
@@ -67,6 +117,7 @@ class Tvsub extends Component {
   };
 
   handleAirtimeModal = (props) => {
+    console.log(props)
     this.setState({ show: true, image: props.image, type: props.type, name: props.name, service: props.serviceID });
   }
 
@@ -119,15 +170,12 @@ class Tvsub extends Component {
   if (!imageDatas) return  null;
   const Imagedatas = imageDatas.content.map((imagedata, index) => {
     return (
-            <div key={index}>
-                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })} className="btn secondtabs" style={{ width: '12rem', height: '7rem' }}>
-                    <Card.Body>
-                        <img width="60" height="50" className="pr-2" src={imagedata.image} />
-                        <Card.Text>
-                          {imagedata.name}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
+            <div className="cards btn" key={index} onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })}>
+               <img width="60" height="50" className="pr-2" src={imagedata.image} alt="modal" />
+                <div>
+                  {imagedata.name}
+                </div>
+                <small>Choose from a range of bouquets for your entertainment. Easy payment.</small>
             </div>
         );
   })
@@ -137,30 +185,34 @@ class Tvsub extends Component {
       <Modal show={this.state.show} onHide={this.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <img width="50" src={this.state.image} />
+            <img width="50" src={this.state.image} alt="modal" />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
          <div>
 		<form className="forms" onSubmit={this.handleSubmit}>
-
-			{this.state.type == "DSTV Subscription" && (<>
-              <p>Data type: </p>
+            {this.state.msg ? <Alert variant="danger">{this.state.msg}</Alert> : null}
+            
+			{this.state.type === "DSTV Subscription" && (<>
+              <p>Bouquet: </p>
                 <select className="dataDrop" onChange={this.Submit} style={{ width: '65%', marginBottom: '5%', padding: '5px' }} id="cars" name="cars">
+                    <option>Select Event Type</option>
                  {dstvData}
                 </select>
             </>)}
 
-            {this.state.type == "Gotv Payment" && (<>
-              <p>Data type: </p>
+            {this.state.type === "Gotv Payment" && (<>
+              <p>Bouquet: </p>
                 <select className="dataDrop" onChange={this.Submit} style={{ width: '65%', marginBottom: '5%', padding: '5px' }} id="cars" name="cars">
+                    <option>Select Event Type</option>
                  {gotvData}
                 </select>
             </>)}
 
-            {this.state.type == "Startimes Subscription" && (<>
-              <p>Data type: </p>
+            {this.state.type === "Startimes Subscription" && (<>
+              <p>Bouquet: </p>
                 <select className="dataDrop" onChange={this.Submit} style={{ width: '65%', marginBottom: '5%', padding: '5px' }} id="cars" name="cars">
+                    <option>Select Event Type</option>
                  {startimesData}
                 </select>
             </>)}
@@ -173,6 +225,18 @@ class Tvsub extends Component {
                 value={this.state.phone}
                 name="phone"
                 placeholder="Enter phone number"
+                onChange={this.handleChange}
+              />
+            </div>
+            
+            <div className="forms-form-group">
+              {this.state.service === "dstv" ? <p>Smartcard Number</p> : this.state.service === "gotv" ? <p>GOtv IUC NUMBER</p> : this.state.service === "startimes" ? <p>Startimes Smartcard /ewallet Number</p> : null}
+              <input 
+                type="tel" 
+                id="quantity"
+                value={this.state.smartCard}
+                name="smartCard"
+                placeholder={this.state.service === "dstv" ? "Enter Smartcard Number" : this.state.service === "gotv" ? "Enter GOtv IUC NUMBER" : this.state.service === "startimes" ? "Enter Startimes Smartcard" : null}
                 onChange={this.handleChange}
               />
             </div>
@@ -221,4 +285,9 @@ class Tvsub extends Component {
   }
 }
 
-export default withRouter(Tvsub)
+const mapStateToProps = state => ({
+    authUser: state.authUser,
+    verify: state.verify
+})
+
+export default withRouter(connect(mapStateToProps, { clearErrors })(Tvsub))

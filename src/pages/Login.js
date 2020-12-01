@@ -5,7 +5,7 @@ import {signin} from '../_action/userAction.js';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {clearErrors} from '../_action/errorAction'
-import {Redirect, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 const emailRegex = RegExp(
 	/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -136,8 +136,7 @@ export class Login extends Component {
             </div>
           </form>
            <div className="final-bottom">
-            <small className="small">Don't have an account? <a href="/register">Signup</a></small>
-            
+            <small className="small">Don't have an account? <Link to="/register">Signup</Link></small>
           </div>
 			</div>
 		)

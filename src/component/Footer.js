@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { GiWallet } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 
 export class Footer extends Component {

@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
+import { Modal, Alert } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import uuid from 'react-uuid'
-import { BuyCreditFund } from '../_action/airtime'
 import { verifyNumber } from '../_action/verifyNumber'
 import PropTypes from 'prop-types';
 import {clearErrors} from '../_action/errorAction'
-import {Alert} from 'react-bootstrap'
 import axios from 'axios'
-//import { uuid } from "uuidv4"
 
 class Nepa extends Component {
   constructor(props) {
@@ -32,7 +29,7 @@ class Nepa extends Component {
         transactionId: null
       }
   };
-  
+
   static propTypes = {
     authUser: PropTypes.object.isRequired,
     verify: PropTypes.object.isRequired
@@ -62,7 +59,7 @@ class Nepa extends Component {
   }
   
   verifyNumber = async () => {
-    const { meter, select, phone, email, amount, service, msg, transactionId } = this.state
+    const { meter, select, service, transactionId } = this.state
     
     const value = {
         meter,
@@ -98,7 +95,7 @@ class Nepa extends Component {
                 state: { detail: { name, meter, select, phone, email, amount, service, verifyTransactionID, verifyCustomerName, verifyAddress } }
             })
          } else {
-            console.log("Bad")
+            this.setState({ msg: msg })
          }
       }
     }
@@ -129,15 +126,11 @@ class Nepa extends Component {
   if (!imageDatas) return  null;
   const Imagedatas = imageDatas.content.map((imagedata, index) => {
     return (
-            <div key={index}>
-                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })} className="btn secondtabs" style={{ width: '12rem', height: '10rem' }}>
-                    <Card.Body>
-                        <img width="60" height="50" className="pr-2" src={imagedata.image} />
-                        <Card.Text>
-                          {imagedata.name}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
+            <div className="cards btn" key={index} onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })}>
+               <img width="60" height="50" className="pr-2" src={imagedata.image} alt="modal" />
+                <div>
+                  {imagedata.name}
+                </div>
             </div>
         );
   })
@@ -147,7 +140,7 @@ class Nepa extends Component {
       <Modal show={this.state.show} onHide={this.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <img width="50" src={this.state.image} />
+            <img width="50" src={this.state.image} alt="modal" />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

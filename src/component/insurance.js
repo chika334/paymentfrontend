@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import uuid from 'react-uuid'
 
 class Insurance extends Component {
@@ -109,6 +109,8 @@ class Insurance extends Component {
   };
 
   render() {
+  const {isAuthenticated} = this.props
+  if(isAuthenticated=== false) return <Redirect to="/login" /> 
   const { imageDatas, data } = this.state
  
   if (!data || !data.length) return  null;

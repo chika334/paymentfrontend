@@ -3,8 +3,7 @@ import {
     INITIAL_WALLET,
     ADDED_BALANCE_WALLET,
     DEDUCT_FROM_WALLET,
-    PAYMENT_FAIL,
-    BUY_CREDIT
+    PAYMENT_FAIL
 } from './type';
 import { tokenConfig } from './userAction'
 import axios from 'axios'

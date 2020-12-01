@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { PaystackButton } from "react-paystack"
 import "../css/card.css"
 import creditcard from '../images/creditcard.jpg'
+import { connect } from 'react-redux'
+import { addFund } from '../_action/wallet'
 
 const CreditCard = (props) => {
   const publicKey = `${process.env.REACT_APP_PAYSTACK}`
@@ -18,13 +20,16 @@ const CreditCard = (props) => {
       phone,
     },
     publicKey,
-    text: "Buy Now",
+    text: "Fund Account",
     onSuccess: () => {
       setEmail("")
       setName("")
       setPhone("")
+      
+      // add to wallet
+      props.addFund(amount)
     },
-    onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+    onClose: () => alert("Please Wait! You need fund your account!!!!"),
   }
 
   return (
@@ -35,7 +40,7 @@ const CreditCard = (props) => {
           <img
             className="item-image"
             src={creditcard}
-            alt="product"
+            alt="may payment"
           />
           <div className="item-details">
             <p className="item-details__title">{props.location.state.detail.name}</p>
@@ -79,4 +84,8 @@ const CreditCard = (props) => {
   )
 }
 
-export default CreditCard
+const mapStateToProps = state => ({
+  isAuthenticated: state.authUser.isAuthenticated,
+})
+
+export default connect(mapStateToProps, {addFund})(CreditCard)

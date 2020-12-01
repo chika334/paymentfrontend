@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Password from '../component/Password'
 import PersonalData from '../component/PersonalData'
-import Setting from '../component/Settings'
+import { Link } from 'react-router-dom'
 import Transactions from './Transactions'
 import '../css/singleNav.css'
 
@@ -33,13 +33,12 @@ export class Account extends Component {
 
   render() {
     return (
-      <div className="fold">
+      <div className="fold pt-5">
         <h3 className="pl-3">Profile Details</h3>
         <div className="tab">
           <button className="tablinks" id="defaultOpen" onClick={event => this.openCity(event, 'PersonalData')}>Personal Data</button>
-          <button className="tablinks" onClick={event => this.openCity(event, 'Setting')}>Setting</button>
           <button className="tablinks" onClick={event => this.openCity(event, 'Password')}>Password</button>
-          <button><a href="/profile/dashboard">Dashboard</a></button>
+          <button><Link to="/profile/dashboard">Dashboard</Link></button>
           <button className="tablinks" onClick={event => this.openCity(event, 'Transactions')}>Transactions</button>
         </div>
 
@@ -47,9 +46,7 @@ export class Account extends Component {
           <PersonalData />
         </div>
 
-        <div id="Setting" className="tabcontent">
-          <Setting />
-        </div>
+       
 
         <div id="Password" className="tabcontent">
           <Password />

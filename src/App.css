@@ -1,120 +1,6 @@
-.App {
-  text-align: center;
+body{
+   margin: 0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.header {
-  height: 100%;
-}
-
-.loading {
-  text-transform: capitalize;
-  text-align: center;
-  margin-top: 3rem;
-}
-
-/* Navbar */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 0.75rem 2rem;
-  background: var(--offWhite);
-  z-index: 1;
-}
-.nav-header {
-  display: flex;
-  justify-content: space-between;
-}
-.nav-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-}
-.nav-icon {
-  font-size: 1.5rem;
-  color: var(--primaryColor);
-}
-.nav-links {
-  height: 0;
-  overflow: hidden;
-  transition: var(--mainTransition);
-  list-style-type: none;
-}
-.nav-links a {
-  display: block;
-  text-decoration: none;
-  padding: 1rem 0;
-  color: var(--mainBlack);
-  transition: var(--mainTransition);
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: var(--mainSpacing);
-}
-.nav-links a:hover {
-  color: var(--primaryColor);
-}
-
-.show-nav {
-  height: 100px;
-}
-@media screen and (min-width: 768px) {
-  .nav-btn {
-    display: none;
-  }
-  .nav-center {
-    max-width: 1170px;
-    margin: 0 auto;
-    display: flex;
-  }
-  .nav-links {
-    height: auto;
-    display: flex;
-    margin-left: 4rem;
-  }
-  .nav-links a {
-    margin: 0 1rem;
-    padding: 0.5rem 0;
-  }
-}
-/* end of navbar */
 
 /* home.js styles */
 img.backside {
@@ -178,7 +64,7 @@ img.backside {
   padding: 5rem 0;
 }
 .services {
-  background: url("./images/newImage.jpg") center/cover no-repeat;
+  /*background: url("./images/newImage.jpg") center/cover no-repeat;*/
   text-align: center;
 }
 .services-center {
@@ -261,7 +147,15 @@ img.logoPayment {
   img.logoPayment {
     width: 10%;
   }
-} 
+}
+
+.good {
+    /*background: grey;*/
+    width: 50%;
+    padding: 4%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
 
 @media (max-width: 599px) {
   img {
@@ -277,4 +171,116 @@ img.logoPayment {
     padding: 10px;
     width: 100%;
   }
+  
+  .good {
+    /*background: yellow;*/
+    width: 100%;
+    padding: 4%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+}
+
+.first_number_icon {
+    margin-top: 20px;
+}
+
+div .first_number_icon {
+    position: relative;
+    font-size: 20px;
+    border: none;
+    padding: 8px 20px;
+}
+
+div .first_number_icon::before {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background: url('./images/one.png') center/cover no-repeat;
+  content: '';
+}
+
+div .first_number_icon::after {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  /*border: 2px solid black;*/
+  content: '';
+}
+
+.second_number_icon {
+    margin-top: 20px;
+}
+
+div .second_number_icon {
+    position: relative;
+    font-size: 20px;
+    border: none;
+    padding: 8px 20px;
+}
+
+div .second_number_icon::before {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background: url('./images/two.png') center/cover no-repeat;
+  content: '';
+}
+
+div .second_number_icon::after {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  /*border: 2px solid black;*/
+  content: '';
+}
+
+.third_number_icon {
+    margin-top: 20px;
+}
+
+div .third_number_icon {
+    position: relative;
+    font-size: 20px;
+    border: none;
+    padding: 8px 20px;
+}
+
+div .third_number_icon::before {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background: url('./images/three.png') center/cover no-repeat;
+  content: '';
+}
+
+div .third_number_icon::after {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  /*border: 2px solid black;*/
+  content: '';
+}
+
+.downImage {
+    background: url('./images/paysite.jpg') center/cover no-repeat;
+}
+
+.git_loader {
+    background: url('./images/nicegif.gif') center/cover no-repeat;
 }

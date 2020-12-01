@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Logout from './Logout.js'
 import ProgressBar from './ProgressBar'
-import SecondNav from './secondNav'
 import '../css/profile.css'                        
 
 export class NavBar extends Component {
@@ -43,7 +42,8 @@ export class NavBar extends Component {
 
     return (
       <div>
-        <div className="navbar navbar-expand-lg navbar-light bg-light">
+        <ProgressBar />
+        <div className="container-fluid navbar navbar-expand-lg navbar-light">
           <div className="navbar-brand">
             <Link className="nav-link text-dark" to="/">
               <strong>Mipplepay</strong>

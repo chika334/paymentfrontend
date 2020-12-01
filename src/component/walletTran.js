@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { kycandbvn } from '../_action/kyc'
-import PropTypes from 'prop-types'
-import BusinessInfo from './BusinnessInfo'
-import {Alert} from 'react-bootstrap'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import moment from "moment";
 import wallet from '../images/wallet.jpg';
 import { Jumbotron, Button, Card } from 'react-bootstrap'
@@ -13,36 +9,30 @@ export class walletTran extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        id: '',
-        firstname: '',
-        middlename: '',
-        lastname: '',
-        gender: '',
-        birthday: '',
-        bvn: '',
-        bvnphone: '',
-        msg: ''
     }
   }
   
-  handleSubmit = (e) => {
+  addFund = (e) => {
     e.preventDefault()
-    const { id, firstname, middlename, lastname, birthday, bvn, bvnphone } = this.state;
-    const details = { id, firstname, middlename, lastname, birthday, bvn, bvnphone }
-    //console.log(this.state)
-    this.props.kycandbvn(details)
+    
+    const AmountInt = this.props.location.state.detail.AmountInt
+    
+    this.props.history.push({
+        pathname: '/card',
+        search: '?query=abc',
+        state: { detail: { AmountInt } }
+    })
   }
   
   render() {
   const {isAuthenticated} = this.props
   if(isAuthenticated === false) return <Redirect to="/login" /> 
-  console.log(this.props.location.state.detail)
     return (
         <Jumbotron className="container">
             <div className="new">
-            <Card width="100%">
+            <Card>
                 <Card.Body>                                                      
-                  <table>
+                  <table width="100%" height="80%">
               	    <tbody>
                   	    <tr>
                   	        <td>Payment Method</td>
@@ -54,11 +44,11 @@ export class walletTran extends Component {
                   	    </tr>
                   	    <tr>
                   	        <td>Amount</td>
-                  	        <td style={{ border: '1px solid black', padding: '5px' }}>{this.props.location.state.detail.amount.AmountInt} + ₦0  (Convenience Fee) </td>
+                  	        <td style={{ border: '1px solid black', padding: '5px' }}>{this.props.location.state.detail.AmountInt} + ₦0  (Convenience Fee) </td>
                   	    </tr>
                   	    <tr>
                   	        <td>Total Amount Payable</td>
-                  	        <td style={{ border: '1px solid black', padding: '5px' }}>{this.props.location.state.detail.amount.AmountInt}</td>
+                  	        <td style={{ border: '1px solid black', padding: '5px' }}>{this.props.location.state.detail.AmountInt}</td>
                   	    </tr>
                   	    <tr>
                   	        <td>KYC and BVN Info</td>
@@ -68,7 +58,7 @@ export class walletTran extends Component {
                   	    </tr>       
               	    </tbody>
               	</table>
-                  <Button onClick={this.addFund} >Submit</Button>
+                  <Button onClick={this.addFund}>Confirm</Button>
                 </Card.Body>
               </Card>
           	
@@ -86,4 +76,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.authUser.isAuthenticated
 })
 
-export default connect(mapStateToProps)(walletTran)
+export default withRouter(connect(mapStateToProps)(walletTran))

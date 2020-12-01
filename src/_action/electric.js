@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-	VERIFY_LOADED, PAY_ELECTRIC, VERIFY_ERROR, ELECTRIC_PAYMENT_FAIL, VERIFY_LOADING
+	VERIFY_LOADED, PAY_ELECTRIC, ELECTRIC_PAYMENT_FAIL, VERIFY_LOADING, POST_PAY_ELECTRIC
 } from './type.js';
 import {returnErrors} from './errorAction.js';
 import { tokenConfig } from './userAction'
@@ -22,6 +22,22 @@ export const payElectricBill = (value) => (dispatch, getState) => {
   axios.post(`${process.env.REACT_APP_API}/prepaidMeterPayment`, body, tokenConfig(getState))
     .then(res => dispatch({
       type: PAY_ELECTRIC,
+      payload: res.data
+    }))
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status, 'ELECTRIC_PAYMENT_FAIL'))
+      dispatch({
+        type: ELECTRIC_PAYMENT_FAIL
+      })
+    })
+}
+
+export const postPayElectricBill = (value) => (dispatch, getState) => {
+  const body = JSON.stringify(value)
+
+  axios.post(`${process.env.REACT_APP_API}/postpaidMeterPayment`, body, tokenConfig(getState))
+    .then(res => dispatch({
+      type: POST_PAY_ELECTRIC,
       payload: res.data
     }))
     .catch(err => {

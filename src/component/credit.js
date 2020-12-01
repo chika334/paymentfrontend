@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -43,7 +43,6 @@ class Credit extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { name, service, email, amount, phone, type } = this.state;
-    const AmountInt = parseInt(amount, 10)
     const uuidvar = uuid()
 
     this.props.history.push({
@@ -71,17 +70,12 @@ class Credit extends Component {
   if (!imageDatas) return  null;
   const Imagedatas = imageDatas.content.map((imagedata, index) => {
     return (
-            <div key={index}>
-                <Card onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })} className="btn secondtabs" style={{ width: '11rem', height: '7rem' }}>
-                    <Card.Body>
-                        <img width="60" height="50" className="pr-2" src={imagedata.image} />
-                        <Card.Text>
-                          {imagedata.name}
-                          <br />
-                          <small>{imagedata.name} - Get instant top up</small>
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
+            <div className="cards btn" key={index} onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })}>
+               <img width="60" height="50" className="pr-2" src={imagedata.image} alt="side" />
+                <div>
+                  {imagedata.name}
+                </div>
+                <small>{imagedata.name} - Get instant top up</small>
             </div>
         );
   })
@@ -91,7 +85,7 @@ class Credit extends Component {
       <Modal show={this.state.show} onHide={this.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <img width="50" src={this.state.image} />
+            <img width="50" src={this.state.image} alt="modal" />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
