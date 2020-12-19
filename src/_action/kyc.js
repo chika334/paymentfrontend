@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { KYCANDBVN, COMPANYUPDATE } from './type'
+import { tokenConfig } from './userAction'
+
 
 export const kycandbvn = (details) => dispatch => {
     const config = {
@@ -16,14 +18,14 @@ export const kycandbvn = (details) => dispatch => {
         .catch(err => console.log(err))
 }
 
-export const companyUpdate = (formData) => dispatch => {
+export const companyUpdate = (formData) => (dispatch, getState) => {
     const config = {
         headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "application/json"
         }
     }
     
-    axios.post(`${process.env.REACT_APP_API}/companyUpdate`, formData, config)
+    axios.post(`${process.env.REACT_APP_API}/companyUpdate`, formData, tokenConfig(getState))
         .then(res => dispatch({
             type: COMPANYUPDATE,
             payload: res.data

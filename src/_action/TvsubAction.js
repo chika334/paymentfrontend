@@ -3,7 +3,7 @@ import {
 	TVSUB_VERIFY_LOADED, TVSUB_VERIFY_LOADING, PAY_TVBILL, PAY_TVBILL_FAIL
 } from './type.js';
 import {returnErrors} from './errorAction.js';
-import { tokenConfig } from './userAction'
+import { tokenConfig } from './userAction';
 
 export const getverifySmartcardNumber = () => (dispatch, getState) => {
   dispatch({ type: TVSUB_VERIFY_LOADING })

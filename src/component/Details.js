@@ -14,16 +14,16 @@ class Details extends Component {
   }
   
   componentDidMount(e) {
-        let newItem = this.state.tableSoftware
-        const { transaction } = this.props.transaction
+    let newItem = this.state.tableSoftware
+    const { transaction } = this.props.transaction
 
-        newItem.push({
-          transaction
-        });
+    newItem.push({
+      transaction
+    });
 
-        this.setState({
-          tableSoftware: newItem
-        })
+    this.setState({
+      tableSoftware: newItem
+    })
    }
   
   render() {

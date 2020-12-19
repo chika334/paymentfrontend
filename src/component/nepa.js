@@ -11,23 +11,23 @@ import axios from 'axios'
 class Nepa extends Component {
   constructor(props) {
     super(props)
-        this.state = {
-        name: '',
-       	msg: null,
-        type: '',
-        show: false,
-        phone: '',
-        amount: '',
-        select: '',
-        meter: '',
-        email: '',
-        image: '',
-        imageDatas: null,
-        data: [],
-        service: '',
-        redirect: false,
-        transactionId: null
-      }
+      this.state = {
+      name: '',
+      msg: null,
+      type: '',
+      show: false,
+      phone: '',
+      amount: '',
+      select: '',
+      meter: '',
+      email: '',
+      image: '',
+      imageDatas: null,
+      data: [],
+      service: '',
+      redirect: false,
+      transactionId: null
+    }
   };
 
   static propTypes = {
@@ -48,24 +48,29 @@ class Nepa extends Component {
     this.data(`${process.env.REACT_APP_IMAGE_ELECTRIC}`)
     const transactionID = uuid();
     this.setState({ transactionId: transactionID })
+    // this.refreshPage()
   }
+
+  // refreshPage() {
+  //   window.location.reload();
+  // }
 
   data = (url) => {
     axios.get(url)
-        .then(json => {
-            this.setState({ imageDatas: json.data })
-        })
-        .catch(response => console.log(response))
+      .then(json => {
+          this.setState({ imageDatas: json.data })
+      })
+      .catch(response => console.log(response))
   }
   
   verifyNumber = async () => {
     const { meter, select, service, transactionId } = this.state
     
     const value = {
-        meter,
-        service,
-        select,
-        transactionId
+      meter,
+      service,
+      select,
+      transactionId
     }
     
     return await verifyNumber(value, this.props.authUser.token)
@@ -88,15 +93,15 @@ class Nepa extends Component {
       console.log("this.state", transactionId)
       
       if (success) {
-         if(transactionId === verify.transactionID) {
-            this.props.history.push({
-                pathname: '/paid',
-                search: '?query=abc',
-                state: { detail: { name, meter, select, phone, email, amount, service, verifyTransactionID, verifyCustomerName, verifyAddress } }
-            })
-         } else {
-            this.setState({ msg: msg })
-         }
+        if(transactionId === verify.transactionID) {
+          this.props.history.push({
+            pathname: '/profile/paid',
+            search: '?query=abc',
+            state: { detail: { name, meter, select, phone, email, amount, service, verifyTransactionID, verifyCustomerName, verifyAddress } }
+          })
+        } else {
+          this.setState({ msg: msg })
+        }
       }
     }
     catch(err) {
@@ -126,13 +131,13 @@ class Nepa extends Component {
   if (!imageDatas) return  null;
   const Imagedatas = imageDatas.content.map((imagedata, index) => {
     return (
-            <div className="cards btn" key={index} onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })}>
-               <img width="60" height="50" className="pr-2" src={imagedata.image} alt="modal" />
-                <div>
-                  {imagedata.name}
-                </div>
-            </div>
-        );
+      <div className="cards btn" key={index} onClick={() => this.handleAirtimeModal({image: imagedata.image, type: imagedata.name, name: imagedata.name, serviceID: imagedata.serviceID })}>
+          <img width="60" height="50" className="pr-2" src={imagedata.image} alt="modal" />
+          <div>
+            {imagedata.name}
+          </div>
+      </div>
+    );
   })
 
     return (
@@ -149,9 +154,9 @@ class Nepa extends Component {
           {this.state.msg ? <Alert variant="danger">{this.state.msg}</Alert> : null}
 	        <p>Metertype </p>
             <select onChange={this.Submit} style={{ width: '60%', marginBottom: '5%', padding: '5px' }}>
-                <option>Please Select metertype</option>
-                <option value="prepaid">Prepaid</option>
-                <option value="postpaid">Postpaid</option>
+              <option>Please Select metertype</option>
+              <option value="prepaid">Prepaid</option>
+              <option value="postpaid">Postpaid</option>
             </select>
             
             <div className="forms-form-group">
@@ -225,8 +230,8 @@ class Nepa extends Component {
 }
 
 const mapStateToProps = state => ({
-    authUser: state.authUser,
-    verify: state.verify
+  authUser: state.authUser,
+  verify: state.verify
 })
 
 export default withRouter(connect(mapStateToProps, { clearErrors })(Nepa))

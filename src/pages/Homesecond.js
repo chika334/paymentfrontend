@@ -6,9 +6,9 @@ import 'aos/dist/aos.css'
 import Offer from '../component/offers'
 
 const title = (
-    <>
-        Mipplepay<img src={pay} width="60" alt="modal" />
-    </>
+  <>
+    Mipplepay<img src={pay} width="60" alt="modal" />
+  </>
 )
 
 function Home() {

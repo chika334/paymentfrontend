@@ -9,7 +9,7 @@ export class UserProfile extends Component {
   render() {
     const wallet = this.props.wallet.wallet.wallet
     const {isAuthenticated} = this.props
-  if(isAuthenticated=== false) return <Redirect to="/login" />
+    // if(isAuthenticated=== false) return <Redirect to="/login" />
     return (
       <div className="container">
         <div className="new">

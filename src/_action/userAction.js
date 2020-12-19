@@ -8,9 +8,44 @@ import {
 	LOGOUT_USER,
 	REGISTER_FAIL,
 	LOGIN_FAIL,
-	UPDATE_PASSWORD
+  UPDATE_PASSWORD,
+  USER_DETAIL_LOADING,
+  USER_DETAIL_LOADED
 } from './type.js';
 import {returnErrors} from './errorAction.js';
+
+export const getUserDetails = () => (dispatch, getState) => {
+  dispatch({ type: USER_DETAIL_LOADING })
+  axios.get(`${process.env.REACT_APP_API}/auth/me`, tokenConfig(getState))
+    .then(res => dispatch({
+      type: USER_DETAIL_LOADED,
+      payload: res.data
+    }))
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status))
+      dispatch({
+        type: AUTH_ERROR
+      })
+    })
+}
+
+// export const getUserDetails = async (value, token) => {
+
+  // // set Header
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   }
+  // }
+
+  // // if token, add to header
+  // if(token) {
+  //   config.headers['x-auth-token'] = token;
+  // }
+
+//   return await axios.post(`${process.env.REACT_APP_API}/auth/me`, value, config)
+//     .then(res => res.data)
+// }
 
 export const getUser = () => (dispatch, getState) => {
   dispatch({ type: USER_LOADING })
@@ -75,6 +110,7 @@ export const signin = (user) => dispatch => {
   }
 
   const body = JSON.stringify(user)
+  console.log(body);
 
   axios.post(`${process.env.REACT_APP_API}/login`, body, config)
     .then(res => dispatch({

@@ -10,7 +10,7 @@ import Nepa from '../component/nepa'
 export class Payment extends Component {
   render() {
   const {isAuthenticated} = this.props
-  if(isAuthenticated=== false) return <Redirect to="/login" />
+//   if(isAuthenticated=== false) return <Redirect to="/login" />
     return (
       <div className="p-5 pt-5">
       	<div>

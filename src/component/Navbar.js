@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Logout from './Logout.js'
-import ProgressBar from './ProgressBar'
+// import ProgressBar from './ProgressBar'
 import '../css/profile.css'                        
 
 export class NavBar extends Component {
@@ -17,13 +17,14 @@ export class NavBar extends Component {
   }
   render() {
     const { user, isAuthenticated } = this.props.authUser;
+    // console.log(user.user);
     const noUser = (
       <>
         <li className="nav-item">
           <Link className="nav-link" to="/login">Login</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/payment">Perform a transaction</Link>
+          <Link className="nav-link" to="/profile/payment">Perform a transaction</Link>
         </li>
       </>
     )
@@ -31,10 +32,10 @@ export class NavBar extends Component {
     const users = (
       <>
         <li className="nav-item">
-          <Link className="nav-link" to="/profile">{user === null ? '' : `Welcome ${user.name}`}</Link>
+          <Link className="nav-link" to="/profile">{user === null ? '' : `Welcome ${user.user.name}`}</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/payment">Perform a transaction</Link>
+          <Link className="nav-link" to="/profile/payment">Perform a transaction</Link>
         </li>
         <Logout />
       </>
@@ -42,7 +43,7 @@ export class NavBar extends Component {
 
     return (
       <div>
-        <ProgressBar />
+        {/* <ProgressBar /> */}
         <div className="container-fluid navbar navbar-expand-lg navbar-light">
           <div className="navbar-brand">
             <Link className="nav-link text-dark" to="/">
@@ -62,9 +63,9 @@ export class NavBar extends Component {
 				<li className="nav-item">
 					<Link className="nav-link" to="/about">About</Link>
 				</li>
-              {
-                isAuthenticated ? users : noUser
-              }
+          {
+            isAuthenticated || localStorage.token ? users : noUser
+          }
 			</ul>
           </div>
         </div>

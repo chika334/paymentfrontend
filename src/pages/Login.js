@@ -31,7 +31,7 @@ export class Login extends Component {
 		signin: PropTypes.func.isRequired,
 		isAuthenticated: PropTypes.bool,
 		auth: PropTypes.object.isRequired,
-        clearErrors: PropTypes.func.isRequired
+    clearErrors: PropTypes.func.isRequired
 	}
 
 	componentDidUpdate(prevProps) {

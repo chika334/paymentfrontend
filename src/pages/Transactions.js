@@ -17,7 +17,7 @@ class Transaction extends Component {
   }
 
   static propTypes = {
-    data: PropTypes.object.isRequired
+    transaction: PropTypes.object.isRequired
   }
   
   /*componentDidMount(e) {
@@ -36,38 +36,36 @@ class Transaction extends Component {
         })
    }*/
    
-   componentDidMount(e) {
-        let newItem = this.state.tableSoftware
-        const { transaction } = this.props.transaction
+  componentDidMount(e) {
+    let newItem = this.state.tableSoftware
+    const { transaction } = this.props.transaction
 
-        newItem.push({
-          transaction
-        });
+    newItem.push({
+      transaction
+    });
 
-        this.setState({
-          tableSoftware: newItem
-        })
-   }
+    this.setState({
+      tableSoftware: newItem
+    })
+  }
 
 
-    handleClick = (props) => {
-        const trans = props.id 
-        const value = {
-            trans,
-        }
-        this.props.transAction(value)
-
-        this.props.history.push({
-            pathname: '/details',
-            search: '?query=abc',
-            state: { detail: { value } }
-        })
+  handleClick = (props) => {
+    const trans = props.id 
+    const value = {
+      trans,
     }
+    this.props.transAction(value)
+
+    this.props.history.push({
+      pathname: '/details',
+      search: '?query=abc',
+      state: { detail: { value } }
+    })
+  }
 
   render() {
     const { transaction } = this.props.transaction
-    const {isAuthenticated} = this.props
-  if(isAuthenticated=== false) return <Redirect to="/login" /> 
     return (
       <section>
         <header>
@@ -107,8 +105,8 @@ class Transaction extends Component {
 }
 
 const mapStateToProps = state => ({
-    transaction: state.transaction,
-    isAuthenticated: state.authUser.isAuthenticated,
+  transaction: state.transaction,
+  isAuthenticated: state.authUser.isAuthenticated,
 })
 
 export default withRouter(connect(mapStateToProps, { transAction })(Transaction))

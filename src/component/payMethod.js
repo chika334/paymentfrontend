@@ -18,9 +18,9 @@ export default function Method() {
         <small>Payment in three easy steps</small>
           <p>1. Login/ Register</p>
             <small>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful conten</small>
-          <p>2. Fund your account</p>
-          <small>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful conten</small>
-          <p>3. Pay Your Bills</p>
+          {/* <p>2. Fund your account</p>
+          <small>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful conten</small> */}
+          <p>2. Pay Your Bills</p>
           <small>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful conten</small><br />
           <Link to="/payment" className="btn btn-primary">Get started</Link>
       </div>

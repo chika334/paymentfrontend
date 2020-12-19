@@ -1,68 +1,93 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+import { useSelector, connect } from 'react-redux'
 import images from '../images/newImage.jpg';
 import { Jumbotron, Button, Card } from 'react-bootstrap'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { Redirect, withRouter, Link } from 'react-router-dom'
 import { addFund } from '../_action/wallet'
 import PropTypes from 'prop-types'
 import uuid from 'react-uuid'
+import { PaystackButton } from "react-paystack"
 
-export class Wallet extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-        wallet: `₦0.00`,
-        amounts: ''
-    }
-  }
+export function Wallet (props) {
+  const isAuthenticated = useSelector(state => state.authUser.isAuthenticated)
+  const publicKey = `${process.env.REACT_APP_PAYSTACK}`
+  const [values, setValues] = useState({
+    wallet: `₦0.00`,
+    amount: "",
+    email: ""
+  })
+
+  const { wallet, amount, email} = values
   
-  static propTypes = {
-    addFund: PropTypes.func.isRequired
-  }
-  
-  handleChange = (e) => {
+  const handleChange = name => (e) => {
     const { value } = e.target
-    this.setState({ amounts: value })
+    setValues({ ...values, [name]: value })
   }
 
-  addFund = (e) => {
-    e.preventDefault()
-    const { amounts } = this.state
-    const AmountInt = parseInt(amounts, 10)
-    const transactionID = uuid();
-    
-    this.props.history.push({
-        pathname: '/confirmWallet',
-        search: '?query=abc',
-        state: { detail: { AmountInt, transactionID } }
-    })
-    
-    //this.props.addFund(Amountwallet)
+  const componentProps = {
+    email,
+    amount,
+    publicKey,
+    text: "Pay with Paystack",
+    onSuccess: () => {
+
+      // add to wallet
+      //props.addFund(amount)
+    },
+    onClose: () => alert("Please Wait! You need fund your account!!!!"),
   }
 
-  render() {
+  // const addFund = (e) => {
+  //   e.preventDefault()
+  //   // const { amounts } = this.state
+  //   const AmountInt = parseInt(amount, 10)
+  //   const transactionID = uuid();
+    
+  //   // this.props.history.push({
+  //   //   pathname: '/confirmWallet',
+  //   //   search: '?query=abc',
+  //   //   state: { detail: { AmountInt, transactionID } }
+  //   // })
+    
+  //   // props.addFund(Amountwallet)
+  // }
   
-  const {isAuthenticated} = this.props
   if(isAuthenticated === false) return <Redirect to="/login" /> 
     return (
       <div>
         <Jumbotron className="container pt-5">
-          <h1>Wallet</h1>
+          <h1>Make Payments</h1>
           <hr />
           <div className="new">
             <Card>
             <Card.Body>                                                      
-              <Card.Text>Credit your wallet now, and spend from it later. No Need to enter card details everytime you want to make a Payment. Make Faster Payments.</Card.Text>
+              {/* <Card.Text>Credit your wallet now, and spend from it later. No Need to enter card details everytime you want to make a Payment. Make Faster Payments.</Card.Text> */}
+              <Card.Text>Make Faster Payments.</Card.Text>
               <div className="forms-form-group">
-              <input 
-                type="tel"
-                value={this.state.amounts}
-                style={{ width: '100%', marginBottom: 15 }} 
-                placeholder="Enter Amount (NGN)"
-                onChange={this.handleChange}
-              />
-            </div>
-              <Button onClick={this.addFund}>Submit</Button>
+                <p>Email</p>
+                <input 
+                  type="email"
+                  value={email}
+                  style={{ width: '100%', marginBottom: 12 }} 
+                  placeholder="Enter Email address"
+                  onChange={handleChange('email')}
+                />
+              </div>
+              <div className="forms-form-group">
+                <p>Amount</p>
+                <input 
+                  type="tel"
+                  value={amount}
+                  style={{ width: '100%', marginBottom: 12 }} 
+                  placeholder="Enter Amount (NGN)"
+                  onChange={handleChange('amount')}
+                />
+              </div>
+              <div style={{ marginTop: 12 }}>
+                {/* <Button onClick={addFund}>Pay with wallet</Button> */}
+                <PaystackButton className="paystack-button" {...componentProps} />
+              </div>
             </Card.Body>
           </Card>
 
@@ -77,11 +102,10 @@ export class Wallet extends Component {
         </Jumbotron>
       </div>
     )
-  }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.authUser.isAuthenticated,
-})
+Wallet.prototype = {
+  addFund: PropTypes.func.isRequired
+}
 
-export default withRouter(connect(mapStateToProps, {addFund})(Wallet))
+export default Wallet

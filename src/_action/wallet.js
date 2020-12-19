@@ -10,20 +10,20 @@ import axios from 'axios'
 import {returnErrors} from './errorAction.js';
 
 export const initialWallet = () => (dispatch, getState) => {
-    dispatch({ type: WALLET_LOADING })
-    axios.get(`${process.env.REACT_APP_API}/getWallet`, tokenConfig(getState))
-        .then(res => dispatch({
-          type: INITIAL_WALLET,
-          payload: res.data
-        }))
-        .catch(err => console.log(err))
+  dispatch({ type: WALLET_LOADING })
+  axios.get(`${process.env.REACT_APP_API}/getWallet`, tokenConfig(getState))
+    .then(res => dispatch({
+      type: INITIAL_WALLET,
+      payload: res.data
+    }))
+    .catch(err => console.log(err))
 }
 
-export const addFund = (Amountwallet) => (dispatch, getState) => {
+export const addFund = (amount) => (dispatch, getState) => {
 
-  const body = JSON.stringify(Amountwallet)
+  // const body = JSON.stringify(Amountwallet)
 
-  axios.post(`${process.env.REACT_APP_API}/addFunds`, body, tokenConfig(getState))
+  axios.post(`${process.env.REACT_APP_API}/addFunds`, amount, tokenConfig(getState))
     .then(res => dispatch({
       type: ADDED_BALANCE_WALLET,
       payload: res.data
@@ -33,9 +33,9 @@ export const addFund = (Amountwallet) => (dispatch, getState) => {
 
 export const DeductWallet = (deductWallet) => (dispatch, getState) => {
 
-   const body = JSON.stringify(deductWallet)
+  //  const body = JSON.stringify(deductWallet)
 
-  axios.post(`${process.env.REACT_APP_API}/deductFunds`, body, tokenConfig(getState))
+  axios.post(`${process.env.REACT_APP_API}/deductFunds`, deductWallet, tokenConfig(getState))
     .then(res => dispatch({
       type: DEDUCT_FROM_WALLET,
       payload: res.data

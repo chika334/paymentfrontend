@@ -5,20 +5,20 @@ import { withRouter } from 'react-router-dom'
 
 class Data extends Component {
   constructor(props) {
-    super(props)
-        this.state = {
-            name: '',
-            type: '',
-            show: false,
-            phone: '',
-            amount: '',
-            image: '',
-            imageDatas: null,
-            data: [],
-            email: '',
-            variation: '',
-            service: ''
-      }
+  super(props)
+    this.state = {
+      name: '',
+      type: '',
+      show: false,
+      phone: '',
+      amount: '',
+      image: '',
+      imageDatas: null,
+      data: [],
+      email: '',
+      variation: '',
+      service: ''
+    }
   };
 
    handleChange = e => {
@@ -40,17 +40,17 @@ class Data extends Component {
   }
 
   FetchPromise = () => {
-     const mtn_URL = fetch(process.env.REACT_APP_MTN_DATA).then(resp => resp.json());
-     const airtel_URL = fetch(process.env.REACT_APP_AIRTEL_DATA).then(resp => resp.json());
-     const glo_URL = fetch(process.env.REACT_APP_GLO_DATA).then(resp => resp.json());
-     const etisalat_URL = fetch(process.env.REACT_APP_ETISALAT_DATA).then(resp => resp.json());
-     const smile_URL = fetch(process.env.REACT_APP_SMILE_DATA).then(resp => resp.json());
+    const mtn_URL = fetch(process.env.REACT_APP_MTN_DATA).then(resp => resp.json());
+    const airtel_URL = fetch(process.env.REACT_APP_AIRTEL_DATA).then(resp => resp.json());
+    const glo_URL = fetch(process.env.REACT_APP_GLO_DATA).then(resp => resp.json());
+    const etisalat_URL = fetch(process.env.REACT_APP_ETISALAT_DATA).then(resp => resp.json());
+    const smile_URL = fetch(process.env.REACT_APP_SMILE_DATA).then(resp => resp.json());
 
-     Promise.all([mtn_URL, airtel_URL, glo_URL, etisalat_URL, smile_URL])
-         .then(files => {
-            this.setState({ ...this.state, data: files });
-         })
-         .catch(err => console.log(err))
+    Promise.all([mtn_URL, airtel_URL, glo_URL, etisalat_URL, smile_URL])
+    .then(files => {
+      this.setState({ ...this.state, data: files });
+    })
+    .catch(err => console.log(err))
   }
   
   selectClick = (props) => {

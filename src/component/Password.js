@@ -16,8 +16,8 @@ export class Password extends Component {
     
     handleChange = e => {
 		const {name, value} = e.target;
-		const id = this.props.authUser.user._id
-		const email = this.props.authUser.user.email
+		const id = this.props.authUser.user.user._id
+		const email = this.props.authUser.user.user.email
 		let formErrors = {...this.state.formErrors};
 
 		switch(name) {
@@ -60,12 +60,11 @@ export class Password extends Component {
 			        confirm_new_password
 		        }
 		        
-		        console.log(users)
+		        // console.log(users)
 		        
 		        this.props.updatePassword(users)
 		    }
 		}
-		//this.props.signin(user)
 	}
 	
   render() {

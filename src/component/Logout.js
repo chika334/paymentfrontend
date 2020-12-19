@@ -11,9 +11,9 @@ export class Logout extends Component {
   render() {
     console.log(this.props)
     return (
-        <li className="nav-item">
-          <Link className="nav-link" onClick={this.props.logout} to="/login">Signout</Link>
-        </li>
+      <li className="nav-item">
+        <Link className="nav-link" onClick={this.props.logout} to="/login">Signout</Link>
+      </li>
     )
   }
 }

@@ -5,6 +5,7 @@ import {
     DATA_ERROR } from '../_action/type'
 
 const initialState = {
+    fetched: false,
     data: [],
     msg: {}
 }
@@ -22,6 +23,7 @@ export default function(state = initialState, action) {
         case DATA_LOADED:
             return {
                 ...state,
+                fetched: true,
                 data: action.payload
             }
         default:

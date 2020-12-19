@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css';
 import {Route, Switch} from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 // component
 import Navbar from './component/Navbar'
@@ -31,39 +32,96 @@ import { dataTransaction } from './_action/data'
 import { NumberverifyTransaction } from './_action/electric'
 import { getverifySmartcardNumber } from './_action/TvsubAction'
 import Example from './component/walletTran'
+import { USER_DETAIL_LOADED } from './_action/type'
+import { getUserDetails } from './_action/userAction'
 
 export class App extends Component {
   	componentDidMount() {
-        store.dispatch(getUser())
-        store.dispatch(initialWallet())
-        store.dispatch(getPay())
-        store.dispatch(getTransaction())
-        store.dispatch(dataTransaction())
-        store.dispatch(NumberverifyTransaction())
-        store.dispatch(getverifySmartcardNumber())
+		if(localStorage.getItem('token')) {
+			// store.dispatch({type: USER_DETAIL_LOADED})
+			store.dispatch(getUserDetails())
+		}
+        getUser()
+        initialWallet()
+        getPay()
+        getTransaction()
+        dataTransaction()
+        NumberverifyTransaction()
+        getverifySmartcardNumber()
 	}
   render() {
     return (
-      <div>
+		<Provider store={store}>
     	<Navbar />
     	<Switch>
     	    <Route exact path={"/"} component={Home} />
     		<Route exact path={"/login"} component={Login} />
     		<Route exact path={"/register"} component={Register} />
     		<Route exact path={"/about"} component={About} />
-    		<Route exact path={"/payment"} component={Payment} />
-    		<Route exact path={"/paid"} component={Paid} />
-    		<ProtectedRoutes exact path={"/card"} component={CreditCard} />
+			{/* profile */}
+			<ProtectedRoutes path='/profile/:path?'>
+				<Switch>
+					<ProtectedRoutes
+						path='/profile/paid'
+						exact
+						component={Paid}
+					/>
+					<ProtectedRoutes
+						path='/profile/payment'
+						exact
+						component={Payment}
+					/>
+					<ProtectedRoutes
+						path='/profile/wallet'
+						exact
+						component={Wallet}
+					/>
+					<ProtectedRoutes
+						path='/profile/transaction'
+						exact
+						component={Transactions}
+					/>
+					<ProtectedRoutes
+						path='/profile/dashboard'
+						exact
+						component={UserProfile}
+					/>
+					<ProtectedRoutes
+						path='/profile/card'
+						exact
+						component={CreditCard}
+					/>
+					<ProtectedRoutes
+						path='/profile/details'
+						exact
+						component={Details}
+					/>
+					<ProtectedRoutes
+						path='/profile/confirmWallet'
+						exact
+						component={Example}
+					/>
+					<ProtectedRoutes
+						path='/profile'
+						exact
+						component={Account}
+					/>
+				</Switch>
+			</ProtectedRoutes>
+			{/* <Route exact path={"/paid"} component={Paid} />
+			<Route exact path={"/payment"} component={Payment} />
+    		<Route exact path={"/profile/wallet"} component={Wallet} />
+			<Route exact path={"/profile/transaction"} component={Transactions} />
+    		<ProtectedRoutes exact path={"/profile/dashboard"} component={UserProfile} />
+			<ProtectedRoutes exact path={"/card"} component={CreditCard} />
     		<Route exact path={"/details"} component={Details} />
     		<Route exact path={"/confirmWallet"} component={Example} />
-    		<Route exact path={"/profile/transaction"} component={Transactions} />
-    		<Route exact path={"/profile/wallet"} component={Wallet} />
-    		<ProtectedRoutes exact path={"/profile/dashboard"} component={UserProfile} />
-    		<ProtectedRoutes exact path={"/profile"} component={Account} />
+    		<ProtectedRoutes exact path={"/profile"} component={Account} /> */}
+			 {/* Error */}
     		<Route component={Error} />
     	</Switch>
     	<Footer/>
-      </div>
+	</Provider>
     )
   }
 }
