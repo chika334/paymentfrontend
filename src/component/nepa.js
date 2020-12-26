@@ -88,9 +88,9 @@ class Nepa extends Component {
       const verifyTransactionID = verify.transactionID
       const verifyAddress = verify.Address
       
-      console.log("backend", verify.transactionID)
+      //console.log("backend", verify.transactionID)
       
-      console.log("this.state", transactionId)
+      //console.log("this.state", transactionId)
       
       if (success) {
         if(transactionId === verify.transactionID) {

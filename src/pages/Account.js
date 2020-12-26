@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import Password from '../component/Password'
 import PersonalData from '../component/PersonalData'
 import { Link } from 'react-router-dom'
-import Transactions from './Transactions'
+import Transactions from './AirtimeTranx'
+import Data from './DataTranx'
+import Electric from './ElectricTranx'
+import TvSub from './TvSubTranx'
 import '../css/singleNav.css'
 
 export class Account extends Component {  
@@ -46,7 +49,10 @@ export class Account extends Component {
           <button className="tablinks" onClick={event => this.openCity(event, 'Password')}>Password</button>
           {/* <button><Link to="/profile/dashboard">Dashboard</Link></button> */}
           <button onClick={this.handleClick}>Dashboard</button>
-          <button className="tablinks" onClick={event => this.openCity(event, 'Transactions')}>Transactions</button>
+          <button className="tablinks" onClick={event => this.openCity(event, 'Airtime')}> Airtime Tranx</button>
+          <button className="tablinks" onClick={event => this.openCity(event, 'Data')}> Data Tranx</button>
+          <button className="tablinks" onClick={event => this.openCity(event, 'Electric')}> Electric Tranx</button>
+          <button className="tablinks" onClick={event => this.openCity(event, 'TvSub')}> TvSub Tranx</button>
         </div>
 
         <div id="PersonalData" className="tabcontent">
@@ -57,8 +63,20 @@ export class Account extends Component {
           <Password />
         </div>
 
-        <div id="Transactions" className="tabcontent">
+        <div id="Airtime" className="tabcontent">
           <Transactions />
+        </div>
+        
+        <div id="Data" className="tabcontent">
+          <Data />
+        </div>
+        
+        <div id="Electric" className="tabcontent">
+          <Electric />
+        </div>
+        
+        <div id="TvSub" className="tabcontent">
+          <TvSub />
         </div>
       </div>
     )

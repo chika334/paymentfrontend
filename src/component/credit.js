@@ -46,7 +46,7 @@ class Credit extends Component {
     const uuidvar = uuid()
 
     this.props.history.push({
-        pathname: '/paid',
+        pathname: '/profile/paid',
         search: '?query=abc',
         state: { detail: { name, email, phone, amount, uuidvar, service, type } }
     })

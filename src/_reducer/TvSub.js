@@ -1,7 +1,7 @@
-import { TVSUB_VERIFY_LOADED, TVSUB_VERIFY_LOADING } from '../_action/type'
+import { TVSUB_VERIFY_LOADED, TVSUB_VERIFY_LOADING, TVSUB_SINGLE_TRANS } from '../_action/type'
 
 const initialState = {
-    verify: [],
+    smartCards: [],
     msg: {}
 }
 
@@ -11,10 +11,11 @@ export default function(state = initialState, action) {
             return {
                 ...state
             }
+        case TVSUB_SINGLE_TRANS:
         case TVSUB_VERIFY_LOADED:
             return {
                 ...state,
-                verify: action.payload,
+                smartCards: action.payload,
             }
         default:
             return state

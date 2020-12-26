@@ -9,10 +9,10 @@ export default function Offer() {
   }, []);
   
   return (
-    <div className="container downImage">
+    <div className="downImage">
         <h2 className="services">OUR SERVICES</h2>
         <div className="new">
-             <div className="cards" style={{ background: 'grey', borderRadius: '20px', padding: '30px' }}>
+             <div className="cards" style={{ background: '#87ceeb', borderRadius: '20px', padding: '30px' }}>
                 <strong>Airtime</strong><br />
                  <small>Our Airtime services are: </small>
                  <ul style={{ listStyleType: "circle"}}>
@@ -23,7 +23,7 @@ export default function Offer() {
                   <li>Smile</li>
                  </ul> 
              </div>
-             <div className="cards" style={{ background: 'grey', borderRadius: '20px', padding: '30px' }}>
+             <div className="cards" style={{ background: '#87ceeb', borderRadius: '20px', padding: '30px' }}>
                 <strong>Data</strong><br />
                  <small>Our Data services are: </small>
                  <ul style={{ listStyleType: "circle"}}>
@@ -34,7 +34,7 @@ export default function Offer() {
                   <li>Smile</li>
                 </ul> 
              </div>
-             <div className="cards" style={{ background: 'grey', borderRadius: '20px', padding: '30px' }}>
+             <div className="cards" style={{ background: '#87ceeb', borderRadius: '20px', padding: '30px' }}>
                 <strong>Tv Subscription</strong><br />
                 <small>Our Tv Subscription services are: </small>
                  <ul style={{ listStyleType: "circle"}}>
@@ -43,7 +43,7 @@ export default function Offer() {
                   <li>STARTIMES</li>
                 </ul> 
              </div>
-             <div className="cards" style={{ background: 'grey', borderRadius: '20px', padding: '30px' }}>
+             <div className="cards" style={{ background: '#87ceeb', borderRadius: '20px', padding: '30px' }}>
                 <strong>Electricity Bill</strong><br />
                 <small>Pay all Electricity bills: </small>
                  <ul className="" style={{ listStyleType: "circle"}}>

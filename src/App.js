@@ -8,7 +8,7 @@ import Navbar from './component/Navbar'
 import Footer from './component/Footer'
 import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.js'
 import Wallet from './component/Wallet'
-import { getPay } from './_action/airtime'
+//import { getPay } from './_action/airtime'
 import { getTransaction } from './_action/airtime'
 
 // pages
@@ -19,7 +19,7 @@ import Home from './pages/Homesecond.js'
 //import Home from './pages/Home.js'
 import About from './pages/About.js'
 import Error from './pages/Error.js'
-import Transactions from './pages/Transactions'
+import Transactions from './pages/AirtimeTranx'
 import Payment from './pages/Payment'
 import Account from './pages/Account'
 import {getUser} from './_action/userAction.js'
@@ -28,26 +28,29 @@ import store from './store'
 import { initialWallet } from './_action/wallet'
 import CreditCard from './component/creditCard'
 import Details from './component/Details'
+import dataDetails from './component/dataDetails'
 import { dataTransaction } from './_action/data'
 import { NumberverifyTransaction } from './_action/electric'
-import { getverifySmartcardNumber } from './_action/TvsubAction'
+import { getSmartcard } from './_action/TvsubAction'
 import Example from './component/walletTran'
-import { USER_DETAIL_LOADED } from './_action/type'
 import { getUserDetails } from './_action/userAction'
+import { getElectricTransaction } from './_action/electric'
 
 export class App extends Component {
   	componentDidMount() {
 		if(localStorage.getItem('token')) {
 			// store.dispatch({type: USER_DETAIL_LOADED})
 			store.dispatch(getUserDetails())
+			//store.dispatch(getPay())
+			store.dispatch(getTransaction())
+			store.dispatch(dataTransaction())
+			store.dispatch(getElectricTransaction())
+			store.dispatch(getSmartcard())
 		}
         getUser()
         initialWallet()
-        getPay()
-        getTransaction()
-        dataTransaction()
         NumberverifyTransaction()
-        getverifySmartcardNumber()
+        
 	}
   render() {
     return (
@@ -76,23 +79,30 @@ export class App extends Component {
 						exact
 						component={Wallet}
 					/>
-					<ProtectedRoutes
-						path='/profile/transaction'
-						exact
-						component={Transactions}
-					/>
+					
 					<ProtectedRoutes
 						path='/profile/dashboard'
 						exact
 						component={UserProfile}
 					/>
+					
 					<ProtectedRoutes
-						path='/profile/card'
+						path='/profile/details/airtime'
 						exact
-						component={CreditCard}
+						component={Details}
 					/>
 					<ProtectedRoutes
-						path='/profile/details'
+						path='/profile/details/data'
+						exact
+						component={dataDetails}
+					/>
+					<ProtectedRoutes
+						path='/profile/details/electric'
+						exact
+						component={Details}
+					/>
+					<ProtectedRoutes
+						path='/profile/details/tvsub'
 						exact
 						component={Details}
 					/>
@@ -106,6 +116,7 @@ export class App extends Component {
 						exact
 						component={Account}
 					/>
+					<Route component={Error} />
 				</Switch>
 			</ProtectedRoutes>
 			{/* <Route exact path={"/paid"} component={Paid} />

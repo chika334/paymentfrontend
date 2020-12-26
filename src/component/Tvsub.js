@@ -98,7 +98,7 @@ class Tvsub extends Component {
         if (success) {
          if(transactionId === smartCards.transactionID) {
             this.props.history.push({
-                pathname: '/paid',
+                pathname: '/profile/paid',
                 search: '?query=abc',
                 state: { detail: { amount, select, email, name, phone, smartCard, transactionId, type, verifyTransactionID, verifyCustomerName, smartcard } }
             })

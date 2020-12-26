@@ -2,10 +2,11 @@ import {
     DATA_PAY,
     DATA_LOADED,
     DATA_LOADING,
-    DATA_ERROR } from '../_action/type'
+    DATA_ERROR,
+    DATA_TRANS    
+} from '../_action/type'
 
 const initialState = {
-    fetched: false,
     data: [],
     msg: {}
 }
@@ -20,10 +21,10 @@ export default function(state = initialState, action) {
             return {
                 ...state,
             }
+        case DATA_TRANS:
         case DATA_LOADED:
             return {
                 ...state,
-                fetched: true,
                 data: action.payload
             }
         default:

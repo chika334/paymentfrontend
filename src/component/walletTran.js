@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, withRouter } from 'react-router-dom'
-import moment from "moment";
 import wallet from '../images/wallet.jpg';
 import { Jumbotron, Button, Card } from 'react-bootstrap'
 
@@ -52,9 +51,6 @@ export class walletTran extends Component {
                   	    </tr>
                   	    <tr>
                   	        <td>KYC and BVN Info</td>
-                  	        <td style={{ border: '1px solid black', padding: '5px' }}>
-                  	           {moment().format('YYYY-MM-DD HH:mm:ss')}
-                  	        </td>
                   	    </tr>       
               	    </tbody>
               	</table>

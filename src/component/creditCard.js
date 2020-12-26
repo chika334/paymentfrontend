@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-// import { PaystackButton } from "react-paystack"
+import { PaystackButton } from "react-paystack"
 import "../css/card.css"
 import creditcard from '../images/creditcard.jpg'
 import { connect } from 'react-redux'
@@ -76,7 +76,7 @@ const CreditCard = (props) => {
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>
-            {/* <PaystackButton className="paystack-button" {...componentProps} /> */}
+            <PaystackButton className="paystack-button" {...componentProps} />
           </div>
         </div>
       </div>

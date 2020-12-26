@@ -1,18 +1,23 @@
-import { PAY_ELECTRIC, ELECTRIC_PAYMENT_FAIL, POST_PAY_ELECTRIC } from '../_action/type'
+import { PAY_ELECTRIC, ELECTRIC_PAYMENT_FAIL, POST_PAY_ELECTRIC, ELECTRIC_TRANS, ELECTRIC_TRANSACTION_LOADED, ELECTRIC_TRANSACTION_LOADING } from '../_action/type'
 
 const initialState = {
     electric: [],
     msg: {},
-    success: null
 }
 
 export default function(state = initialState, action) {
     switch(action.type) {
+        case ELECTRIC_TRANSACTION_LOADING:
+            return {
+                ...state
+            }
+        case ELECTRIC_TRANSACTION_LOADED:
+        case ELECTRIC_TRANS:
         case POST_PAY_ELECTRIC:
         case PAY_ELECTRIC:
             return {
                 ...state,
-                ...action.payload,
+                electric: action.payload,
             }
         case ELECTRIC_PAYMENT_FAIL:
             return {

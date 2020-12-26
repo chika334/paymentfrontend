@@ -12,7 +12,7 @@ import { tokenConfig } from './userAction'
 import axios from 'axios'
 import {returnErrors} from './errorAction.js';
 
-export const getPay = () => (dispatch, getState) => {
+/*export const getPay = () => (dispatch, getState) => {
   dispatch({ type: PAYMENT_LOADING })
   axios.get(`${process.env.REACT_APP_API}/getPayment`, tokenConfig(getState))
     .then(res => dispatch({
@@ -25,11 +25,12 @@ export const getPay = () => (dispatch, getState) => {
         type: PROBABLY_ERROR
       })
     })
-}
+}*/
 
-export const getTransaction = () => (dispatch, getState) => {
+// get all airtimes
+export const getTransaction = () => async (dispatch, getState) => {
   dispatch({ type: TRANSACTION_LOADING })
-  axios.get(`${process.env.REACT_APP_API}/getTransaction`, tokenConfig(getState))
+  return await axios.get(`${process.env.REACT_APP_API}/getTransaction`, tokenConfig(getState))
     .then(res => dispatch({
       type: TRANSACTION_LOADED,
       payload: res.data
@@ -42,6 +43,7 @@ export const getTransaction = () => (dispatch, getState) => {
     })
 }
 
+// buy airtime
 export const BuyCreditFund = (value) => (dispatch, getState) => {
   const body = JSON.stringify(value)
 
@@ -53,6 +55,7 @@ export const BuyCreditFund = (value) => (dispatch, getState) => {
     .catch(err => console.log(err))
 }
 
+// single airtime
 export const transAction = (value) => (dispatch, getState) => {
 
   const body = JSON.stringify(value)

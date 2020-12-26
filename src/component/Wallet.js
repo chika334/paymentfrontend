@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, connect } from 'react-redux'
+import { Prompt } from 'react-router'
 import images from '../images/newImage.jpg';
 import { Jumbotron, Button, Card } from 'react-bootstrap'
 // import { connect } from 'react-redux'
@@ -10,18 +11,134 @@ import uuid from 'react-uuid'
 import { PaystackButton } from "react-paystack"
 
 export function Wallet (props) {
-  const isAuthenticated = useSelector(state => state.authUser.isAuthenticated)
   const publicKey = `${process.env.REACT_APP_PAYSTACK}`
+  const amount = props.location.state.detail.AmountInt
   const [values, setValues] = useState({
     wallet: `₦0.00`,
     amount: "",
     email: ""
   })
 
-  const { wallet, amount, email} = values
+  const { wallet, email} = values
   
-  const handleChange = name => (e) => {
-    const { value } = e.target
+  const transaction = () => {
+    const name = `${props.location.state.detail.name}`
+    const amount = `${props.location.state.detail.amount}`
+    const service = `${props.location.state.detail.service}`
+    const phone = `${props.location.state.detail.phone}`
+    const select = `${props.location.state.detail.select}`
+    
+    const AmountInt = parseInt(amount, 10)
+    
+    const value = {
+      name,
+      AmountInt,
+      service,
+      phone,
+      select
+    }
+
+    props.BuyCreditFund(value)
+  }
+  
+  const data = () => {
+    const name = `${props.location.state.detail.name}`
+    const amount = `${props.location.state.detail.amount}`
+    const service = `${props.location.state.detail.service}`
+    const phone = `${props.location.state.detail.phone}`
+    const select = `${props.location.state.detail.select}`
+    const variation = `${props.location.state.detail.variation}`
+    
+    const AmountInt = parseInt(amount, 10)
+    
+    console.log(service)
+    
+    const value = {
+      name,
+      AmountInt,
+      service,
+      phone,
+      select,
+      variation
+    }
+
+    props.BuyData(value)
+  }
+  
+  const TvSub = () => {
+    const name = `${props.location.state.detail.name}`
+    const service = `${props.location.state.detail.service}`
+    const smartcard = `${props.location.state.detail.smartcard}`
+    const amount = `${props.location.state.detail.amount}`
+    const phone = `${props.location.state.detail.phone}`
+    const select = `${props.location.state.detail.select}`
+    
+    const AmountInt = parseInt(amount, 10)
+    
+    const value = {
+      name,
+      AmountInt,
+      service,
+      phone,
+      select,
+      smartcard
+    } 
+
+    props.payTvBill(value)
+  }
+  
+  const ElectricBill = () => {
+    const name = `${props.location.state.detail.name}`
+    const amount = `${props.location.state.detail.amount}`
+    const service = `${props.location.state.detail.service}`
+    const phone = `${props.location.state.detail.phone}`
+    const select = `${props.location.state.detail.select}`
+    const meter = `${props.location.state.detail.meter}`
+    
+    const AmountInt = parseInt(amount, 10)
+    
+    const value = {
+      name,
+      AmountInt,
+      service,
+      phone,
+      select,
+      meter
+    }
+    
+    props.payElectricBill(value)
+  }
+  
+  const allData = () => {
+    const name = props.location.state.detail.name
+    const amount = props.location.state.detail.amount
+    
+    const AmountInt = parseInt(amount, 10)
+    
+    if (name === "Third Party Motor Insurance - Universal Insurance" || name === "Health Insurance - HMO  " || name === "Personal Accident Insurance" || name === "Home Cover Insurance") {
+      this.sendDetails()
+    } else if (name === "DSTV Subscription" || name === "Gotv Payment" || name === "Startimes Subscription") {
+      this.TvSub()
+    } else if (name === "Airtel Airtime VTU" || name === "MTN Airtime VTU" || name === "GLO Airtime VTU" || name === "9mobile Airtime VTU" || name === "9Mobile Airtime Pin") {
+      this.transaction()
+    } else if (name === "Airtel Data" || name === "MTN Data" || name === "GLO Data" || name === "9mobile Data" || name === "Smile Payment") {
+      this.data()
+        //console.log("Data")
+    } else if (name === "Ikeja Electric Payment - IKEDC" || name === "Eko Electric Payment - EKEDC" || name === "Abuja Electricity Distribution Company- AEDC" || name === "KEDCO - Kano Electric" || name === "PHED - Port Harcourt Electric" || name === "Jos Electric - JED" || name === "IBEDC - Ibadan Electricity Distribution Company") {
+      this.ElectricBill()
+    }
+ 
+    // clear errors
+    this.sendRedirect();
+
+    const deductWallet = {
+      AmountInt
+    }
+    
+  }
+  
+  const handleChange = (e) => {
+    const { value, name } = e.target
     setValues({ ...values, [name]: value })
   }
 
@@ -31,12 +148,20 @@ export function Wallet (props) {
     publicKey,
     text: "Pay with Paystack",
     onSuccess: () => {
-
-      // add to wallet
-      //props.addFund(amount)
+        this.allData()
     },
     onClose: () => alert("Please Wait! You need fund your account!!!!"),
   }
+  
+  useEffect(() => {
+    if (props.shouldBlockNavigation) {
+        window.onbeforeunload = () => true
+      } else {
+        window.onbeforeunload = undefined
+      }
+  })
+  
+  //console.log(props.location.state)
 
   // const addFund = (e) => {
   //   e.preventDefault()
@@ -52,11 +177,13 @@ export function Wallet (props) {
     
   //   // props.addFund(Amountwallet)
   // }
-  
-  if(isAuthenticated === false) return <Redirect to="/login" /> 
     return (
       <div>
-        <Jumbotron className="container pt-5">
+        <Prompt
+          when={props.shouldBlockNavigation}
+          message='Leaving this page cancels all incomplete transactions, are you sure you want to leave?'
+        />
+        <Jumbotron className="container pt-3">
           <h1>Make Payments</h1>
           <hr />
           <div className="new">
@@ -68,21 +195,15 @@ export function Wallet (props) {
                 <p>Email</p>
                 <input 
                   type="email"
-                  value={email}
+                  //value={email}
+                  name="email"
                   style={{ width: '100%', marginBottom: 12 }} 
                   placeholder="Enter Email address"
-                  onChange={handleChange('email')}
+                  onChange={handleChange}
                 />
               </div>
-              <div className="forms-form-group">
-                <p>Amount</p>
-                <input 
-                  type="tel"
-                  value={amount}
-                  style={{ width: '100%', marginBottom: 12 }} 
-                  placeholder="Enter Amount (NGN)"
-                  onChange={handleChange('amount')}
-                />
+              <div className="forms-form-group pt-4">
+                <p>Amount: <label className="pl-3">₦{amount}</label></p>
               </div>
               <div style={{ marginTop: 12 }}>
                 {/* <Button onClick={addFund}>Pay with wallet</Button> */}
@@ -95,17 +216,13 @@ export function Wallet (props) {
             <Card.Img width="100%" src={images} alt="Card image cap" />
           </Card>
           </div>
-          <div style={{ marginBottom: 70 }} />
-            <hr />
-          <p style={{ color: 'red', marginBottom: 50  }}>Please note that loading your wallet through card as an agent attracts a card processing fee of 1.5%. To avoid paying this charge, please load your wallet through bank deposit.</p>
-          <Link style={{ textDecoration: 'none' }} to="#">Please click here to get information on how to load your wallet.</Link>
         </Jumbotron>
       </div>
     )
 }
 
 Wallet.prototype = {
-  addFund: PropTypes.func.isRequired
+  shouldBlockNavigation: PropTypes.bool.isRequired
 }
 
 export default Wallet

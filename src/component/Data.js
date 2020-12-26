@@ -62,7 +62,7 @@ class Data extends Component {
     const { name, email, phone, amount, variation, service } = this.state;
 
     this.props.history.push({
-        pathname: '/paid',
+        pathname: '/profile/paid',
         search: '?query=abc',
         state: { detail: { name, email, phone, amount, variation, service } }
     })

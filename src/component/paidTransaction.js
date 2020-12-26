@@ -167,13 +167,23 @@ export class Paid extends Component {
   }
 
   PayWithCard =() => {
-    let name = this.props.location.state.detail.name
-    let amount = this.props.location.state.detail.amount
+    const name = `${this.props.location.state.detail.name}`
+    const amount = `${this.props.location.state.detail.amount}`
+    const service = `${this.props.location.state.detail.service}`
+    const phone = `${this.props.location.state.detail.phone}`
+    const select = `${this.props.location.state.detail.select}`
+    const meter = `${this.props.location.state.detail.meter}`
+    
+    const smartcard = `${this.props.location.state.detail.smartcard}`
+
+    const variation = `${this.props.location.state.detail.variation}`
+    
     const AmountInt = parseInt(amount, 10)
+    
     this.props.history.push({
-      pathname: '/profile/card',
+      pathname: '/profile/wallet',
       search: '?query=abc',
-      state: { detail: { name, AmountInt } }
+      state: { detail: { name, AmountInt, service, phone, select, meter, smartcard, variation } }
     })
   }
 

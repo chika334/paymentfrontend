@@ -28,7 +28,6 @@ class Details extends Component {
   
   render() {
     const { transaction } = this.props.transaction
-    console.log(this.state.tableSoftware)
     return (
       <section className="App p-3">
         <header>

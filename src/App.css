@@ -196,8 +196,8 @@ div .first_number_icon::before {
   position: absolute;
   top: -20px;
   left: -20px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 25px;
   background: url('./images/one.png') center/cover no-repeat;
   content: '';
@@ -228,8 +228,8 @@ div .second_number_icon::before {
   position: absolute;
   top: -20px;
   left: -20px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 25px;
   background: url('./images/two.png') center/cover no-repeat;
   content: '';
@@ -260,8 +260,8 @@ div .third_number_icon::before {
   position: absolute;
   top: -20px;
   left: -20px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 25px;
   background: url('./images/three.png') center/cover no-repeat;
   content: '';
