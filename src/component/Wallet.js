@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+/*import React, { useState, useEffect } from 'react'
 import { useSelector, connect } from 'react-redux'
 import { Prompt } from 'react-router'
 import images from '../images/newImage.jpg';
@@ -12,27 +12,29 @@ import { PaystackButton } from "react-paystack"
 
 export function Wallet (props) {
   const publicKey = `${process.env.REACT_APP_PAYSTACK}`
-  const amount = props.location.state.detail.AmountInt
+  const amount = `${props.location.state.detail.AmountInt}`
   const [values, setValues] = useState({
     wallet: `₦0.00`,
-    amount: "",
+    //amount: "",
     email: ""
   })
+  
+  console.log(amount)
 
   const { wallet, email} = values
   
   const transaction = () => {
     const name = `${props.location.state.detail.name}`
-    const amount = `${props.location.state.detail.amount}`
+    //const amount = `${props.location.state.detail.amount}`
     const service = `${props.location.state.detail.service}`
     const phone = `${props.location.state.detail.phone}`
     const select = `${props.location.state.detail.select}`
     
-    const AmountInt = parseInt(amount, 10)
+    //const AmountInt = parseInt(amount, 10)
     
     const value = {
       name,
-      AmountInt,
+      amount,
       service,
       phone,
       select
@@ -43,19 +45,19 @@ export function Wallet (props) {
   
   const data = () => {
     const name = `${props.location.state.detail.name}`
-    const amount = `${props.location.state.detail.amount}`
+    //const amount = `${props.location.state.detail.amount}`
     const service = `${props.location.state.detail.service}`
     const phone = `${props.location.state.detail.phone}`
     const select = `${props.location.state.detail.select}`
     const variation = `${props.location.state.detail.variation}`
     
-    const AmountInt = parseInt(amount, 10)
+    //const AmountInt = parseInt(amount, 10)
     
     console.log(service)
     
     const value = {
       name,
-      AmountInt,
+      amount,
       service,
       phone,
       select,
@@ -69,15 +71,15 @@ export function Wallet (props) {
     const name = `${props.location.state.detail.name}`
     const service = `${props.location.state.detail.service}`
     const smartcard = `${props.location.state.detail.smartcard}`
-    const amount = `${props.location.state.detail.amount}`
+    //const amount = `${props.location.state.detail.amount}`
     const phone = `${props.location.state.detail.phone}`
     const select = `${props.location.state.detail.select}`
     
-    const AmountInt = parseInt(amount, 10)
+    //const AmountInt = parseInt(amount, 10)
     
     const value = {
       name,
-      AmountInt,
+      amount,
       service,
       phone,
       select,
@@ -89,17 +91,17 @@ export function Wallet (props) {
   
   const ElectricBill = () => {
     const name = `${props.location.state.detail.name}`
-    const amount = `${props.location.state.detail.amount}`
+    //const amount = `${props.location.state.detail.amount}`
     const service = `${props.location.state.detail.service}`
     const phone = `${props.location.state.detail.phone}`
     const select = `${props.location.state.detail.select}`
     const meter = `${props.location.state.detail.meter}`
     
-    const AmountInt = parseInt(amount, 10)
+    //const AmountInt = parseInt(amount, 10)
     
     const value = {
       name,
-      AmountInt,
+      amount,
       service,
       phone,
       select,
@@ -147,12 +149,10 @@ export function Wallet (props) {
     amount,
     publicKey,
     text: "Pay with Paystack",
-    onSuccess: () => {
-        this.allData()
-    },
-    onClose: () => alert("Please Wait! You need fund your account!!!!"),
+    onSuccess: () => allData(),
+    onClose: () => alert("Having issues paying?? Please try again!!!!"),
   }
-  
+
   useEffect(() => {
     if (props.shouldBlockNavigation) {
         window.onbeforeunload = () => true
@@ -189,7 +189,6 @@ export function Wallet (props) {
           <div className="new">
             <Card>
             <Card.Body>                                                      
-              {/* <Card.Text>Credit your wallet now, and spend from it later. No Need to enter card details everytime you want to make a Payment. Make Faster Payments.</Card.Text> */}
               <Card.Text>Make Faster Payments.</Card.Text>
               <div className="forms-form-group">
                 <p>Email</p>
@@ -206,7 +205,6 @@ export function Wallet (props) {
                 <p>Amount: <label className="pl-3">₦{amount}</label></p>
               </div>
               <div style={{ marginTop: 12 }}>
-                {/* <Button onClick={addFund}>Pay with wallet</Button> */}
                 <PaystackButton className="paystack-button" {...componentProps} />
               </div>
             </Card.Body>
@@ -225,4 +223,4 @@ Wallet.prototype = {
   shouldBlockNavigation: PropTypes.bool.isRequired
 }
 
-export default Wallet
+export default Wallet*/

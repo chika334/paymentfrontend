@@ -39,7 +39,7 @@ class TvSub extends Component {
     const { smartCards } = this.props.tvsub
     return (
       <section>
-        <header>
+        <header className="mt-5">
           <h1 align="center">Transactions</h1>
         </header>
         <div>

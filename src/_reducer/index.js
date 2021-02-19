@@ -10,6 +10,7 @@ import insurance from './insurance'
 import data from './data'
 import verify from './verifyNumber'
 import tvsub from './TvSub'
+import loading from './loading'
 
 export default combineReducers({
     authUser,
@@ -22,5 +23,6 @@ export default combineReducers({
     insurance,
     data,
     verify,
-    tvsub
+    tvsub,
+    loading
 })																								

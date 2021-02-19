@@ -39,8 +39,8 @@ class Transaction extends Component {
     const { electric } = this.props.electric
     return (
       <section>
-        <header>
-          <h1 align="center">Transactions</h1>
+        <header className="mt-5">
+          <h1 align="center">Electric transactions</h1>
         </header>
         <div>
           <div>

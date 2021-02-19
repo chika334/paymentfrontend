@@ -67,8 +67,8 @@ class Transaction extends Component {
     const { transaction } = this.props.transaction
     return (
       <section>
-        <header>
-          <h1 align="center">Transactions</h1>
+        <header className="mt-5">
+          <h1 align="center">Airtime transactions</h1>
         </header>
         <div>
           <div>

@@ -1,140 +1,163 @@
+// import React, { Component } from 'react'
 import React, { Component } from 'react'
-import './App.css';
-import {Route, Switch} from 'react-router-dom';
-import { Provider } from 'react-redux';
-
-// component
-import Navbar from './component/Navbar'
-import Footer from './component/Footer'
-import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.js'
-import Wallet from './component/Wallet'
-//import { getPay } from './_action/airtime'
-import { getTransaction } from './_action/airtime'
-
-// pages
-import Login from './pages/Login.js';
-import Register from './pages/Register.js'
-import UserProfile from './pages/UserProfile.js'
-import Home from './pages/Homesecond.js'
-//import Home from './pages/Home.js'
-import About from './pages/About.js'
-import Error from './pages/Error.js'
-import Transactions from './pages/AirtimeTranx'
-import Payment from './pages/Payment'
-import Account from './pages/Account'
-import {getUser} from './_action/userAction.js'
-import Paid from './component/paidTransaction'
+import { Redirect } from 'react-router-dom'
 import store from './store'
-import { initialWallet } from './_action/wallet'
-import CreditCard from './component/creditCard'
-import Details from './component/Details'
-import dataDetails from './component/dataDetails'
+import { Provider } from 'react-redux'
+
 import { dataTransaction } from './_action/data'
 import { NumberverifyTransaction } from './_action/electric'
 import { getSmartcard } from './_action/TvsubAction'
-import Example from './component/walletTran'
+//import Example from './component/walletTran'
 import { getUserDetails } from './_action/userAction'
 import { getElectricTransaction } from './_action/electric'
+import { getTransaction } from './_action/airtime'
 
-export class App extends Component {
-  	componentDidMount() {
-		if(localStorage.getItem('token')) {
-			// store.dispatch({type: USER_DETAIL_LOADED})
-			store.dispatch(getUserDetails())
-			//store.dispatch(getPay())
-			store.dispatch(getTransaction())
-			store.dispatch(dataTransaction())
-			store.dispatch(getElectricTransaction())
-			store.dispatch(getSmartcard())
-		}
-        getUser()
-        initialWallet()
-        NumberverifyTransaction()
-        
-	}
+import Routes from './Routes'
+
+export default class App extends Component {
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      // store.dispatch({type: USER_DETAIL_LOADED})
+      store.dispatch(getUserDetails())
+      //store.dispatch(getPay())
+      store.dispatch(getTransaction())
+      store.dispatch(dataTransaction())
+      store.dispatch(getElectricTransaction())
+      store.dispatch(getSmartcard())
+    } else {
+      return <Redirect to={`/`} />;
+    }
+    // getUser()
+    // initialWallet()
+    // NumberverifyTransaction()
+  }
+  
   render() {
     return (
-		<Provider store={store}>
-    	<Navbar />
-    	<Switch>
-    	    <Route exact path={"/"} component={Home} />
-    		<Route exact path={"/login"} component={Login} />
-    		<Route exact path={"/register"} component={Register} />
-    		<Route exact path={"/about"} component={About} />
-			{/* profile */}
-			<ProtectedRoutes path='/profile/:path?'>
-				<Switch>
-					<ProtectedRoutes
-						path='/profile/paid'
-						exact
-						component={Paid}
-					/>
-					<ProtectedRoutes
-						path='/profile/payment'
-						exact
-						component={Payment}
-					/>
-					<ProtectedRoutes
-						path='/profile/wallet'
-						exact
-						component={Wallet}
-					/>
-					
-					<ProtectedRoutes
-						path='/profile/dashboard'
-						exact
-						component={UserProfile}
-					/>
-					
-					<ProtectedRoutes
-						path='/profile/details/airtime'
-						exact
-						component={Details}
-					/>
-					<ProtectedRoutes
-						path='/profile/details/data'
-						exact
-						component={dataDetails}
-					/>
-					<ProtectedRoutes
-						path='/profile/details/electric'
-						exact
-						component={Details}
-					/>
-					<ProtectedRoutes
-						path='/profile/details/tvsub'
-						exact
-						component={Details}
-					/>
-					<ProtectedRoutes
-						path='/profile/confirmWallet'
-						exact
-						component={Example}
-					/>
-					<ProtectedRoutes
-						path='/profile'
-						exact
-						component={Account}
-					/>
-					<Route component={Error} />
-				</Switch>
-			</ProtectedRoutes>
-			{/* <Route exact path={"/paid"} component={Paid} />
-			<Route exact path={"/payment"} component={Payment} />
-    		<Route exact path={"/profile/wallet"} component={Wallet} />
-			<Route exact path={"/profile/transaction"} component={Transactions} />
-    		<ProtectedRoutes exact path={"/profile/dashboard"} component={UserProfile} />
-			<ProtectedRoutes exact path={"/card"} component={CreditCard} />
-    		<Route exact path={"/details"} component={Details} />
-    		<Route exact path={"/confirmWallet"} component={Example} />
-    		<ProtectedRoutes exact path={"/profile"} component={Account} /> */}
-			 {/* Error */}
-    		<Route component={Error} />
-    	</Switch>
-    	<Footer/>
-	</Provider>
+      <Provider store={store}>
+        <Routes />
+      </Provider>
     )
   }
 }
 
-export default App
+
+// export default connect(null, { showLoader, hideLoader })(Routes)
+
+// export class App extends Component {
+//   componentDidMount() {
+//     if (localStorage.getItem('token')) {
+//       // store.dispatch({type: USER_DETAIL_LOADED})
+//       store.dispatch(getUserDetails())
+//       //store.dispatch(getPay())
+//       store.dispatch(getTransaction())
+//       store.dispatch(dataTransaction())
+//       store.dispatch(getElectricTransaction())
+//       store.dispatch(getSmartcard())
+//     }
+//     // getUser()
+//     // initialWallet()
+//     // NumberverifyTransaction()
+//   }
+//   render() {
+//     const pageVariants = {
+//       initial: {
+//         opacity: 0,
+//       },
+//       in: {
+//         opacity: 1,
+//       },
+//       out: {
+//         opacity: 0,
+//       },
+//     }
+
+//     const pageTransition = {
+//       type: 'tween',
+//       ease: 'linear',
+//       duration: 0.6,
+//     }
+//     return (
+//       <Provider store={store}>
+//         <AnimatePresence>
+//           <Navbar />
+//           <Switch>
+//             <motion.div
+//               initial="initial"
+//               animate="in"
+//               exit="out"
+//               variants={pageVariants}
+//               transition={pageTransition}
+//             >
+//               <Route exact path={'/'} component={Home} />
+//               <Route exact path={'/login'} component={Login} />
+//               <Route exact path={'/register'} component={Register} />
+//               <Route exact path={'/about'} component={About} />
+//               {/* profile */}
+//               <ProtectedRoutes path="/profile/:path?">
+//                 <Switch>
+//                   <ProtectedRoutes
+//                     path="/profile/paid"
+//                     exact
+//                     component={Paid}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/payment"
+//                     exact
+//                     component={Payment}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/wallet"
+//                     exact
+//                     component={Wallet}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/dashboard"
+//                     exact
+//                     component={UserProfile}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/tranx"
+//                     exact
+//                     component={Tranx}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/details/airtime"
+//                     exact
+//                     component={Details}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/details/data"
+//                     exact
+//                     component={dataDetails}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/details/electric"
+//                     exact
+//                     component={Details}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/details/tvsub"
+//                     exact
+//                     component={Details}
+//                   />
+//                   <ProtectedRoutes
+//                     path="/profile/card"
+//                     exact
+//                     component={CreditCard}
+//                   />
+//                   <ProtectedRoutes path="/profile" exact component={Account} />
+//                   <Route component={Error} />
+//                 </Switch>
+//               </ProtectedRoutes>
+//               <Route component={Error} />
+//             </motion.div>
+//           </Switch>
+//           <Footer />
+//         </AnimatePresence>
+//       </Provider>
+//     )
+//   }
+// }
+
+// export default App

@@ -15,6 +15,7 @@ import { tokenConfig } from './userAction';
     .catch(err => console.log(err))
 }*/
 
+// get all smart cards
 export const getSmartcard = () => (dispatch, getState) => {
   dispatch({ type: TVSUB_VERIFY_LOADING })
   axios.get(`${process.env.REACT_APP_API}/getSmartcard`, tokenConfig(getState))
@@ -25,6 +26,7 @@ export const getSmartcard = () => (dispatch, getState) => {
     .catch(err => console.log(err))
 }
 
+// pay tv sub bill
 export const payTvBill = (value) => (dispatch, getState) => {
   const body = JSON.stringify(value)
 

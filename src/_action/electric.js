@@ -6,15 +6,15 @@ import {returnErrors} from './errorAction.js';
 import { tokenConfig } from './userAction'
 
 // verify meter number 
-export const NumberverifyTransaction = () => (dispatch, getState) => {
-  dispatch({ type: VERIFY_LOADING })
-  axios.get(`${process.env.REACT_APP_API}/verifyNumber`, tokenConfig(getState))
-    .then(res => dispatch({
-      type: VERIFY_LOADED,
-      payload: res.data
-    }))
-    .catch(err => console.log(err))
-}
+// export const NumberverifyTransaction = () => (dispatch, getState) => {
+//   dispatch({ type: VERIFY_LOADING })
+//   axios.get(`${process.env.REACT_APP_API}/verifyNumber`, tokenConfig(getState))
+//     .then(res => dispatch({
+//       type: VERIFY_LOADED,
+//       payload: res.data
+//     }))
+//     .catch(err => console.log(err))
+// }
 
 // all electric
 export const getElectricTransaction = () => (dispatch, getState) => {
@@ -27,6 +27,7 @@ export const getElectricTransaction = () => (dispatch, getState) => {
     .catch(err => console.log(err))
 }
 
+// pay prepaidMeter
 export const payElectricBill = (value) => (dispatch, getState) => {
   const body = JSON.stringify(value)
 
@@ -43,6 +44,7 @@ export const payElectricBill = (value) => (dispatch, getState) => {
     })
 }
 
+// pay postpaidMeter
 export const postPayElectricBill = (value) => (dispatch, getState) => {
   const body = JSON.stringify(value)
 

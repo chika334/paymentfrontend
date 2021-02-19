@@ -19,7 +19,7 @@ export class Paid extends Component {
       msg: null,
       redirect: false,
       naira: '₦',
-      deafultValue: 100
+      deafultValue: 100,
     }
   }
 
@@ -150,7 +150,6 @@ export class Paid extends Component {
       this.transaction()
     } else if (name === "Airtel Data" || name === "MTN Data" || name === "GLO Data" || name === "9mobile Data" || name === "Smile Payment") {
       this.data()
-        //console.log("Data")
     } else if (name === "Ikeja Electric Payment - IKEDC" || name === "Eko Electric Payment - EKEDC" || name === "Abuja Electricity Distribution Company- AEDC" || name === "KEDCO - Kano Electric" || name === "PHED - Port Harcourt Electric" || name === "Jos Electric - JED" || name === "IBEDC - Ibadan Electricity Distribution Company") {
       this.ElectricBill()
     }
@@ -161,9 +160,6 @@ export class Paid extends Component {
     const deductWallet = {
       AmountInt
     }
-    // this.props.DeductWallet(deductWallet);
-
-    // Add paystack login here
   }
 
   PayWithCard =() => {
@@ -178,12 +174,12 @@ export class Paid extends Component {
 
     const variation = `${this.props.location.state.detail.variation}`
     
-    const AmountInt = parseInt(amount, 10)
+    //const AmountInt = parseInt(amount, 10)
     
     this.props.history.push({
-      pathname: '/profile/wallet',
+      pathname: '/profile/card',
       search: '?query=abc',
-      state: { detail: { name, AmountInt, service, phone, select, meter, smartcard, variation } }
+      state: { detail: { name, amount, service, phone, select, meter, smartcard, variation } }
     })
   }
 
@@ -196,7 +192,7 @@ export class Paid extends Component {
   const AmountInt = parseInt(amount, 10)
   const addAmount = AmountInt + this.state.deafultValue
   const normal = AmountInt + 0
- // console.log(addAmount)
+ console.log(this.state.deafultValue)
     return (
       <div className="container pt-5">
         <div className="cards new" style={{ borderRadius: '20px' }}>
@@ -242,7 +238,7 @@ export class Paid extends Component {
                 || name === "Ikeja Electric Payment - IKEDC" || name === "Eko Electric Payment - EKEDC" || name === "Abuja Electricity Distribution Company- AEDC" || name === "KEDCO - Kano Electric" || name === "PHED - Port Harcourt Electric" || name === "Jos Electric - JED" || name === "IBEDC - Ibadan Electricity Distribution Company" ?
                 <>
                   {this.state.naira}{this.props.location.state.detail.amount} + {this.state.naira}{this.state.deafultValue}
-                </> : <>{normal}</>
+                </> : <>{this.state.naira}{normal}</>
               }</p>
             </div>
             <div className="new">
@@ -251,7 +247,7 @@ export class Paid extends Component {
                   || name === "Ikeja Electric Payment - IKEDC" || name === "Eko Electric Payment - EKEDC" || name === "Abuja Electricity Distribution Company- AEDC" || name === "KEDCO - Kano Electric" || name === "PHED - Port Harcourt Electric" || name === "Jos Electric - JED" || name === "IBEDC - Ibadan Electricity Distribution Company" ?
                 <>
                   {this.state.naira}{addAmount}
-                </> : <>{normal}</>
+                </> : <>{this.state.naira}{normal}</>
               }</p>
             </div>
               <div className="new">
@@ -262,7 +258,6 @@ export class Paid extends Component {
               </div>
             </div>
             <div className="new p-3">
-              {/* <button className="btn btn-primary m-3" onClick={this.PayWithWallet} >Pay with wallet</button> */}
               <button className="btn btn-primary m-3" onClick={this.PayWithCard}>Pay with card</button>
             </div>
           </div>
