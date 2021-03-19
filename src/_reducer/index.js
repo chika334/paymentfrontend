@@ -11,6 +11,7 @@ import data from './data'
 import verify from './verifyNumber'
 import tvsub from './TvSub'
 import loading from './loading'
+import paystack from './paystack'
 
 export default combineReducers({
     authUser,
@@ -24,5 +25,6 @@ export default combineReducers({
     data,
     verify,
     tvsub,
-    loading
+    loading,
+    paystack
 })																								

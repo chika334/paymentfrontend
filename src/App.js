@@ -1,46 +1,50 @@
 // import React, { Component } from 'react'
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
-import store from './store'
-import { Provider } from 'react-redux'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import store from './store';
+import { Provider } from 'react-redux';
 
-import { dataTransaction } from './_action/data'
-import { NumberverifyTransaction } from './_action/electric'
-import { getSmartcard } from './_action/TvsubAction'
+import { dataTransaction } from './_action/data';
+import { NumberverifyTransaction } from './_action/electric';
+import { getSmartcard } from './_action/TvsubAction';
 //import Example from './component/walletTran'
-import { getUserDetails } from './_action/userAction'
-import { getElectricTransaction } from './_action/electric'
-import { getTransaction } from './_action/airtime'
+import { getUserDetails } from './_action/userAction';
+import { getElectricTransaction } from './_action/electric';
+import { getTransaction } from './_action/airtime';
+import { getVerifiedPayement, clearPaystackDetails } from './_action/paystack';
 
-import Routes from './Routes'
+import Routes from './Routes';
 
 export default class App extends Component {
-  componentDidMount() {
-    if (localStorage.getItem('token')) {
-      // store.dispatch({type: USER_DETAIL_LOADED})
-      store.dispatch(getUserDetails())
-      //store.dispatch(getPay())
-      store.dispatch(getTransaction())
-      store.dispatch(dataTransaction())
-      store.dispatch(getElectricTransaction())
-      store.dispatch(getSmartcard())
-    } else {
-      return <Redirect to={`/`} />;
-    }
-    // getUser()
-    // initialWallet()
-    // NumberverifyTransaction()
-  }
-  
-  render() {
-    return (
-      <Provider store={store}>
-        <Routes />
-      </Provider>
-    )
-  }
-}
+	componentDidMount() {
+		if (localStorage.getItem('token')) {
+			// store.dispatch({type: USER_DETAIL_LOADED})
+			store.dispatch(getUserDetails());
+			//store.dispatch(getPay())
+			store.dispatch(getTransaction());
+			store.dispatch(dataTransaction());
+			store.dispatch(getElectricTransaction());
+			store.dispatch(getSmartcard());
+			// store.dispatch(getVerifiedPayement());
+			// setTimeout(() => {
+			// 	store.dispatch(clearPaystackDetails());
+			// }, 2000);
+		} else {
+			return <Redirect to={`/`} />;
+		}
+		// getUser()
+		// initialWallet()
+		// NumberverifyTransaction()
+	}
 
+	render() {
+		return (
+			<Provider store={store}>
+				<Routes />
+			</Provider>
+		);
+	}
+}
 
 // export default connect(null, { showLoader, hideLoader })(Routes)
 

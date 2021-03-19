@@ -81,7 +81,13 @@ class Tvsub extends Component {
 	};
 
 	Submit = (e) => {
+		console.log(e.target.value);
 		this.setState({ select: e.target.value });
+	};
+
+	selectClick = (props) => {
+		console.log(props);
+		this.setState({ variation: props.variation, amount: props.amount });
 	};
 
 	handleSubmit = async (e) => {
@@ -131,7 +137,7 @@ class Tvsub extends Component {
 	};
 
 	handleAirtimeModal = (props) => {
-		console.log(props);
+		// console.log(props);
 		this.setState({ show: true, image: props.image, type: props.type, name: props.name, service: props.serviceID });
 	};
 
@@ -151,16 +157,35 @@ class Tvsub extends Component {
 		options['gotv'] = gotv.content.variations;
 		options['startimes'] = startimes.content.variations;
 
-		const dstvData = dstv.content.variations.map((dstvdata, index) => <option key={index}>{dstvdata.name}</option>);
+		const dstvData = dstv.content.variations.map((dstvdata, index) => (
+			<option
+				value={dstvdata.name}
+				key={index}
+				onClick={() =>
+					this.selectClick({ variation: dstvdata.variation_code, amount: dstvdata.variation_amount })}
+			>
+				{dstvdata.name}
+			</option>
+		));
 
 		const gotvData = gotv.content.variations.map((gotvdata, index) => (
-			<option value={gotvdata.name} key={index}>
+			<option
+				value={gotvdata.name}
+				key={index}
+				onClick={() =>
+					this.selectClick({ variation: gotvdata.variation_code, amount: gotvdata.variation_amount })}
+			>
 				{gotvdata.name}
 			</option>
 		));
 
 		const startimesData = startimes.content.variations.map((startimesdata, index) => (
-			<option value={startimesdata.name} key={index}>
+			<option
+				value={startimesdata.name}
+				key={index}
+				onClick={() =>
+					this.selectClick({ variation: startimesdata.variation_code, amount: startimesdata.variation_amount })}
+			>
 				{startimesdata.name}
 			</option>
 		));
@@ -208,7 +233,7 @@ class Tvsub extends Component {
 										<p>Bouquet: </p>
 										<select
 											className="dataDrop"
-											onChange={this.Submit}
+											// onChange={this.Submit}
 											style={{ width: '65%', marginBottom: '5%', padding: '5px' }}
 											id="cars"
 											name="cars"
@@ -224,7 +249,7 @@ class Tvsub extends Component {
 										<p>Bouquet: </p>
 										<select
 											className="dataDrop"
-											onChange={this.Submit}
+											// onChange={this.Submit}
 											style={{ width: '65%', marginBottom: '5%', padding: '5px' }}
 											id="cars"
 											name="cars"
@@ -240,7 +265,7 @@ class Tvsub extends Component {
 										<p>Bouquet: </p>
 										<select
 											className="dataDrop"
-											onChange={this.Submit}
+											// onChange={this.Submit}
 											style={{ width: '65%', marginBottom: '5%', padding: '5px' }}
 											id="cars"
 											name="cars"
@@ -310,6 +335,7 @@ class Tvsub extends Component {
 										name="amount"
 										placeholder="Enter Amount"
 										onChange={this.handleChange}
+										disabled
 									/>
 								</div>
 

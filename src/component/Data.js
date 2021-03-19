@@ -55,7 +55,7 @@ class Data extends Component {
 	};
 
 	selectClick = (props) => {
-		this.setState({ variation: props.variation });
+		this.setState({ variation: props.variation, amount: props.amount });
 	};
 
 	handleSubmit = (e) => {
@@ -105,7 +105,7 @@ class Data extends Component {
 			<option
 				value={mtndata.name}
 				key={index}
-				onClick={() => this.selectClick({ variation: mtndata.variation_code })}
+				onClick={() => this.selectClick({ variation: mtndata.variation_code, amount: mtndata.variation_amount })}
 			>
 				{mtndata.name}
 			</option>
@@ -115,7 +115,7 @@ class Data extends Component {
 			<option
 				value={airteldata.name}
 				key={index}
-				onClick={() => this.selectClick({ variation: airteldata.variation_code })}
+				onClick={() => this.selectClick({ variation: airteldata.variation_code, amount: airteldata.variation_amount })}
 			>
 				{airteldata.name}
 			</option>
@@ -125,7 +125,7 @@ class Data extends Component {
 			<option
 				value={glodata.name}
 				key={index}
-				onClick={() => this.selectClick({ variation: glodata.variation_code })}
+				onClick={() => this.selectClick({ variation: glodata.variation_code, amount: glodata.variation_amount })}
 			>
 				{glodata.name}
 			</option>
@@ -135,7 +135,7 @@ class Data extends Component {
 			<option
 				value={etisalatdata.name}
 				key={index}
-				onClick={() => this.selectClick({ variation: etisalatdata.variation_code })}
+				onClick={() => this.selectClick({ variation: etisalatdata.variation_code, amount: etisalatdata.variation_amount })}
 			>
 				{etisalatdata.name}
 			</option>
@@ -145,7 +145,7 @@ class Data extends Component {
 			<option
 				value={smiledata.name}
 				key={index}
-				onClick={() => this.selectClick({ variation: smiledata.variation_code })}
+				onClick={() => this.selectClick({ variation: smiledata.variation_code, amount: smiledata.variation_amount })}
 			>
 				{smiledata.name}
 			</option>
@@ -320,6 +320,7 @@ class Data extends Component {
 										name="amount"
 										placeholder="Enter Amount"
 										onChange={this.handleChange}
+										disabled
 									/>
 								</div>
 

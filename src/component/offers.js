@@ -28,7 +28,7 @@ export default function Offer() {
 
 	return (
 		<div className="">
-			<h3 className="center">Make simple easy payments with Mipplepay</h3>
+			<h3 className="center">Make simple, easy payments with Mipplepay</h3>
 			<p className="center">
 				Mipplepay gives customers a modern platform where all bills can be paid from the comfort of there homes.
 			</p>

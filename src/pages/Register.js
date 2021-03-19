@@ -53,7 +53,8 @@ export class Register extends Component {
       this.setState({ redirect: true })
       this.props.hideLoader()
       this.sendRedirect()
-      this.props.history.push('/profile')
+      window.location.href = '/profile/dashboard'
+      // this.props.history.push('/profile/dashboard')
     }
   }
 

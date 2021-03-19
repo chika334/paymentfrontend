@@ -11,7 +11,8 @@ import Cards from '../component/CardUI';
 
 const title = (
 	<div>
-		Mipplepay<img src={pay} width="60" alt="modal" />
+		Mipplepay
+		{/* <img src={pay} width="60" alt="modal" /> */}
 	</div>
 );
 
@@ -24,7 +25,7 @@ function Home(props) {
 	};
 	return (
 		<div>
-			<div className="new">
+			<div className="new" style={{ padding: '70px' }}>
 				<div>
 					<Banner title={title} subtitle="Payment made easy">
 						<Link to="/about" className="btn btn-primary">
@@ -44,7 +45,7 @@ function Home(props) {
 					</Button>
 				</div>
 			</div>
-			<div style={{ padding: '50px' }}>
+			<div style={{ padding: '70px' }}>
 				<Cards />
 			</div>
 			<div style={{ padding: '50px' }}>
